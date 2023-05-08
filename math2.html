@@ -153,7 +153,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Welcome to Peta’s Home.
+                    About me
                 </a>
             </li>
         </ul>
@@ -360,6 +360,8 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">ユークリッドの互除法</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">拡張ユークリッドの互除法</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">拡張ユークリッド互除法の活用(逆元の求めかた)</a></li>
 </ul>
             </nav>
         </div>
@@ -385,24 +387,101 @@ document.write(`
 <p>以上をPythonで実装すると以下のようになる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Euclid の互除法</span>
-<span class="k">def</span> <span class="nf">Euclid</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
-  <span class="n">r</span><span class="o">=</span><span class="n">a</span><span class="o">%</span><span class="k">b</span>
-  <span class="k">if</span> <span class="n">r</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">b</span>
-  <span class="k">else</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">Euclid</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#Euclid の互除法
+def Euclid(a,b):
+  r=a%b
+  if r==0:
+    return b
+  else:
+    return Euclid(b,r)
   
-<span class="n">Euclid</span><span class="p">(</span><span class="mi">423</span><span class="p">,</span><span class="mi">258</span><span class="p">)</span>
+Euclid(768,320)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>64
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="id3">
+<h2>拡張ユークリッドの互除法<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p><span class="math notranslate nohighlight">\(ax + by = gcd(a,b) \)</span> の不定方程式を解く。<br />
+ユークリッドの互除法を用いて、逆算をすると</p>
+<div class="highlight-math notranslate"><div class="highlight"><pre><span></span>#ユークリッドの互除法
+768÷320 = 2 余り128
+320÷128 = 2 余り64
+128÷64=2 余り0
+</pre></div>
+</div>
+<div class="highlight-math notranslate"><div class="highlight"><pre><span></span>#式変形
+128 = 768 - 320*2
+64 = 320 -128*2
+
+</pre></div>
+</div>
+<div class="highlight-math notranslate"><div class="highlight"><pre><span></span>#逆算
+320 - 128*2 = 64
+320 - (768 - 320*2)*2 = 64
+768*(-2) + 320*5 = 64
+</pre></div>
+</div>
+<p>以上より<span class="math notranslate nohighlight">\((x,y) = (-2,5)\)</span>と求めることが出来た。<br />
+このようにして一次不定方程式の解を求めるアルゴリズムを<strong>拡張ユークリッドの互除法</strong>という。
+拡張ユークリッドの互除法をアルゴリズムで表記すると以下のようになる。</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(a\)</span>を<span class="math notranslate nohighlight">\(b\)</span>で割り、商とあまりを<span class="math notranslate nohighlight">\(q,r\)</span>とする。</p></li>
+<li><p><span class="math notranslate nohighlight">\(a=qb+r\)</span>とし、<span class="math notranslate nohighlight">\(ax+by=gcd(a,b)\)</span>に代入、<span class="math notranslate nohighlight">\(b(qx+y) + rx = gcd(a,b)\)</span>を得る</p></li>
+<li><p><span class="math notranslate nohighlight">\(s=qx+y,t = x\)</span>として<span class="math notranslate nohighlight">\(bs+rt=gcd(a,b)\)</span>についてステップ1から再帰的に繰り返す。</p></li>
+<li><p><span class="math notranslate nohighlight">\(b=0\)</span>となったら終了。<span class="math notranslate nohighlight">\(x,y\)</span>を返す。</p></li>
+</ol>
+<p>以上をPythonで記述したものがこちら。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def Ex_Euclid(a,b):
+  if b == 0:
+    return 1,0,a
+  else:
+    q = a//b
+    r = a%b
+    s,t,c = Ex_Euclid(b,r)
+    x = t
+    y = s-q*t
+    return x,y,c
+
+Ex_Euclid(768,320)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-2, 5, 64)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>拡張ユークリッド互除法の活用(逆元の求めかた)<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>拡張ユークリッドの互除法は<span class="math notranslate nohighlight">\(\mathbf{Z}_q\)</span>内の逆元を求める際に有効。
+例えば，<span class="math notranslate nohighlight">\(5 \in \mathbf{Z}_7\)</span>の逆元<span class="math notranslate nohighlight">\(5^{-1}\)</span>を求めることを考える。</p>
+<p>拡張ユークリッドの互除法を用いて，<span class="math notranslate nohighlight">\(7x+5y=1\)</span>の<span class="math notranslate nohighlight">\(x,y\)</span>を求めると</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>Ex_Euclid(7,5)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-2, 3, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<p>より<span class="math notranslate nohighlight">\(7*(-2) + 5*3 = 1\)</span>が得られる。<br />
+ここで，<span class="math notranslate nohighlight">\(mod7\)</span>とすると<span class="math notranslate nohighlight">\(5*3=1 (mod 7)\)</span>となり<span class="math notranslate nohighlight">\(5^{-1}\)</span>は<span class="math notranslate nohighlight">\(3\)</span>であるとわかる。<br />
+このようにして，逆元を求めたい数と法を<span class="math notranslate nohighlight">\((a,b)\)</span>として拡張ユークリッドの互除法を適応することで逆元を求めることができる。</p>
 </section>
 </section>
 
@@ -465,6 +544,8 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">ユークリッドの互除法</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">拡張ユークリッドの互除法</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">拡張ユークリッド互除法の活用(逆元の求めかた)</a></li>
 </ul>
   </nav></div>
 

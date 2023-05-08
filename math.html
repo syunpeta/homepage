@@ -154,7 +154,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Welcome to Peta’s Home.
+                    About me
                 </a>
             </li>
         </ul>
@@ -366,7 +366,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ring">環(ring)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">環の例</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">多項式環</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathbf-z-n-mathbf-z">剰余環<span class="math notranslate nohighlight">\(\mathbf{Z}/n\mathbf{Z}\)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#field">体(field)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">有限体</a></li>
 </ul>
             </nav>
         </div>
@@ -386,7 +388,7 @@ document.write(`
 <li><p><span class="math notranslate nohighlight">\(\mathbf{N}\)</span>: 自然数全体の集合</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>: 整数全体の集</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbf{R}\)</span>: 実数全体の集合</p></li>
-<li><p><span class="math notranslate nohighlight">\(\mathbf{Z}_q\)</span>: <span class="math notranslate nohighlight">\(\{0,1,2,...,q-1\}\)</span> <span class="math notranslate nohighlight">\(0\)</span>以上<span class="math notranslate nohighlight">\(q\)</span>未満の整数</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{Z}_q\)</span>: <span class="math notranslate nohighlight">\(\{0,1,2,...,q-1\}\)</span> <span class="math notranslate nohighlight">\(0\)</span>以上<span class="math notranslate nohighlight">\(q\)</span>未満の整数集合</p></li>
 </ul>
 </section>
 <section id="group">
@@ -477,6 +479,15 @@ A[X] = \{a_0 + a_1X + a_2 X^2 + ... + a_nX^n | n \in \mathbf{N},a_0,a_1,...,a_n 
 \]</div>
 <p>は可換環である。<span class="math notranslate nohighlight">\(A[X]\)</span>を<span class="math notranslate nohighlight">\(A\)</span>上の<strong>多項式環</strong>と呼ぶ。</p>
 </section>
+<section id="mathbf-z-n-mathbf-z">
+<h2>剰余環<span class="math notranslate nohighlight">\(\mathbf{Z}/n\mathbf{Z}\)</span><a class="headerlink" href="#mathbf-z-n-mathbf-z" title="Permalink to this heading">#</a></h2>
+<p>自然数<span class="math notranslate nohighlight">\(n&gt;= 2\)</span>で割った剰余が等しい整数を集めた集合を<strong>剰余類</strong>と呼ぶ。例えば、<span class="math notranslate nohighlight">\(n=3\)</span>で割ったあまりは<span class="math notranslate nohighlight">\(0,1,2\)</span>のどれかになる。3で割って余りがそれぞれ<span class="math notranslate nohighlight">\(0,1,2\)</span>になる数をまとめて<span class="math notranslate nohighlight">\([0]_3,[1]_3,[2]_3\)</span>と記述する。
+今，以下のような集合を考えたとき，これを剰余類環と呼び環構造をなす。</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{Z}/n\mathbf{Z} := \{[a]_n|a \in \mathbf{Z}\}=\{[0]_n,[1]_n,...,[n-1]_n\}
+\]</div>
+</section>
 <section id="field">
 <h2>体(field)<a class="headerlink" href="#field" title="Permalink to this heading">#</a></h2>
 <p>集合<span class="math notranslate nohighlight">\(F\)</span>とその上の二項演算<span class="math notranslate nohighlight">\(+,×\)</span>について以下の条件を満たすとき、<span class="math notranslate nohighlight">\(F\)</span>を<strong>体</strong>と呼ぶ。</p>
@@ -488,6 +499,12 @@ A[X] = \{a_0 + a_1X + a_2 X^2 + ... + a_nX^n | n \in \mathbf{N},a_0,a_1,...,a_n 
 <p class="admonition-title">Note</p>
 <p>簡単にいうと、集合<span class="math notranslate nohighlight">\(F\)</span>内で四則演算(零による除算以外)が出来るのが体</p>
 </div>
+</section>
+<section id="id6">
+<h2>有限体<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<p>有限個の要素からなる体を<strong>有限体</strong>という。また、その要素数を<strong>位数</strong>という。
+素数<span class="math notranslate nohighlight">\(p\)</span>に対して剰余類環<span class="math notranslate nohighlight">\(\mathbf{Z}/p\mathbf{Z}\)</span>は0以外の数で四則演算ができるため体となる。その要素数は<span class="math notranslate nohighlight">\(p\)</span>個と有限であるため有限体である。<br />
+<span class="math notranslate nohighlight">\(\mathbf{Z}/p\mathbf{Z}\)</span>は<span class="math notranslate nohighlight">\(GF(p)\)</span>と書くこともある。</p>
 </section>
 </section>
 
@@ -564,7 +581,9 @@ A[X] = \{a_0 + a_1X + a_2 X^2 + ... + a_nX^n | n \in \mathbf{N},a_0,a_1,...,a_n 
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ring">環(ring)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">環の例</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">多項式環</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathbf-z-n-mathbf-z">剰余環<span class="math notranslate nohighlight">\(\mathbf{Z}/n\mathbf{Z}\)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#field">体(field)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">有限体</a></li>
 </ul>
   </nav></div>
 

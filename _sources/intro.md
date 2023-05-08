@@ -1,8 +1,5 @@
-# Welcome to Peta's Home.
-
-## About me 
-- ハンドルネーム：ペタ
-- twitter：@revivalpeta
+# About me 
+- 名前：ペタ
 - 出身：愛知
 - 使用言語：Python(メイン),Julia,C
 - 所持資格：基本情報技術者，統計検定2級，TOEIC805
