@@ -44,7 +44,7 @@ $x,y,z\in \mathbf{Z}$とする。
 ```{attention}
 $x > 1$ のとき、$\frac{1}{x} \notin \mathbf{Z}$
 ```
-
+--- 
 
 ## 環(ring)
 
@@ -97,6 +97,7 @@ $$
 \mathbf{Z}/n\mathbf{Z} := \{[a]_n|a \in \mathbf{Z}\}=\{[0]_n,[1]_n,...,[n-1]_n\}
 $$
 
+--- 
 
 ## 体(field)
 

@@ -6,15 +6,6 @@
 <html lang="en" >
 
   <head>
-      <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PE87V84MHQ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-PE87V84MHQ');
-  </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
@@ -75,6 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'math2';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="RSA暗号" href="RSA.html" />
     <link rel="prev" title="暗号に必要な数学１" href="math.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -175,6 +167,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="math.html">暗号に必要な数学１</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">暗号に必要な数学2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RSA.html">RSA暗号</a></li>
 </ul>
 
     </div>
@@ -396,15 +389,15 @@ document.write(`
 <p>以上をPythonで実装すると以下のようになる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#Euclid の互除法
-def Euclid(a,b):
-  r=a%b
-  if r==0:
-    return b
-  else:
-    return Euclid(b,r)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Euclid の互除法</span>
+<span class="k">def</span> <span class="nf">Euclid</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+  <span class="n">r</span><span class="o">=</span><span class="n">a</span><span class="o">%</span><span class="k">b</span>
+  <span class="k">if</span> <span class="n">r</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">b</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">Euclid</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
   
-Euclid(768,320)
+<span class="n">Euclid</span><span class="p">(</span><span class="mi">768</span><span class="p">,</span><span class="mi">320</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -449,18 +442,18 @@ Euclid(768,320)
 <p>以上をPythonで記述したものがこちら。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def Ex_Euclid(a,b):
-  if b == 0:
-    return 1,0,a
-  else:
-    q = a//b
-    r = a%b
-    s,t,c = Ex_Euclid(b,r)
-    x = t
-    y = s-q*t
-    return x,y,c
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Ex_Euclid</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">a</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">a</span><span class="o">//</span><span class="n">b</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">a</span><span class="o">%</span><span class="k">b</span>
+    <span class="n">s</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">c</span> <span class="o">=</span> <span class="n">Ex_Euclid</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">t</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">s</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">t</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">c</span>
 
-Ex_Euclid(768,320)
+<span class="n">Ex_Euclid</span><span class="p">(</span><span class="mi">768</span><span class="p">,</span><span class="mi">320</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -478,7 +471,7 @@ Ex_Euclid(768,320)
 <p>拡張ユークリッドの互除法を用いて，<span class="math notranslate nohighlight">\(7x+5y=1\)</span>の<span class="math notranslate nohighlight">\(x,y\)</span>を求めると</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>Ex_Euclid(7,5)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ex_Euclid</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -533,6 +526,15 @@ Ex_Euclid(768,320)
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">暗号に必要な数学１</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="RSA.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">RSA暗号</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div></div>
   
