@@ -170,6 +170,87 @@ $$
 となり復号の正当性が確認できた。
 
 
+## RSA実装
+分かりやすさ重視のため一部冗長な表現をしている部分もある。より高速化をするにはべき乗剰余をMontgomery乗算や並列による高速化するなどが考えられる。  
+$n$ビットの素数$p,q$をランダムに生成する際はPycryptodomeという暗号ライブラリを用いている。実行の際は先に
+
+```Python
+pip install pycryptodome
+```
+
+でインストールをする必要がある。  
+
+pythonによるRSAの実装例を以下に示す。
+
+```{code-cell}
+from Crypto.Util import number
+from random import randint,getrandbits
+import math
+
+class RSA:
+  def __init__(self,n):
+    #security bit n
+    self.n = n
+  
+  #Extended Euclid Algorithm
+  def Ex_Euclid(self,a,b):
+    if b == 0:
+      return 1,0,a
+    else:
+      q = a//b
+      r = a%b
+      s,t,c = self.Ex_Euclid(b,r)
+      x = t
+      y = s-q*t
+      return x,y,c
+
+
+  def keygen(self):
+    self.p = number.getPrime(self.n)
+    self.q = number.getPrime(self.n)
+    self.phi_N = (self.p-1)*(self.q-1)
+    self.N = self.p*self.q
+
+    #generate e gcd(e,N)=1
+    e = randint(2,self.phi_N-1)
+    while math.gcd(e,self.phi_N) !=1:
+      e = randint(2,self.phi_N-1)
+    
+    #compute modular_inverse d 
+    _,d,__ = self.Ex_Euclid(self.phi_N,e)
+
+    #secret_key
+    self.d = d%self.phi_N
+    #public_key
+    self.e = e
+  
+  def enc(self,m):
+    return pow(m,self.e,self.N)
+  
+  def dec(self,c):
+    return pow(c,self.d,self.N)
+
+  def get_keys(self):
+    return self.e,self.d,self.p,self.q,self.N
+  
+#security bit
+k=128
+rsa = RSA(k)
+plain_txt = getrandbits(k)
+rsa.keygen()
+enc_plaintxt = rsa.enc(plain_txt)
+dec_plaintxt = rsa.dec(enc_plaintxt)
+e,d,p,q,N = rsa.get_keys()
+
+
+print("plaintext is :",plain_txt)
+print("Prime number p,q,N :",p,q,N)
+print("public key e :",e)
+print("secret key d :",d)
+print("encrypted plain_text :",enc_plaintxt)
+print("decrypted encrypted_text :",dec_plaintxt)
+
+```
 
 
 

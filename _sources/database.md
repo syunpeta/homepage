@@ -2,7 +2,7 @@
 これまでに行ったゼミで作成した資料等をまとめています。必要に応じてダウンロードしてください。パスワードはゼミ参加時に配布されます。
 
 ---
-## 機械学習
+## 機械学習(進行中)
 使用した教科書：[機械学習帳](https://chokkan.github.io/mlnote/index.html)　岡崎直観　2020  
   
 ゼミ資料リンク：[機械学習資料（パスワード付き）](https://drive.google.com/file/d/1YDHi3Xaoe0jLquVeNYMLMHK63m_C5tWm/view?usp=sharing)
@@ -11,7 +11,8 @@
 2. 重回帰
 3. モデル選択と正則化
 4. 最急降下法
-5. TBA
+5. 復習&確率的勾配降下法
+6. TBA
 
 ---
 ## 確率統計
