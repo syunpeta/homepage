@@ -527,7 +527,7 @@ m^{1+r(p-1)(q-1)} \quad mod \space N &amp;= m^{1+r\phi(N)} \quad mod \space N\\
 </section>
 <section id="id8">
 <h2>RSA実装<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
-<p>分かりやすさ重視のため一部冗長な表現をしている部分もある。より高速化をするにはべき乗剰余をMontgomery乗算や並列による高速化するなどが考えられる。<br />
+<p>分かりやすさ重視のため一部冗長な表現をしている部分もある。より高速化をするにはべき乗剰余をMontgomery乗算や並列化するなどが考えられる。<br />
 <span class="math notranslate nohighlight">\(n\)</span>ビットの素数<span class="math notranslate nohighlight">\(p,q\)</span>をランダムに生成する際はPycryptodomeという暗号ライブラリを用いている。実行の際は先に</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pycryptodome</span>
 </pre></div>
@@ -606,12 +606,12 @@ m^{1+r(p-1)(q-1)} \quad mod \space N &amp;= m^{1+r\phi(N)} \quad mod \space N\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>plaintext is : 20976092588951425017531116492733018252
-Prime number p,q,N : 215049354191824960367430652387247836087 315801217285480817565732954812058219379 67912847830234839386676438171049557874462365786206694481459104337180078929973
-public key e : 54118731241187660399901297731599284514986735158094645955595889734015333298839
-secret key d : 2447323979985104058367058985820739717137482884525284237669524240691916795543
-encrypted plain_text : 57128681579281710570848230836068913605299796811114428973898116869795356369604
-decrypted encrypted_text : 20976092588951425017531116492733018252
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>plaintext is : 105202988875003489337546233422358075057
+Prime number p,q,N : 246036900814640914740530088743059048033 326342290496896934194463384036141166509 80292245758607763357621686150017407596482388374033570282503167244979681926797
+public key e : 6553884240641042748327420887245654765698743390991879305223828629145480882847
+secret key d : 46935289561446378661342303449822248082410443294657775404416414268312510212319
+encrypted plain_text : 44456248096661655677680450995110451746598419907817109262589771439187087696245
+decrypted encrypted_text : 105202988875003489337546233422358075057
 </pre></div>
 </div>
 </div>
