@@ -168,6 +168,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">暗号に必要な数学１</a></li>
 <li class="toctree-l1"><a class="reference internal" href="math2.html">暗号に必要な数学2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="RSA.html">RSA暗号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DH.html">DH鍵配送問題</a></li>
 </ul>
 
     </div>
@@ -364,12 +365,13 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">使用する記号</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#group">群(group)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">群の例</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">巡回群</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ring">環(ring)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">環の例</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">多項式環</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">環の例</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">多項式環</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathbf-z-n-mathbf-z">剰余環<span class="math notranslate nohighlight">\(\mathbf{Z}/n\mathbf{Z}\)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#field">体(field)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">有限体</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">有限体</a></li>
 </ul>
             </nav>
         </div>
@@ -440,6 +442,12 @@ document.write(`
 </div>
 </section>
 <hr class="docutils" />
+<section id="id4">
+<h2>巡回群<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p><span class="math notranslate nohighlight">\(G\)</span>を群とする。<span class="math notranslate nohighlight">\(G\)</span>の元がただ一つの元<span class="math notranslate nohighlight">\(a\)</span>によって生成されるとき、<span class="math notranslate nohighlight">\(G = \langle a\rangle\)</span>と表し、この<span class="math notranslate nohighlight">\(a\)</span>を<strong>生成元</strong>と呼ぶ。(つまり、<span class="math notranslate nohighlight">\(G\)</span>の元が乗法,加法の場合それぞれ<span class="math notranslate nohighlight">\(a^kn\)</span>,<span class="math notranslate nohighlight">\(ka\)</span>で表される。)このとき、<span class="math notranslate nohighlight">\(G\)</span>を<strong>巡回群</strong>と呼ぶ。<br />
+有限乗法群である場合、<span class="math notranslate nohighlight">\(a^n = 1\)</span>となる最小の正整数<span class="math notranslate nohighlight">\(n\)</span>を <strong><span class="math notranslate nohighlight">\(a\)</span>の位数</strong> と呼ぶ。<br />
+有限加法群である場合、<span class="math notranslate nohighlight">\(na = 0\)</span>となる最小の正整数<span class="math notranslate nohighlight">\(n\)</span>を<span class="math notranslate nohighlight">\(a\)</span>の位数とする。</p>
+</section>
 <section id="ring">
 <h2>環(ring)<a class="headerlink" href="#ring" title="Permalink to this heading">#</a></h2>
 <p>集合<span class="math notranslate nohighlight">\(R\)</span>とその上の2つの二項演算<span class="math notranslate nohighlight">\(+,×\)</span>について以下の条件を満たすとき、<span class="math notranslate nohighlight">\(R\)</span>を<strong>環</strong>と呼ぶ。</p>
@@ -460,16 +468,16 @@ document.write(`
 <p>環<span class="math notranslate nohighlight">\(R\)</span>は自身の集合<span class="math notranslate nohighlight">\(R\)</span>上で足し算、掛け算、引き算が出来る。しかし逆元の存在が保証されないため割り算は出来るとは限らない。</p>
 </div>
 </section>
-<section id="id4">
-<h2>環の例<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<section id="id5">
+<h2>環の例<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\mathbf{Z}\)</span></p></li>
 </ul>
 <p>群の例より<span class="math notranslate nohighlight">\(+\)</span>に関して<span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>は可換群となる。さらに、<span class="math notranslate nohighlight">\(×\)</span>に関して群の条件1,2を満たす(モノイドとなる)。
 さらに<span class="math notranslate nohighlight">\(+,×\)</span>に対して分配則も満たすため<span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>は可換環である。</p>
 </section>
-<section id="id5">
-<h2>多項式環<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<section id="id6">
+<h2>多項式環<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
 <p><span class="math notranslate nohighlight">\(A\)</span>を可換環とする。<span class="math notranslate nohighlight">\(A\)</span>の要素<span class="math notranslate nohighlight">\(a_0,a_1,...,a_n \in A\)</span>を係数に持った多項式</p>
 <div class="math notranslate nohighlight">
 \[a_0 + a_1X + a_2 X^2 + ... + a_nX^n \quad \quad (n \in \mathbf{N})
@@ -503,8 +511,8 @@ A[X] = \{a_0 + a_1X + a_2 X^2 + ... + a_nX^n | n \in \mathbf{N},a_0,a_1,...,a_n 
 <p>簡単にいうと、集合<span class="math notranslate nohighlight">\(F\)</span>内で四則演算(零による除算以外)が出来るのが体</p>
 </div>
 </section>
-<section id="id6">
-<h2>有限体<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<section id="id7">
+<h2>有限体<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
 <p>有限個の要素からなる体を<strong>有限体</strong>という。また、その要素数を<strong>位数</strong>という。
 素数<span class="math notranslate nohighlight">\(p\)</span>に対して剰余類環<span class="math notranslate nohighlight">\(\mathbf{Z}/p\mathbf{Z}\)</span>は0以外の数で四則演算ができるため体となる。その要素数は<span class="math notranslate nohighlight">\(p\)</span>個と有限であるため有限体である。<br />
 <span class="math notranslate nohighlight">\(\mathbf{Z}/p\mathbf{Z}\)</span>は<span class="math notranslate nohighlight">\(GF(p)\)</span>と書くこともある。</p>
@@ -581,12 +589,13 @@ A[X] = \{a_0 + a_1X + a_2 X^2 + ... + a_nX^n | n \in \mathbf{N},a_0,a_1,...,a_n 
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">使用する記号</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#group">群(group)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">群の例</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">巡回群</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ring">環(ring)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">環の例</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">多項式環</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">環の例</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">多項式環</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathbf-z-n-mathbf-z">剰余環<span class="math notranslate nohighlight">\(\mathbf{Z}/n\mathbf{Z}\)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#field">体(field)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">有限体</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">有限体</a></li>
 </ul>
   </nav></div>
 

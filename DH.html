@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>参考文献 &#8212; CryPweb</title>
+    <title>DH鍵配送問題 &#8212; CryPweb</title>
   
   
   
@@ -61,9 +61,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'reference';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'DH';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="RSA暗号" href="RSA.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -160,11 +163,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="database.html">自主ゼミデータベース</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">暗号</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="math.html">暗号に必要な数学１</a></li>
 <li class="toctree-l1"><a class="reference internal" href="math2.html">暗号に必要な数学2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="RSA.html">RSA暗号</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DH.html">DH鍵配送問題</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">DH鍵配送問題</a></li>
 </ul>
 
     </div>
@@ -236,7 +239,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Freference.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FDH.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -266,7 +269,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/reference.md" target="_blank"
+      <li><a href="_sources/DH.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -335,7 +338,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -346,11 +351,22 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>参考文献</h1>
+    <h1>DH鍵配送問題</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dlp">離散対数問題(DLP)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">DH鍵配送法</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">DH鍵配送実装</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">DH問題</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -360,12 +376,101 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1>参考文献<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="dh">
+<h1>DH鍵配送問題<a class="headerlink" href="#dh" title="Permalink to this heading">#</a></h1>
+<section id="dlp">
+<h2>離散対数問題(DLP)<a class="headerlink" href="#dlp" title="Permalink to this heading">#</a></h2>
+<p><span class="math notranslate nohighlight">\(G\)</span>を位数が大きな素数<span class="math notranslate nohighlight">\(q\)</span>の巡回群とし、その生成元を<span class="math notranslate nohighlight">\(g\)</span>とする。このとき、<span class="math notranslate nohighlight">\((g,y) \in G\)</span>から</p>
+<div class="math notranslate nohighlight">
+\[
+y = g^x\quad mod \space q
+\]</div>
+<p>となる正整数<span class="math notranslate nohighlight">\(x\)</span>を求める問題を<strong>離散対数問題</strong>という。(加法群の場合も同じように定義される)</p>
+<p><span class="math notranslate nohighlight">\(x\)</span>は<span class="math notranslate nohighlight">\(0 \leq x &lt; q\)</span>の範囲にある。従って、これを総当たりで解こうとすると<span class="math notranslate nohighlight">\(O(q)\)</span>の計算量が必要になる。<br />
+また、これを効率的に解くアルゴリズムとしてPollardの<span class="math notranslate nohighlight">\(\rho\)</span>法やBaby-step Giant-stepなどのアルゴリズムがあるが、何れも計算量<span class="math notranslate nohighlight">\(O(\sqrt{q})\)</span>のアルゴリズムであるため巨大な位数の離散対数問題を解くことは難しい。</p>
+</section>
+<section id="id1">
+<h2>DH鍵配送法<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>Diffie-Hellman(DH)の鍵配送法を用いると、事前の相談なしにAliceとBobが秘密鍵を共有することが出来る。</p>
+<ul class="simple">
+<li><p>鍵生成</p></li>
+</ul>
 <ol class="arabic simple">
-<li><p>黒澤馨.2010.現代暗号への招待.サイエンス社</p></li>
-<li><p>縫田光司.2020.耐量子計算機暗号.森北出版</p></li>
+<li><p>大きな素数<span class="math notranslate nohighlight">\(q\)</span>と小さな整数<span class="math notranslate nohighlight">\(g\)</span>を決め、AliceとBobで共有しておく(公開しても問題ない。)</p></li>
+<li><p>Alice は秘密鍵<span class="math notranslate nohighlight">\(a \in Z_q\)</span>をランダムに選び、<span class="math notranslate nohighlight">\(y_A = g^a \quad mod \space q\)</span>を公開する。</p></li>
+<li><p>Bobは秘密鍵<span class="math notranslate nohighlight">\(b\in Z_q\)</span> をランダムに選び<span class="math notranslate nohighlight">\(y_B = g^b \quad mod \space q\)</span>を公開する。</p></li>
 </ol>
+<ul class="simple">
+<li><p>鍵共有</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>Alice は<span class="math notranslate nohighlight">\(K_A = (y_B)^a \quad mod\space q\)</span>を計算する。</p></li>
+<li><p>同様のBobは<span class="math notranslate nohighlight">\(K_B=(y_A)^b\quad mod \space q\)</span>を計算する。</p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(K=g^{ab}\)</span>とすると<span class="math notranslate nohighlight">\(K=K_B=K_A\)</span>となり、Alice,Bobは鍵<span class="math notranslate nohighlight">\(K\)</span>を共有できた。</p>
+<p><img alt="DH_figure" src="_images/DH.png" /></p>
+<p>悪意のある第3者Charlieが公開された<span class="math notranslate nohighlight">\(y_A,y_B\)</span>を手に入れたとする。このとき、Charlieは離散対数問題の難しさにより秘密鍵<span class="math notranslate nohighlight">\(a,b\)</span>を計算することが出来ない。よって鍵<span class="math notranslate nohighlight">\(K\)</span>を得ることが出来ず、安全である。</p>
+</section>
+<section id="id2">
+<h2>DH鍵配送実装<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from Crypto.Util import number
+from random import randint
+
+class DHE:
+    def __init__(self,k):
+        self.q = number.getPrime(k)
+        #generator
+        self.g=2
+    
+    def A_key(self):
+        self.a = randint(1,self.q-1)
+        return pow(self.g,self.a,self.q)
+    
+    def B_key(self):
+        self.b = randint(1,self.q-1)
+        return pow(self.g,self.b,self.q)
+    
+    def Share_key_A(self,yb):
+        return pow(yb,self.a,self.q)
+    
+    def Share_key_B(self,ya):
+        return pow(ya,self.b,self.q)
+    
+
+dhe = DHE(128)
+a_key = dhe.A_key()
+b_key = dhe.B_key()
+
+#make shared key by Alice
+s_key_A = dhe.Share_key_A(b_key)
+#make shared key by Bob
+s_key_B = dhe.Share_key_B(a_key)
+
+print(&quot;secret key of Alice:&quot;,a_key)
+print(&quot;secret key of Bob:&quot;,b_key)
+print(&quot;Shared key of Alice:&quot;,s_key_A)
+print(&quot;Shared key of Bob&quot;,s_key_B)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>secret key of Alice: 222754899319814788398275032398660840905
+secret key of Bob: 227075233702197965292424259933546238228
+Shared key of Alice: 120535638123359226757193763193370850729
+Shared key of Bob 120535638123359226757193763193370850729
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>DH問題<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p><span class="math notranslate nohighlight">\((g,g^a,g^b)\)</span>から<span class="math notranslate nohighlight">\(g^{ab}\quad mod\space q\)</span>を求める問題を<strong>DH問題</strong>と呼ぶ。<br />
+もし、離散対数問題が解ければDH問題も解ける。しかし、その逆が成り立つかはわかっていない。
+<span class="math notranslate nohighlight">\(\mathbf{Z}_p^*\)</span>の部分群および楕円曲線上に定義される群においては、DH問題を解くことが困難と予想されている。これを<strong>DH仮定</strong>と呼ぶ。</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -399,6 +504,15 @@ document.write(`
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="RSA.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">RSA暗号</p>
+      </div>
+    </a>
 </div></div>
   
 </div>
@@ -408,6 +522,23 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dlp">離散対数問題(DLP)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">DH鍵配送法</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">DH鍵配送実装</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">DH問題</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
