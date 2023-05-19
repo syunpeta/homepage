@@ -1,5 +1,5 @@
 # About me 
-- 名前：ペタ
+- 名前：シュン
 - 出身：愛知
 - 使用言語：Python(Sagemath),Julia,C/C++
 - 所持資格：　　

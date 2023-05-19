@@ -1,90 +1,55 @@
----
-jupytext:
-  cell_metadata_filter: -all
-  formats: md:myst
-  text_representation:
-    extension: .md
-    format_name: myst
-    format_version: 0.13
-    jupytext_version: 1.14.5
-kernelspec:
-  display_name: Python 3 (ipykernel)
-  language: python
-  name: python3
----
+# ElGamal暗号
 
-# DH鍵配送問題とElGamal暗号
-
-## 離散対数問題(DLP)
-$G$を位数が大きな素数$q$の巡回群とし、その生成元を$g$とする。このとき、$(g,y) \in G$から
-
-$$
-y = g^x\quad mod \space q
-$$
-となる正整数$x$を求める問題を**離散対数問題**という。(加法群の場合も同じように定義される)　　
-
-$x$は$0 \leq x < q$の範囲にある。従って、これを総当たりで解こうとすると$O(q)$の計算量が必要になる。  
-また、これを効率的に解くアルゴリズムとしてPollardの$\rho$法やBaby-step Giant-stepなどのアルゴリズムがあるが、何れも計算量$O(\sqrt{q})$のアルゴリズムであるため巨大な位数の離散対数問題を解くことは難しい。
-
-## DH鍵配送法
-Diffie-Hellman(DH)の鍵配送法を用いると、事前の相談なしにAliceとBobが秘密鍵を共有することが出来る。
+ElGamal暗号はDH鍵配送法に基づく公開鍵暗号である。
 
 - 鍵生成
-1.  大きな素数$q$と小さな整数$g$を決め、AliceとBobで共有しておく(公開しても問題ない。)
-2. Alice は秘密鍵$a \in Z_q$をランダムに選び、$y_A = g^a \quad mod \space q$を公開する。
-3. Bobは秘密鍵$b\in Z_q$ をランダムに選び$y_B = g^b \quad mod \space q$を公開する。
+1. $k$ビットの大きな素数$q$と秘密鍵$x \in \mathbf{Z}_q$をランダムに選択し、原始元$g\space (2< g< q)$を選ぶ。 
+2. $y=g^x \quad mod \space q$として公開鍵$(g,q,y)$を公開する。
 
-- 鍵共有
-1. Alice は$K_A = (y_B)^a \quad mod\space q$を計算する。
-2. 同様のBobは$K_B=(y_A)^b\quad mod \space q$を計算する。
+- 暗号化
 
-$K=g^{ab}$とすると$K=K_B=K_A$となり、Alice,Bobは鍵$K$を共有できた。  
+1. 平文$m\in \langle g \rangle$に対して$r\in \mathbf{Z}_q$をランダムに選択する。
+2. $c_1 = g^r \quad mod \space q$,　$c_2 = my^r \quad mod \space q$を計算する。
+3. 暗号文を$(c_1,c_2)$とする。
 
-![DH_figure](./_build/html/_images/DH.png)
+- 復号化  
 
-悪意のある第3者Charlieが公開された$y_A,y_B$を手に入れたとする。このとき、Charlieは離散対数問題の難しさにより秘密鍵$a,b$を計算することが出来ない。よって鍵$K$を得ることが出来ず、安全である。
 
-## DH鍵配送実装
+1. 受け取った暗号文($c_1,c_2$)および秘密鍵$x$から、平文$m$を
 
-```{code-cell}
-from Crypto.Util import number
-from random import randint
+$$
+c2(c_1^x)^{-1} \quad mod \space q =m(y^r)(g^{rx})^{-1}  \quad mod \space q=m(g^{rx})(g^{rx})^{-1} \quad mod \space q=m \quad mod \space q
+$$
 
-class DHE:
-    def __init__(self,k):
-        self.q = number.getPrime(k)
-        #generator
-        self.g=2
-    
-    def A_key(self):
-        self.a = randint(1,self.q-1)
-        return pow(self.g,self.a,self.q)
-    
-    def B_key(self):
-        self.b = randint(1,self.q-1)
-        return pow(self.g,self.b,self.q)
-    
-    def Share_key_A(self,yb):
-        return pow(yb,self.a,self.q)
-    
-    def Share_key_B(self,ya):
-        return pow(ya,self.b,self.q)
-    
+と計算し，暗号文を復号する。  
 
-dhe = DHE(128)
-a_key = dhe.A_key()
-b_key = dhe.B_key()
+## DH問題との等価性
+公開鍵$(g,y)$と暗号文$(c_1,c_2)$から平文$m$を求める問題は、$(g,g^x,g^r)$から$g^{xr}$を求めるDH問題と等価である。以下は等価性の証明である。
 
-#make shared key by Alice
-s_key_A = dhe.Share_key_A(b_key)
-#make shared key by Bob
-s_key_B = dhe.Share_key_B(a_key)
+- 定理1 DH $\rightarrow$ ELG
 
-print("secret key of Alice:",a_key)
-print("secret key of Bob:",b_key)
-print("Shared key of Alice:",s_key_A)
-print("Shared key of Bob",s_key_B)
+DH問題を解く効率的なアルゴリズムAが存在すると仮定する。このとき、ElGamal暗号の一方向性を破る効率的なアルゴリズムBが存在する。
 
-```
+証明:  
+Bへの入力を公開鍵$(g,y)$と暗号文$(c_1,c_2)$としたとき、BはAに$(g,y=g^x,c_1=g^r)$を与えることで$g^{xr}$を得ることができる。これを用いて
 
-## DH問題
+$$
+\frac{c_2}{g^{xr}} = \frac{my^r}{g^{xr}}=\frac{mg^{xr}}{g^{xr}} = m
+$$
+
+よりElGamal暗号の一方向性を破ることができる。
+
+- 定理2 ELG $\rightarrow$ DH
+
+ElGamal暗号の一方向性を破る効率的なアルゴリズムが存在すると仮定する。このとき、DH問題を解く効率的なアルゴリズムが存在する。
+
+証明：  
+Aへの入力を$(g,g^x,g^r)$とする。このときAは$c_2 \in \langle g \rangle $をランダムに選択し、公開鍵$(g,y=g^x)$と暗号文$(c_1=g^r,c_2)$をBに与える。すると、Bは平文$m$を返すので
+
+$$
+\frac{c_2}{m} = y^r = g^{xr}
+$$
+
+によってAは$g^{xr}$を求めることができDH問題を解くことができる。
+
+
