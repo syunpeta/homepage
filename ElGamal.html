@@ -382,14 +382,14 @@ document.write(`
 </ul>
 <ol class="arabic simple">
 <li><p><span class="math notranslate nohighlight">\(k\)</span>ビットの大きな素数<span class="math notranslate nohighlight">\(q\)</span>と秘密鍵<span class="math notranslate nohighlight">\(x \in \mathbf{Z}_q\)</span>をランダムに選択し、原始元<span class="math notranslate nohighlight">\(g\space (2&lt; g&lt; q)\)</span>を選ぶ。</p></li>
-<li><p><span class="math notranslate nohighlight">\(y=g^x \quad mod \space q\)</span>として公開鍵<span class="math notranslate nohighlight">\((g,q,y)\)</span>を公開する。</p></li>
+<li><p><span class="math notranslate nohighlight">\(y=g^x \pmod{q}\)</span>として公開鍵<span class="math notranslate nohighlight">\((g,q,y)\)</span>を公開する。</p></li>
 </ol>
 <ul class="simple">
 <li><p>暗号化</p></li>
 </ul>
 <ol class="arabic simple">
 <li><p>平文<span class="math notranslate nohighlight">\(m\in \langle g \rangle\)</span>に対して<span class="math notranslate nohighlight">\(r\in \mathbf{Z}_q\)</span>をランダムに選択する。</p></li>
-<li><p><span class="math notranslate nohighlight">\(c_1 = g^r \quad mod \space q\)</span>,　<span class="math notranslate nohighlight">\(c_2 = my^r \quad mod \space q\)</span>を計算する。</p></li>
+<li><p><span class="math notranslate nohighlight">\(c_1 = g^r \pmod{q}\)</span>,　<span class="math notranslate nohighlight">\(c_2 = my^r \pmod{q}\)</span>を計算する。</p></li>
 <li><p>暗号文を<span class="math notranslate nohighlight">\((c_1,c_2)\)</span>とする。</p></li>
 </ol>
 <ul class="simple">
@@ -400,7 +400,7 @@ document.write(`
 </ol>
 <div class="math notranslate nohighlight">
 \[
-c2(c_1^x)^{-1} \quad mod \space q =m(y^r)(g^{rx})^{-1}  \quad mod \space q=m(g^{rx})(g^{rx})^{-1} \quad mod \space q=m \quad mod \space q
+c2(c_1^x)^{-1} \pmod{q} =m(y^r)(g^{rx})^{-1}  \pmod{q}=m(g^{rx})(g^{rx})^{-1} \pmod{q}=m \pmod{q}
 \]</div>
 <p>と計算し，暗号文を復号する。</p>
 <section id="dh">

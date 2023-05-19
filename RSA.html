@@ -392,7 +392,8 @@ document.write(`
 任意の<span class="math notranslate nohighlight">\(a \in \mathbf{Z}_p^*\)</span>に対して</p>
 <div class="math notranslate nohighlight">
 \[
-a^{p-1} = 1 \quad mod\space p\]</div>
+a^{p-1} = 1 \pmod{p}
+\]</div>
 <p>が成り立つ。</p>
 </section>
 <section id="id2">
@@ -404,7 +405,7 @@ a^{p-1} = 1 \quad mod\space p\]</div>
 <ol class="arabic simple">
 <li><p>入力<span class="math notranslate nohighlight">\(1^n=1...1\)</span> に対して<span class="math notranslate nohighlight">\(n\)</span>ビットの素数<span class="math notranslate nohighlight">\(p\)</span>をランダムに生成する。</p></li>
 <li><p><span class="math notranslate nohighlight">\(gcd(e,p-1)=1\)</span>となる<span class="math notranslate nohighlight">\(e\)</span>をランダムに選ぶ。</p></li>
-<li><p>拡張ユークリッドの互除法を用いて<span class="math notranslate nohighlight">\(ed = 1 \quad mod\space (p-1)\)</span>となる<span class="math notranslate nohighlight">\(d&gt;0\)</span>を求める</p></li>
+<li><p>拡張ユークリッドの互除法を用いて<span class="math notranslate nohighlight">\(ed = 1 \pmod{p-1}\)</span>となる<span class="math notranslate nohighlight">\(d&gt;0\)</span>を求める</p></li>
 <li><p>秘密鍵を<span class="math notranslate nohighlight">\((p,e,d)\)</span>とする。</p></li>
 </ol>
 <ul class="simple">
@@ -413,7 +414,7 @@ a^{p-1} = 1 \quad mod\space p\]</div>
 <p>平文<span class="math notranslate nohighlight">\(m \in \mathbf{Z_p}^*\)</span>に対し、暗号文<span class="math notranslate nohighlight">\(c\)</span>を</p>
 <div class="math notranslate nohighlight">
 \[
-c = m^e\quad  mod\space p\]</div>
+c = m^e \pmod{p}\]</div>
 <p>とする。</p>
 <ul class="simple">
 <li><p>復号化</p></li>
@@ -421,11 +422,11 @@ c = m^e\quad  mod\space p\]</div>
 <p>暗号文<span class="math notranslate nohighlight">\(c \in \mathbf{Z}_p^*\)</span>に対し平文<span class="math notranslate nohighlight">\(m\)</span>を</p>
 <div class="math notranslate nohighlight">
 \[
-m = c^d \quad mod\space p
+m = c^d \pmod{p}
 \]</div>
 <p>と求める。</p>
 <p>この復号化手順は以下のように正当性を確かめることが出来る。</p>
-<p>鍵生成手順の3番目の式、<span class="math notranslate nohighlight">\(ed = 1 \quad mod \space (p-1)\)</span>より、任意の整数を<span class="math notranslate nohighlight">\(r\)</span>とすると</p>
+<p>鍵生成手順の3番目の式、<span class="math notranslate nohighlight">\(ed = 1 \pmod{p-1}\)</span>より、任意の整数を<span class="math notranslate nohighlight">\(r\)</span>とすると</p>
 <div class="math notranslate nohighlight">
 \[
 ed = 1 + r(p-1)\]</div>
@@ -435,11 +436,11 @@ ed = 1 + r(p-1)\]</div>
 \begin{equation}
 \nonumber
 \begin{aligned}
-c^d &amp;= (m^e)^d \quad mod\space p\\
-&amp;= m^{ed} \quad mod\space p\\
-&amp;=m^{1+r(p-1)}\quad mod\space p\\
-&amp;=m(m^{p-1})^r\quad mod \space p\\
-&amp;=m \quad mod\space p
+c^d &amp;= (m^e)^d \pmod{p}\\
+&amp;= m^{ed} \pmod{p}\\
+&amp;=m^{1+r(p-1)}\pmod{p}\\
+&amp;=m(m^{p-1})^r\pmod{p}\\
+&amp;=m \pmod{p}
 \end{aligned}
 \end{equation}\end{split}\]</div>
 <p>これより復号化の正当性が確認できた。<br />
@@ -457,7 +458,7 @@ RSA暗号のアルゴリズムは以下のようになる。</p>
 <ol class="arabic simple">
 <li><p>入力<span class="math notranslate nohighlight">\(1^n\)</span>に対し、<span class="math notranslate nohighlight">\(n\)</span>ビットの素数の組<span class="math notranslate nohighlight">\((p,q)\)</span>をランダムに生成し<span class="math notranslate nohighlight">\(N=pq\)</span>とする。</p></li>
 <li><p><span class="math notranslate nohighlight">\(gcd(e,(p-1)(q-1)) = 1\)</span>となる<span class="math notranslate nohighlight">\(e\)</span>をランダムに選ぶ</p></li>
-<li><p>拡張ユークリッドの互除法を用いて<span class="math notranslate nohighlight">\(ed=1\quad mod\space (p-1)(q-1)\)</span>となる<span class="math notranslate nohighlight">\(d&gt;0\)</span>を求める。</p></li>
+<li><p>拡張ユークリッドの互除法を用いて<span class="math notranslate nohighlight">\(ed=1 \mod(p-1)(q-1)\)</span>となる<span class="math notranslate nohighlight">\(d&gt;0\)</span>を求める。</p></li>
 <li><p>公開鍵を<span class="math notranslate nohighlight">\((N,e)\)</span>、秘密鍵を<span class="math notranslate nohighlight">\(d\)</span>とする。</p></li>
 </ol>
 <ul class="simple">
@@ -466,7 +467,7 @@ RSA暗号のアルゴリズムは以下のようになる。</p>
 </ul>
 <div class="math notranslate nohighlight">
 \[
-c = m^e\quad mod\space N
+c = m^e \pmod{N}
 \]</div>
 <p>とする。</p>
 <ul class="simple">
@@ -475,7 +476,7 @@ c = m^e\quad mod\space N
 </ul>
 <div class="math notranslate nohighlight">
 \[
-m = c^d \quad mod\space N
+m = c^d \pmod{N}
 \]</div>
 <p>と計算する。</p>
 </section>
@@ -487,7 +488,7 @@ m = c^d \quad mod\space N
 <p><span class="math notranslate nohighlight">\(n\)</span>を正の整数、<span class="math notranslate nohighlight">\(a\)</span>を<span class="math notranslate nohighlight">\(n\)</span>と互いに素な正の整数とする。このとき、</p>
 <div class="math notranslate nohighlight">
 \[
-a^{\phi(n)} = 1 \quad mod \space n
+a^{\phi(n)} = 1 \pmod{n}
 \]</div>
 <p>が成立する。これを<strong>オイラーの定理</strong>と呼ぶ。<br />
 この定理はフェルマーの小定理を合成数<span class="math notranslate nohighlight">\(n\)</span>に拡張したものである。<br />
@@ -509,8 +510,8 @@ a^{\phi(n)} = 1 \quad mod \space n
 \begin{equation}
 \nonumber
 \begin{aligned}
-c^d &amp;= (m^e)^d\quad mod\space N \\
-&amp;= m^{1+r(p-1)(q-1)} \quad mod \space N\\
+c^d &amp;= (m^e)^d\pmod{N}\\
+&amp;= m^{1+r(p-1)(q-1)} \pmod{N}\\
 \end{aligned}
 \end{equation}
 \end{split}\]</div>
@@ -520,9 +521,9 @@ c^d &amp;= (m^e)^d\quad mod\space N \\
 \begin{equation}
 \nonumber
 \begin{aligned}
-m^{1+r(p-1)(q-1)} \quad mod \space N &amp;= m^{1+r\phi(N)} \quad mod \space N\\
-&amp;=m(m^{\phi(N)})^r\quad mod \space N\\
-&amp;=m
+m^{1+r(p-1)(q-1)} \pmod{N} &amp;= m^{1+r\phi(N)} \pmod{N}\\
+&amp;=m(m^{\phi(N)})^r\pmod{N}\\
+&amp;=m\pmod{N}
 \end{aligned}
 \end{equation}
 \end{split}\]</div>
@@ -609,12 +610,12 @@ print(&quot;decrypted encrypted_text :&quot;,dec_plaintxt)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>plaintext is : 69488488403840889909519652752516476724
-Prime number p,q,N : 324327311234131914550681983703229612689 313657898652833993020100633488535662781 101727822917421495811133805553121297061243103167935817260406851782246542628109
-public key e : 8556286234320977175341820160028152855010904635346862989096822851151690460181
-secret key d : 58281273719054180890598447835239157573726636236075136565151700643150932256061
-encrypted plain_text : 69583187751559825560995230856157987081886337749356607915060097666665160519386
-decrypted encrypted_text : 69488488403840889909519652752516476724
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>plaintext is : 301230205700971523201157298432534988255
+Prime number p,q,N : 313338630641156891592668154719562376133 176342408734706288463874327673692159811 55254888876896052519963244018693832501137371026776892072438127680775928190863
+public key e : 37725167684634276999806515483171365344172624525275389220610912210715909646519
+secret key d : 4600975081319985079502047142870634615969325470750355596165935189611465472119
+encrypted plain_text : 46782279460563693732692306464116586569732387121580062771499470245302076223532
+decrypted encrypted_text : 301230205700971523201157298432534988255
 </pre></div>
 </div>
 </div>

@@ -385,7 +385,7 @@ document.write(`
 <p><span class="math notranslate nohighlight">\(G\)</span>を位数が大きな素数<span class="math notranslate nohighlight">\(q\)</span>の巡回群とし、その生成元を<span class="math notranslate nohighlight">\(g\)</span>とする。このとき、<span class="math notranslate nohighlight">\((g,y) \in G\)</span>から</p>
 <div class="math notranslate nohighlight">
 \[
-y = g^x\quad mod \space q
+y = g^x\pmod{q}
 \]</div>
 <p>となる正整数<span class="math notranslate nohighlight">\(x\)</span>を求める問題を<strong>離散対数問題</strong>という。(加法群の場合も同じように定義される)</p>
 <p><span class="math notranslate nohighlight">\(x\)</span>は<span class="math notranslate nohighlight">\(0 \leq x &lt; q\)</span>の範囲にある。従って、これを総当たりで解こうとすると<span class="math notranslate nohighlight">\(O(q)\)</span>の計算量が必要になる。<br />
@@ -399,15 +399,15 @@ y = g^x\quad mod \space q
 </ul>
 <ol class="arabic simple">
 <li><p>大きな素数<span class="math notranslate nohighlight">\(q\)</span>と小さな整数<span class="math notranslate nohighlight">\(g\)</span>を決め、AliceとBobで共有しておく(公開しても問題ない。)</p></li>
-<li><p>Alice は秘密鍵<span class="math notranslate nohighlight">\(a \in Z_q\)</span>をランダムに選び、<span class="math notranslate nohighlight">\(y_A = g^a \quad mod \space q\)</span>を公開する。</p></li>
-<li><p>Bobは秘密鍵<span class="math notranslate nohighlight">\(b\in Z_q\)</span> をランダムに選び<span class="math notranslate nohighlight">\(y_B = g^b \quad mod \space q\)</span>を公開する。</p></li>
+<li><p>Alice は秘密鍵<span class="math notranslate nohighlight">\(a \in Z_q\)</span>をランダムに選び、<span class="math notranslate nohighlight">\(y_A = g^a \pmod{q}\)</span>を公開する。</p></li>
+<li><p>Bobは秘密鍵<span class="math notranslate nohighlight">\(b\in Z_q\)</span> をランダムに選び<span class="math notranslate nohighlight">\(y_B = g^b \pmod{q}\)</span>を公開する。</p></li>
 </ol>
 <ul class="simple">
 <li><p>鍵共有</p></li>
 </ul>
 <ol class="arabic simple">
-<li><p>Alice は<span class="math notranslate nohighlight">\(K_A = (y_B)^a \quad mod\space q\)</span>を計算する。</p></li>
-<li><p>同様のBobは<span class="math notranslate nohighlight">\(K_B=(y_A)^b\quad mod \space q\)</span>を計算する。</p></li>
+<li><p>Alice は<span class="math notranslate nohighlight">\(K_A = (y_B)^a \pmod{q}\)</span>を計算する。</p></li>
+<li><p>同様のBobは<span class="math notranslate nohighlight">\(K_B=(y_A)^b\pmod{q}\)</span>を計算する。</p></li>
 </ol>
 <p><span class="math notranslate nohighlight">\(K=g^{ab}\)</span>とすると<span class="math notranslate nohighlight">\(K=K_B=K_A\)</span>となり、Alice,Bobは鍵<span class="math notranslate nohighlight">\(K\)</span>を共有できた。</p>
 <p><img alt="DH_figure" src="_images/DH.png" /></p>
@@ -458,10 +458,10 @@ print(&quot;Shared key of Bob&quot;,s_key_B)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>secret key of Alice: 102771684456339277615594928071628627569
-secret key of Bob: 125742016984593400446906935656935978312
-Shared key of Alice: 121868339677274557821785463796049980417
-Shared key of Bob 121868339677274557821785463796049980417
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>secret key of Alice: 82551773657492521549196684145389898718
+secret key of Bob: 197282161550467702517657178363076308405
+Shared key of Alice: 140828078405016751622481823714292792501
+Shared key of Bob 140828078405016751622481823714292792501
 </pre></div>
 </div>
 </div>
@@ -469,7 +469,7 @@ Shared key of Bob 121868339677274557821785463796049980417
 </section>
 <section id="id3">
 <h2>DH問題<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
-<p><span class="math notranslate nohighlight">\((g,g^a,g^b)\)</span>から<span class="math notranslate nohighlight">\(g^{ab}\quad mod\space q\)</span>を求める問題を<strong>DH問題</strong>と呼ぶ。<br />
+<p><span class="math notranslate nohighlight">\((g,g^a,g^b)\)</span>から<span class="math notranslate nohighlight">\(g^{ab}\pmod{q}\)</span>を求める問題を<strong>DH問題</strong>と呼ぶ。<br />
 もし、離散対数問題が解ければDH問題も解ける。しかし、その逆が成り立つかはわかっていない。
 <span class="math notranslate nohighlight">\(\mathbf{Z}_p^*\)</span>の部分群および楕円曲線上に定義される群においては、DH問題を解くことが困難と予想されている。これを<strong>DH仮定</strong>と呼ぶ。</p>
 </section>

@@ -19,7 +19,7 @@ kernelspec:
 $G$を位数が大きな素数$q$の巡回群とし、その生成元を$g$とする。このとき、$(g,y) \in G$から
 
 $$
-y = g^x\quad mod \space q
+y = g^x\pmod{q}
 $$
 となる正整数$x$を求める問題を**離散対数問題**という。(加法群の場合も同じように定義される)　　
 
@@ -31,12 +31,12 @@ Diffie-Hellman(DH)の鍵配送法を用いると、事前の相談なしにAlice
 
 - 鍵生成
 1.  大きな素数$q$と小さな整数$g$を決め、AliceとBobで共有しておく(公開しても問題ない。)
-2. Alice は秘密鍵$a \in Z_q$をランダムに選び、$y_A = g^a \quad mod \space q$を公開する。
-3. Bobは秘密鍵$b\in Z_q$ をランダムに選び$y_B = g^b \quad mod \space q$を公開する。
+2. Alice は秘密鍵$a \in Z_q$をランダムに選び、$y_A = g^a \pmod{q}$を公開する。
+3. Bobは秘密鍵$b\in Z_q$ をランダムに選び$y_B = g^b \pmod{q}$を公開する。
 
 - 鍵共有
-1. Alice は$K_A = (y_B)^a \quad mod\space q$を計算する。
-2. 同様のBobは$K_B=(y_A)^b\quad mod \space q$を計算する。
+1. Alice は$K_A = (y_B)^a \pmod{q}$を計算する。
+2. 同様のBobは$K_B=(y_A)^b\pmod{q}$を計算する。
 
 $K=g^{ab}$とすると$K=K_B=K_A$となり、Alice,Bobは鍵$K$を共有できた。  
 
@@ -88,6 +88,6 @@ print("Shared key of Bob",s_key_B)
 ```
 
 ## DH問題
-$(g,g^a,g^b)$から$g^{ab}\quad mod\space q$を求める問題を**DH問題**と呼ぶ。  
+$(g,g^a,g^b)$から$g^{ab}\pmod{q}$を求める問題を**DH問題**と呼ぶ。  
 もし、離散対数問題が解ければDH問題も解ける。しかし、その逆が成り立つかはわかっていない。
 $\mathbf{Z}_p^*$の部分群および楕円曲線上に定義される群においては、DH問題を解くことが困難と予想されている。これを**DH仮定**と呼ぶ。

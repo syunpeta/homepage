@@ -4,12 +4,12 @@ ElGamal暗号はDH鍵配送法に基づく公開鍵暗号である。
 
 - 鍵生成
 1. $k$ビットの大きな素数$q$と秘密鍵$x \in \mathbf{Z}_q$をランダムに選択し、原始元$g\space (2< g< q)$を選ぶ。 
-2. $y=g^x \quad mod \space q$として公開鍵$(g,q,y)$を公開する。
+2. $y=g^x \pmod{q}$として公開鍵$(g,q,y)$を公開する。
 
 - 暗号化
 
 1. 平文$m\in \langle g \rangle$に対して$r\in \mathbf{Z}_q$をランダムに選択する。
-2. $c_1 = g^r \quad mod \space q$,　$c_2 = my^r \quad mod \space q$を計算する。
+2. $c_1 = g^r \pmod{q}$,　$c_2 = my^r \pmod{q}$を計算する。
 3. 暗号文を$(c_1,c_2)$とする。
 
 - 復号化  
@@ -18,7 +18,7 @@ ElGamal暗号はDH鍵配送法に基づく公開鍵暗号である。
 1. 受け取った暗号文($c_1,c_2$)および秘密鍵$x$から、平文$m$を
 
 $$
-c2(c_1^x)^{-1} \quad mod \space q =m(y^r)(g^{rx})^{-1}  \quad mod \space q=m(g^{rx})(g^{rx})^{-1} \quad mod \space q=m \quad mod \space q
+c2(c_1^x)^{-1} \pmod{q} =m(y^r)(g^{rx})^{-1}  \pmod{q}=m(g^{rx})(g^{rx})^{-1} \pmod{q}=m \pmod{q}
 $$
 
 と計算し，暗号文を復号する。  
