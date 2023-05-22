@@ -417,51 +417,51 @@ y = g^x\pmod{q}
 <h2>DH鍵配送実装<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from Crypto.Util import number
-from random import randint
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Crypto.Util</span> <span class="kn">import</span> <span class="n">number</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
 
-class DHE:
-    def __init__(self,k):
-        self.q = number.getPrime(k)
-        #generator
-        self.g=2
+<span class="k">class</span> <span class="nc">DHE</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">k</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">q</span> <span class="o">=</span> <span class="n">number</span><span class="o">.</span><span class="n">getPrime</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="c1">#generator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">g</span><span class="o">=</span><span class="mi">2</span>
     
-    def A_key(self):
-        self.a = randint(1,self.q-1)
-        return pow(self.g,self.a,self.q)
+    <span class="k">def</span> <span class="nf">A_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">g</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">)</span>
     
-    def B_key(self):
-        self.b = randint(1,self.q-1)
-        return pow(self.g,self.b,self.q)
+    <span class="k">def</span> <span class="nf">B_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">g</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">)</span>
     
-    def Share_key_A(self,yb):
-        return pow(yb,self.a,self.q)
+    <span class="k">def</span> <span class="nf">Share_key_A</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">yb</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">yb</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">)</span>
     
-    def Share_key_B(self,ya):
-        return pow(ya,self.b,self.q)
+    <span class="k">def</span> <span class="nf">Share_key_B</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ya</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">ya</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">)</span>
     
 
-dhe = DHE(128)
-a_key = dhe.A_key()
-b_key = dhe.B_key()
+<span class="n">dhe</span> <span class="o">=</span> <span class="n">DHE</span><span class="p">(</span><span class="mi">128</span><span class="p">)</span>
+<span class="n">a_key</span> <span class="o">=</span> <span class="n">dhe</span><span class="o">.</span><span class="n">A_key</span><span class="p">()</span>
+<span class="n">b_key</span> <span class="o">=</span> <span class="n">dhe</span><span class="o">.</span><span class="n">B_key</span><span class="p">()</span>
 
-#make shared key by Alice
-s_key_A = dhe.Share_key_A(b_key)
-#make shared key by Bob
-s_key_B = dhe.Share_key_B(a_key)
+<span class="c1">#make shared key by Alice</span>
+<span class="n">s_key_A</span> <span class="o">=</span> <span class="n">dhe</span><span class="o">.</span><span class="n">Share_key_A</span><span class="p">(</span><span class="n">b_key</span><span class="p">)</span>
+<span class="c1">#make shared key by Bob</span>
+<span class="n">s_key_B</span> <span class="o">=</span> <span class="n">dhe</span><span class="o">.</span><span class="n">Share_key_B</span><span class="p">(</span><span class="n">a_key</span><span class="p">)</span>
 
-print(&quot;secret key of Alice:&quot;,a_key)
-print(&quot;secret key of Bob:&quot;,b_key)
-print(&quot;Shared key of Alice:&quot;,s_key_A)
-print(&quot;Shared key of Bob&quot;,s_key_B)
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;secret key of Alice:&quot;</span><span class="p">,</span><span class="n">a_key</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;secret key of Bob:&quot;</span><span class="p">,</span><span class="n">b_key</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shared key of Alice:&quot;</span><span class="p">,</span><span class="n">s_key_A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shared key of Bob&quot;</span><span class="p">,</span><span class="n">s_key_B</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>secret key of Alice: 82551773657492521549196684145389898718
-secret key of Bob: 197282161550467702517657178363076308405
-Shared key of Alice: 140828078405016751622481823714292792501
-Shared key of Bob 140828078405016751622481823714292792501
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>secret key of Alice: 207247261046384202377473200626608677439
+secret key of Bob: 140516133568246667061284414321213111658
+Shared key of Alice: 38541646676168660016397311119177229155
+Shared key of Bob 38541646676168660016397311119177229155
 </pre></div>
 </div>
 </div>
