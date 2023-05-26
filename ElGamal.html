@@ -362,6 +362,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">ElGamal暗号</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dh">DH問題との等価性</a></li>
 </ul>
             </nav>
@@ -376,6 +377,8 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="elgamal">
 <h1>ElGamal暗号<a class="headerlink" href="#elgamal" title="Permalink to this heading">#</a></h1>
+<section id="id1">
+<h2>ElGamal暗号<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <p>ElGamal暗号はDH鍵配送法に基づく公開鍵暗号である。</p>
 <ul class="simple">
 <li><p>鍵生成</p></li>
@@ -403,6 +406,7 @@ document.write(`
 c2(c_1^x)^{-1} \pmod{q} =m(y^r)(g^{rx})^{-1}  \pmod{q}=m(g^{rx})(g^{rx})^{-1} \pmod{q}=m \pmod{q}
 \]</div>
 <p>と計算し，暗号文を復号する。</p>
+</section>
 <section id="dh">
 <h2>DH問題との等価性<a class="headerlink" href="#dh" title="Permalink to this heading">#</a></h2>
 <p>公開鍵<span class="math notranslate nohighlight">\((g,y)\)</span>と暗号文<span class="math notranslate nohighlight">\((c_1,c_2)\)</span>から平文<span class="math notranslate nohighlight">\(m\)</span>を求める問題は、<span class="math notranslate nohighlight">\((g,g^x,g^r)\)</span>から<span class="math notranslate nohighlight">\(g^{xr}\)</span>を求めるDH問題と等価である。以下は等価性の証明である。</p>
@@ -489,6 +493,7 @@ Aへの入力を<span class="math notranslate nohighlight">\((g,g^x,g^r)\)</span
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">ElGamal暗号</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dh">DH問題との等価性</a></li>
 </ul>
   </nav></div>

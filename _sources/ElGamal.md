@@ -1,5 +1,5 @@
 # ElGamal暗号
-
+## ElGamal暗号
 ElGamal暗号はDH鍵配送法に基づく公開鍵暗号である。
 
 - 鍵生成
