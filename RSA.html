@@ -170,6 +170,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">RSA暗号</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DH.html">DH鍵配送問題</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal暗号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ECC.html">楕円曲線暗号（その１）</a></li>
 </ul>
 
     </div>
@@ -540,82 +541,82 @@ m^{1+r(p-1)(q-1)} \pmod{N} &amp;= m^{1+r\phi(N)} \pmod{N}\\
 <p>pythonによるRSAの実装例を以下に示す。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Crypto.Util</span> <span class="kn">import</span> <span class="n">number</span>
-<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span><span class="p">,</span><span class="n">getrandbits</span>
-<span class="kn">import</span> <span class="nn">math</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from Crypto.Util import number
+from random import randint,getrandbits
+import math
 
-<span class="k">class</span> <span class="nc">RSA</span><span class="p">:</span>
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
-    <span class="c1">#security bit n</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
+class RSA:
+  def __init__(self,n):
+    #security bit n
+    self.n = n
   
-  <span class="c1">#Extended Euclid Algorithm</span>
-  <span class="k">def</span> <span class="nf">Ex_Euclid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-      <span class="k">return</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">a</span>
-    <span class="k">else</span><span class="p">:</span>
-      <span class="n">q</span> <span class="o">=</span> <span class="n">a</span><span class="o">//</span><span class="n">b</span>
-      <span class="n">r</span> <span class="o">=</span> <span class="n">a</span><span class="o">%</span><span class="k">b</span>
-      <span class="n">s</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ex_Euclid</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
-      <span class="n">x</span> <span class="o">=</span> <span class="n">t</span>
-      <span class="n">y</span> <span class="o">=</span> <span class="n">s</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">t</span>
-      <span class="k">return</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">c</span>
+  #Extended Euclid Algorithm
+  def Ex_Euclid(self,a,b):
+    if b == 0:
+      return 1,0,a
+    else:
+      q = a//b
+      r = a%b
+      s,t,c = self.Ex_Euclid(b,r)
+      x = t
+      y = s-q*t
+      return x,y,c
 
 
-  <span class="k">def</span> <span class="nf">keygen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">number</span><span class="o">.</span><span class="n">getPrime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">q</span> <span class="o">=</span> <span class="n">number</span><span class="o">.</span><span class="n">getPrime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">phi_N</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span>
+  def keygen(self):
+    self.p = number.getPrime(self.n)
+    self.q = number.getPrime(self.n)
+    self.phi_N = (self.p-1)*(self.q-1)
+    self.N = self.p*self.q
 
-    <span class="c1">#generate e gcd(e,N)=1</span>
-    <span class="n">e</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">phi_N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">while</span> <span class="n">math</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">phi_N</span><span class="p">)</span> <span class="o">!=</span><span class="mi">1</span><span class="p">:</span>
-      <span class="n">e</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">phi_N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    #generate e gcd(e,N)=1
+    e = randint(2,self.phi_N-1)
+    while math.gcd(e,self.phi_N) !=1:
+      e = randint(2,self.phi_N-1)
     
-    <span class="c1">#compute modular_inverse d </span>
-    <span class="n">_</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ex_Euclid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phi_N</span><span class="p">,</span><span class="n">e</span><span class="p">)</span>
+    #compute modular_inverse d 
+    _,d,__ = self.Ex_Euclid(self.phi_N,e)
 
-    <span class="c1">#secret_key</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="o">%</span><span class="k">self</span>.phi_N
-    <span class="c1">#public_key</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">e</span>
+    #secret_key
+    self.d = d%self.phi_N
+    #public_key
+    self.e = e
   
-  <span class="k">def</span> <span class="nf">enc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">m</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>
+  def enc(self,m):
+    return pow(m,self.e,self.N)
   
-  <span class="k">def</span> <span class="nf">dec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">c</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>
+  def dec(self,c):
+    return pow(c,self.d,self.N)
 
-  <span class="k">def</span> <span class="nf">get_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span>
+  def get_keys(self):
+    return self.e,self.d,self.p,self.q,self.N
   
-<span class="c1">#security bit</span>
-<span class="n">k</span><span class="o">=</span><span class="mi">128</span>
-<span class="n">rsa</span> <span class="o">=</span> <span class="n">RSA</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-<span class="n">plain_txt</span> <span class="o">=</span> <span class="n">getrandbits</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-<span class="n">rsa</span><span class="o">.</span><span class="n">keygen</span><span class="p">()</span>
-<span class="n">enc_plaintxt</span> <span class="o">=</span> <span class="n">rsa</span><span class="o">.</span><span class="n">enc</span><span class="p">(</span><span class="n">plain_txt</span><span class="p">)</span>
-<span class="n">dec_plaintxt</span> <span class="o">=</span> <span class="n">rsa</span><span class="o">.</span><span class="n">dec</span><span class="p">(</span><span class="n">enc_plaintxt</span><span class="p">)</span>
-<span class="n">e</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">N</span> <span class="o">=</span> <span class="n">rsa</span><span class="o">.</span><span class="n">get_keys</span><span class="p">()</span>
+#security bit
+k=128
+rsa = RSA(k)
+plain_txt = getrandbits(k)
+rsa.keygen()
+enc_plaintxt = rsa.enc(plain_txt)
+dec_plaintxt = rsa.dec(enc_plaintxt)
+e,d,p,q,N = rsa.get_keys()
 
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;plaintext is :&quot;</span><span class="p">,</span><span class="n">plain_txt</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Prime number p,q,N :&quot;</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;public key e :&quot;</span><span class="p">,</span><span class="n">e</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;secret key d :&quot;</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;encrypted plain_text :&quot;</span><span class="p">,</span><span class="n">enc_plaintxt</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;decrypted encrypted_text :&quot;</span><span class="p">,</span><span class="n">dec_plaintxt</span><span class="p">)</span>
+print(&quot;plaintext is :&quot;,plain_txt)
+print(&quot;Prime number p,q,N :&quot;,p,q,N)
+print(&quot;public key e :&quot;,e)
+print(&quot;secret key d :&quot;,d)
+print(&quot;encrypted plain_text :&quot;,enc_plaintxt)
+print(&quot;decrypted encrypted_text :&quot;,dec_plaintxt)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>plaintext is : 322136552157183628153434077242939489815
-Prime number p,q,N : 233425652492932952739600649994871433253 214046947447929446073197327181036466399 49964048372153460830040915424383431183719194239931988530253616479431705765947
-public key e : 34601656848662344819565504557737169163946626800162094482270718083749824534651
-secret key d : 35659040217877281558470304104546130881863778758764904514394632462431950485291
-encrypted plain_text : 42831033594758540493074219442477911109629117107997514171772212114028989720057
-decrypted encrypted_text : 322136552157183628153434077242939489815
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>plaintext is : 264715751892058148564103678705412093779
+Prime number p,q,N : 304257556098298722714109770865968808751 298097734192880476850187571273093039501 90698488083966073001683005610393473206973396308012659134926312685870757473251
+public key e : 73712501608781567897388012014568618505552061956413390598986068858236129690727
+secret key d : 31537598512238555776514362991622719088200123961896454241646919749676176324663
+encrypted plain_text : 43974120262946995471413123020493709407139773821291755163685591394030247170629
+decrypted encrypted_text : 264715751892058148564103678705412093779
 </pre></div>
 </div>
 </div>
@@ -714,7 +715,7 @@ decrypted encrypted_text : 322136552157183628153434077242939489815
   <div class="footer-item">
     
 <p class="component-author">
-By Peta
+By Shun
 </p>
 
   </div>

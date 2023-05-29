@@ -170,6 +170,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="RSA.html">RSA暗号</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DH.html">DH鍵配送問題</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal暗号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ECC.html">楕円曲線暗号（その１）</a></li>
 </ul>
 
     </div>
@@ -391,15 +392,15 @@ document.write(`
 <p>以上をPythonで実装すると以下のようになる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Euclid の互除法</span>
-<span class="k">def</span> <span class="nf">Euclid</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
-  <span class="n">r</span><span class="o">=</span><span class="n">a</span><span class="o">%</span><span class="k">b</span>
-  <span class="k">if</span> <span class="n">r</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">b</span>
-  <span class="k">else</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">Euclid</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#Euclid の互除法
+def Euclid(a,b):
+  r=a%b
+  if r==0:
+    return b
+  else:
+    return Euclid(b,r)
   
-<span class="n">Euclid</span><span class="p">(</span><span class="mi">768</span><span class="p">,</span><span class="mi">320</span><span class="p">)</span>
+Euclid(768,320)
 </pre></div>
 </div>
 </div>
@@ -444,18 +445,18 @@ document.write(`
 <p>以上をPythonで記述したものがこちら。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Ex_Euclid</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
-  <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="k">return</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">a</span>
-  <span class="k">else</span><span class="p">:</span>
-    <span class="n">q</span> <span class="o">=</span> <span class="n">a</span><span class="o">//</span><span class="n">b</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">a</span><span class="o">%</span><span class="k">b</span>
-    <span class="n">s</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">c</span> <span class="o">=</span> <span class="n">Ex_Euclid</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">t</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">s</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">t</span>
-    <span class="k">return</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">c</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def Ex_Euclid(a,b):
+  if b == 0:
+    return 1,0,a
+  else:
+    q = a//b
+    r = a%b
+    s,t,c = Ex_Euclid(b,r)
+    x = t
+    y = s-q*t
+    return x,y,c
 
-<span class="n">Ex_Euclid</span><span class="p">(</span><span class="mi">768</span><span class="p">,</span><span class="mi">320</span><span class="p">)</span>
+Ex_Euclid(768,320)
 </pre></div>
 </div>
 </div>
@@ -473,7 +474,7 @@ document.write(`
 <p>拡張ユークリッドの互除法を用いて，<span class="math notranslate nohighlight">\(7x+5y=1\)</span>の<span class="math notranslate nohighlight">\(x,y\)</span>を求めると</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ex_Euclid</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>Ex_Euclid(7,5)
 </pre></div>
 </div>
 </div>
@@ -573,7 +574,7 @@ document.write(`
   <div class="footer-item">
     
 <p class="component-author">
-By Peta
+By Shun
 </p>
 
   </div>
