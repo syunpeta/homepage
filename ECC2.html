@@ -1,0 +1,605 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>楕円曲線暗号（その2） &#8212; CryPweb</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ECC2';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    About me
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">ゼミについて</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="about_zemi.html">自主ゼミについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">自主ゼミデータベース</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">暗号</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="math.html">暗号に必要な数学１</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math2.html">暗号に必要な数学2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RSA.html">RSA暗号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DH.html">DH鍵配送問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal暗号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ECC.html">楕円曲線暗号（その１）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">参考文献</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FECC2.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/ECC2.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>楕円曲線暗号（その2）</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">楕円曲線上の離散対数問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ecdh">ECDH</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ecelgamal">ECElGamal暗号</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ecdsa">ECDSA</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>楕円曲線暗号（その2）<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<section id="id2">
+<h2>楕円曲線上の離散対数問題<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>ある楕円曲線<span class="math notranslate nohighlight">\(E(F_p)\)</span>上の有理点<span class="math notranslate nohighlight">\(P\)</span>を考える．（この基準にする点<span class="math notranslate nohighlight">\(P\)</span>のことをベースポイントと呼ぶ．）今，<span class="math notranslate nohighlight">\(P\)</span>の整数倍<span class="math notranslate nohighlight">\(2P,3P,4P...\)</span>を計算していくと，いずれは<span class="math notranslate nohighlight">\(nP=O\)</span>となり無限遠点<span class="math notranslate nohighlight">\(O\)</span>たどり着く．そこで<span class="math notranslate nohighlight">\(\langle P \rangle=\{P,2P,3P...,O\}\)</span>を<span class="math notranslate nohighlight">\(P\)</span>によって生成される巡回群（<span class="math notranslate nohighlight">\(E(F_p)\)</span>の巡回部分群）であるとすると，任意の要素<span class="math notranslate nohighlight">\( Q \in \langle P \rangle\)</span>に対して</p>
+<div class="math notranslate nohighlight">
+\[
+Q = aP
+\]</div>
+<p>を満たす<span class="math notranslate nohighlight">\(a\in \{0,...,n-1\}\)</span>がただ一つ存在する．この<span class="math notranslate nohighlight">\(a\)</span>を離散対数と呼ぶ．
+今，<span class="math notranslate nohighlight">\(a,P\)</span>から<span class="math notranslate nohighlight">\(Q\)</span>を計算することは楕円曲線その1で紹介した楕円加算を用いれば簡単であることがわかる．しかし，<span class="math notranslate nohighlight">\(Q\)</span>から<span class="math notranslate nohighlight">\(a\)</span>を探し出すことは難しい．<strong>楕円曲線上の離散対数問題問題</strong> はこの性質を利用して，「<span class="math notranslate nohighlight">\(P,Q\)</span>が与えられたとき，離散対数<span class="math notranslate nohighlight">\(a\)</span>を求める問題」と定義される．<br />
+<span class="math notranslate nohighlight">\(P\)</span>の位数に巨大な素数が含まれるとき，この問題を準指数時間で解く方法は現時点では見つかっていない．つまりこれは完全指数時間を要する困難な問題であると言える．</p>
+</section>
+<hr class="docutils" />
+<section id="ecdh">
+<h2>ECDH<a class="headerlink" href="#ecdh" title="Permalink to this heading">#</a></h2>
+<p>Diffie-Hellman(DH)の鍵配送法は有限体上の離散対数問題を用いたものだった．
+これを楕円曲線上の離散対数問題に拡張したものがECDH方式である．</p>
+<p>素数位数<span class="math notranslate nohighlight">\(p\)</span>と使用する楕円曲線<span class="math notranslate nohighlight">\(E(F_p)\)</span>，ベースポイント<span class="math notranslate nohighlight">\(P\in E(F_p)\)</span>をあらかじめ決めておく．</p>
+<ul class="simple">
+<li><p>鍵生成</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>AliceとBobはそれぞれ乱数<span class="math notranslate nohighlight">\(a,b\)</span>を選んで自身の秘密鍵とする．</p></li>
+<li><p>Aliceは<span class="math notranslate nohighlight">\(A=aP\)</span>を計算しこれを公開する</p></li>
+<li><p>Bobは<span class="math notranslate nohighlight">\(B=bP\)</span>を計算しこれを公開する</p></li>
+</ol>
+<ul class="simple">
+<li><p>鍵共有</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>Alice は<span class="math notranslate nohighlight">\(K_A=aB=abP\)</span>を計算する．</p></li>
+<li><p>同様に<span class="math notranslate nohighlight">\(K_B=aA=abP\)</span>を計算する．</p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(K=K_A=K_B=abP\)</span>とするとAliceとBobは鍵を共有できる．<br />
+もし攻撃者が<span class="math notranslate nohighlight">\(A,B\)</span>を知ったとする．このとき，離散対数問題の難しさから<span class="math notranslate nohighlight">\(a,b\)</span>を求めることは難しく，共有された鍵<span class="math notranslate nohighlight">\(K\)</span>を求めることはできない．<br />
+このプロトコルを用いて以下の二つの問題を定義することもある．</p>
+<ul class="simple">
+<li><p>ECCDH問題：<span class="math notranslate nohighlight">\(A=aP,B=bP\)</span>から<span class="math notranslate nohighlight">\(abP\)</span>を求める問題．</p></li>
+<li><p>ECDDH問題：<span class="math notranslate nohighlight">\(A=aP,B=bP\)</span>から任意に選んだ楕円曲線上の点<span class="math notranslate nohighlight">\(Q\in E(F_p)\)</span>が<span class="math notranslate nohighlight">\(abP\)</span>に等しいか判定する問題．</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ecelgamal">
+<h2>ECElGamal暗号<a class="headerlink" href="#ecelgamal" title="Permalink to this heading">#</a></h2>
+<p>上と同様に，ElGamal暗号に対しても楕円曲線を用いることができる．</p>
+<p>素数位数<span class="math notranslate nohighlight">\(p\)</span>と使用する楕円曲線<span class="math notranslate nohighlight">\(E(F_p)\)</span>，ベースポイント<span class="math notranslate nohighlight">\(P\in E(F_p)\)</span>をあらかじめ決めておく．</p>
+<ul class="simple">
+<li><p>鍵生成</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>Bobは乱数<span class="math notranslate nohighlight">\(b\)</span>を選び，<span class="math notranslate nohighlight">\(B=bP\)</span>を計算し，公開鍵を<span class="math notranslate nohighlight">\((E,F_p,P,B)\)</span>とする．</p></li>
+</ol>
+<ul class="simple">
+<li><p>暗号化</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>Aliceは乱数<span class="math notranslate nohighlight">\(a\)</span>を選び<span class="math notranslate nohighlight">\(A=aP\)</span>を計算する．</p></li>
+<li><p>メッセージ<span class="math notranslate nohighlight">\(M\)</span>を楕円曲線上の点mに対応付け，<span class="math notranslate nohighlight">\(C=m+aB\)</span> を計算して暗号文<span class="math notranslate nohighlight">\((A,C)\)</span>をBobに送る．</p></li>
+</ol>
+<ul class="simple">
+<li><p>復号化</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>Bobは<span class="math notranslate nohighlight">\((A,C)\)</span>を受け取り，<span class="math notranslate nohighlight">\(bA=abP\)</span>を計算する．</p></li>
+<li><p><span class="math notranslate nohighlight">\(m=C-bA\)</span>で復号する．</p></li>
+</ol>
+<p>復号化の正当性は以下の通りである．</p>
+<div class="math notranslate nohighlight">
+\[
+C-bA = m+aB-bA = m + abP -abP = m
+\]</div>
+<ol class="arabic simple" start="3">
+<li><p>楕円曲線上の点<span class="math notranslate nohighlight">\(m\)</span>からメッセージ<span class="math notranslate nohighlight">\(M\)</span>を復元する．</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="ecdsa">
+<h2>ECDSA<a class="headerlink" href="#ecdsa" title="Permalink to this heading">#</a></h2>
+<p>ECDSAはElliptic Curve Digital Signature Algorithmの略で楕円曲線を用いた署名方式である．
+Aliceが自分の公開鍵をつかってディジタル署名を行う際は以下のように行う．</p>
+<p>素数位数<span class="math notranslate nohighlight">\(p\)</span>と使用する楕円曲線<span class="math notranslate nohighlight">\(E(F_p)\)</span>，素位数<span class="math notranslate nohighlight">\(l\)</span>の巡回群の生成元<span class="math notranslate nohighlight">\(P\in E(F_p)\)</span>をあらかじめ決めておく．</p>
+<ul class="simple">
+<li><p>鍵生成</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>Aliceは乱数<span class="math notranslate nohighlight">\(a\in F_l^*\)</span>を選び秘密鍵とする．</p></li>
+<li><p>Alice は<span class="math notranslate nohighlight">\(A=aP\)</span>を計算して自分の公開鍵とする．</p></li>
+</ol>
+<ul class="simple">
+<li><p>署名</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>メッセージ<span class="math notranslate nohighlight">\(m\)</span>とハッシュ関数<span class="math notranslate nohighlight">\(h(x)，乱数\)</span>t \in F_l^*<span class="math notranslate nohighlight">\(を用いて署名文\)</span>{m,T,s}$を以下のように計算する．</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+T = tP = (x,y),\quad s = t^{-1}(h(m)+ax)\mod l
+\]</div>
+<ul class="simple">
+<li><p>検証</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(m,s,T,A\)</span>を用いて以下の計算を行う．
+$<span class="math notranslate nohighlight">\(
+u = s^{-1}h(m)\mod l,\quad v = s^{-1}(h(m)+ax)\mod l
+\)</span>$</p></li>
+<li><p><span class="math notranslate nohighlight">\(uP + vA\)</span>が<span class="math notranslate nohighlight">\(T\)</span>と一致するかを検証する．</p></li>
+</ol>
+<p>正当な署名ならば</p>
+<div class="math notranslate nohighlight">
+\[
+uP + vA = s^{-1}h(m)P + s^{-1}xA = s^{-1}(h(m) + ax)P = tP=T
+\]</div>
+<p>となるため<span class="math notranslate nohighlight">\(T\)</span>と一致するか否かを見ることで署名の正当性を確認できる．</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">楕円曲線上の離散対数問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ecdh">ECDH</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ecelgamal">ECElGamal暗号</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ecdsa">ECDSA</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Shun
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

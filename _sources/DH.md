@@ -36,7 +36,7 @@ Diffie-Hellman(DH)の鍵配送法を用いると、事前の相談なしにAlice
 
 - 鍵共有
 1. Alice は$K_A = (y_B)^a \pmod{q}$を計算する。
-2. 同様のBobは$K_B=(y_A)^b\pmod{q}$を計算する。
+2. 同様にBobは$K_B=(y_A)^b\pmod{q}$を計算する。
 
 $K=g^{ab}$とすると$K=K_B=K_A$となり、Alice,Bobは鍵$K$を共有できた。  
 

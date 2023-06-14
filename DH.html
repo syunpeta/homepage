@@ -171,6 +171,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">DH鍵配送問題</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal暗号</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ECC.html">楕円曲線暗号（その１）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">参考文献</a></li>
 </ul>
 
     </div>
@@ -408,7 +409,7 @@ y = g^x\pmod{q}
 </ul>
 <ol class="arabic simple">
 <li><p>Alice は<span class="math notranslate nohighlight">\(K_A = (y_B)^a \pmod{q}\)</span>を計算する。</p></li>
-<li><p>同様のBobは<span class="math notranslate nohighlight">\(K_B=(y_A)^b\pmod{q}\)</span>を計算する。</p></li>
+<li><p>同様にBobは<span class="math notranslate nohighlight">\(K_B=(y_A)^b\pmod{q}\)</span>を計算する。</p></li>
 </ol>
 <p><span class="math notranslate nohighlight">\(K=g^{ab}\)</span>とすると<span class="math notranslate nohighlight">\(K=K_B=K_A\)</span>となり、Alice,Bobは鍵<span class="math notranslate nohighlight">\(K\)</span>を共有できた。</p>
 <p><img alt="DH_figure" src="_images/DH.png" /></p>
@@ -459,10 +460,10 @@ print(&quot;Shared key of Bob&quot;,s_key_B)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>secret key of Alice: 189471450028375485309158627098615189621
-secret key of Bob: 85527089621210592715732724925597807295
-Shared key of Alice: 118189963463790368223374502288081442521
-Shared key of Bob 118189963463790368223374502288081442521
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>secret key of Alice: 175461052065595126337704143580223770847
+secret key of Bob: 163851164204617505675576990119970232717
+Shared key of Alice: 5083379566183501384908210666824985325
+Shared key of Bob 5083379566183501384908210666824985325
 </pre></div>
 </div>
 </div>

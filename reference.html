@@ -64,6 +64,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'reference';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="楕円曲線暗号（その１）" href="ECC.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -160,13 +161,14 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="database.html">自主ゼミデータベース</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">暗号</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="math.html">暗号に必要な数学１</a></li>
 <li class="toctree-l1"><a class="reference internal" href="math2.html">暗号に必要な数学2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="RSA.html">RSA暗号</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DH.html">DH鍵配送問題</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal暗号</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ECC.html">楕円曲線暗号（その１）</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">参考文献</a></li>
 </ul>
 
     </div>
@@ -337,7 +339,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -353,6 +357,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">書籍</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ウェブサイト</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -364,10 +377,23 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
 <h1>参考文献<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<section id="id2">
+<h2>書籍<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p>黒澤馨.2010.現代暗号への招待.サイエンス社</p></li>
-<li><p>縫田光司.2020.耐量子計算機暗号.森北出版</p></li>
+<li><p>黒澤馨,2010,現代暗号への招待,サイエンス社</p></li>
+<li><p>縫田光司,2020,耐量子計算機暗号,森北出版</p></li>
+<li><p>有田正剛・境隆一・只木孝太郎・趙普輝・松尾和人,2008,暗号理論と楕円曲線,森北出版</p></li>
+<li><p>Nigel P. Smart,2016,Cryptography Made Simple,Springer</p></li>
 </ol>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h2>ウェブサイト<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>herumi,2022,楕円曲線暗号のPythonによる実装その2（楕円曲線とECDSA ）<br />
+<a class="reference external" href="https://zenn.dev/herumi/articles/sd202203-ecc-2">https://zenn.dev/herumi/articles/sd202203-ecc-2</a></p></li>
+</ol>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -401,6 +427,15 @@ document.write(`
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="ECC.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">楕円曲線暗号（その１）</p>
+      </div>
+    </a>
 </div></div>
   
 </div>
@@ -410,6 +445,21 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">書籍</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ウェブサイト</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

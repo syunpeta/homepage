@@ -14,7 +14,7 @@ kernelspec:
 ---
 
 # 楕円曲線暗号（その１）
-RSA暗号やElGamal暗号は非常にわかりやすく使い勝手がいい暗号であるが，安全面では楕円曲線暗号のほうが優れている．楕円曲線暗号はRSAと同じ安全性をもつために必要な鍵長が短い点が大きな特徴である．また、その鍵長の短さゆえに計算も高速に行うことができる．楕円曲線暗号は楕円曲線上の有理点の演算によって成り立つ暗号である．  
+楕円曲線暗号は一つの暗号を指したものではなく，楕円曲線を用いた暗号の総称である．例としては次節で説明するECDSAやECDHなどがある．RSA暗号やElGamal暗号は非常にわかりやすく使い勝手がいい暗号であるが，安全面では楕円曲線暗号のほうが優れている．楕円曲線暗号はRSAと同じ安全性をもつために必要な鍵長が短い点が大きな特徴である．また、その鍵長の短さゆえに計算も高速に行うことができる．楕円曲線暗号は楕円曲線上の有理点の演算によって成り立つ暗号である．  
 
 ## 楕円曲線
 $p$を素数（ただし簡単のため$p\neq2,3$）とする．有限体$F_p$上の楕円曲線$E$とは定数$a,b\in F_p$を用いて
@@ -225,3 +225,92 @@ $E(F_p)$は楕円加算において
 
 
 の性質を満たすため、可換群となる。
+
+---
+
+## 楕円加算と乗算の実装
+有限体の実装を回避するために楕円曲線上の加算と乗算をSagemath上で実装した．Jupyter Bookでsagemathを実行する方法がわからなかったのでコードだけの紹介とする．（もし知っている方いたら教えていただきたい．）  
+
+手軽に試して見たい場合はオンライン上で実行できる[SageMathCell](https://sagecell.sagemath.org/)に入力すると計算結果を簡単に確認できる．  
+
+乗算の部分は以下の[サイト](https://zenn.dev/herumi/articles/sd202203-ecc-2)を参考に実装させて頂いた．詳細は参考文献に記載してある．
+
+
+```python
+from sympy import isprime
+
+#elliptic curve
+class ECC:
+    
+    def __init__(self,a,b,p):
+        if isprime(p) == False:
+            raise Exception("p is not prime number!!")
+        self.Fp = FiniteField(p)
+        self.a = self.Fp(a)
+        self.b = self.Fp(b)
+
+#point on the EC
+class ECC_point:
+    
+    def __init__(self,EC,x,y,infty):
+        #check the point is really on EC
+        if EC.Fp(y^2) != EC.Fp(x^3 + EC.a*x + EC.b):
+            if infty == False:
+                raise Exception("x,y is not on EC")
+        self.EC = EC
+        self.x = EC.Fp(x)
+        self.y = EC.Fp(y)
+        self.iszero = infty
+    
+    
+    def __add__(self,other):
+        
+        #self -> O
+        if self.iszero:
+            return other
+        
+        #other->0
+        if other.iszero:
+            return self
+        
+        #same x
+        if self.x == other.x:
+            if self.y == -other.y:
+                return ECC_point(self.EC,0,0,True)
+            
+            #same x and y
+            m = (3*(self.x**2) +EC.a)//(2*self.y)
+            
+        #not same x,y
+        else:
+            m = (other.y-self.y)//(other.x-self.x)
+        
+        x= m**2 - self.x -other.x
+        y = m*(self.x - x)-self.y
+        return ECC_point(self.EC,x,y,False)
+    
+    def __mul__(self,k):
+        #init
+        Q = ECC_point(EC,0,0,True)
+        #binary k
+        bin_k = bin(k)[2:]
+        
+        for i in bin_k:
+            Q = Q + Q
+            if i == "1":
+                Q=Q +self
+            
+        return Q
+        
+```
+
+```python
+EC = ECC(2,1,11)
+p1 = ECC_point(EC,0,10,False)
+p2 = ECC_point(EC,6,3,False)
+p3_add = p1+p2
+k=2
+p3_mul = p1*k
+print("add point is:",p3_add.x,p3_add.y)
+print("{}mul point is :".format(k),p3_mul.x,p3_mul.y)
+```
