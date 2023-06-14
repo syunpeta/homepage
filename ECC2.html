@@ -66,6 +66,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'ECC2';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="参考文献" href="reference.html" />
+    <link rel="prev" title="楕円曲線暗号（その１）" href="ECC.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -162,13 +164,14 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="database.html">自主ゼミデータベース</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">暗号</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="math.html">暗号に必要な数学１</a></li>
 <li class="toctree-l1"><a class="reference internal" href="math2.html">暗号に必要な数学2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="RSA.html">RSA暗号</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DH.html">DH鍵配送問題</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal暗号</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ECC.html">楕円曲線暗号（その１）</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">楕円曲線暗号（その2）</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">参考文献</a></li>
 </ul>
 
@@ -365,8 +368,11 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">楕円曲線上の離散対数問題</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ecdh">ECDH</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ECDH 実装</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ecelgamal">ECElGamal暗号</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ECElGamal暗号実装</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ecdsa">ECDSA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">ECDSA実装</a></li>
 </ul>
             </nav>
         </div>
@@ -420,6 +426,51 @@ Q = aP
 <li><p>ECDDH問題：<span class="math notranslate nohighlight">\(A=aP,B=bP\)</span>から任意に選んだ楕円曲線上の点<span class="math notranslate nohighlight">\(Q\in E(F_p)\)</span>が<span class="math notranslate nohighlight">\(abP\)</span>に等しいか判定する問題．</p></li>
 </ul>
 </section>
+<section id="id3">
+<h2>ECDH 実装<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p>楕円曲線暗号その１と同様にSagemath上でECDHを実装した．<br />
+前に定義したECCクラスとECC_pointクラスをそのまま使用しているので，実行の際は各自で補ってほしい．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+
+<span class="k">class</span> <span class="nc">ECDH</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        <span class="c1">#base point</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="n">P</span>
+        <span class="c1">#order</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
+    
+    <span class="k">def</span> <span class="nf">A_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">P</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span>
+    
+    <span class="k">def</span> <span class="nf">B_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">P</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+    
+    <span class="k">def</span> <span class="nf">Share_key_A</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">yb</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">yb</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span>
+    
+    <span class="k">def</span> <span class="nf">Share_key_B</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ya</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">ya</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+
+
+<span class="n">EC</span> <span class="o">=</span> <span class="n">ECC</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">ECC_point</span><span class="p">(</span><span class="n">EC</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span> <span class="c1">#order 8</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">8</span>
+
+<span class="n">ecdh</span> <span class="o">=</span> <span class="n">ECDH</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">ecdh</span><span class="o">.</span><span class="n">A_key</span><span class="p">()</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">ecdh</span><span class="o">.</span><span class="n">B_key</span><span class="p">()</span>
+<span class="n">K_A</span> <span class="o">=</span> <span class="n">ecdh</span><span class="o">.</span><span class="n">Share_key_A</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+<span class="n">K_B</span> <span class="o">=</span> <span class="n">ecdh</span><span class="o">.</span><span class="n">Share_key_B</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">K_A</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">K_B</span><span class="o">.</span><span class="n">x</span> <span class="ow">and</span> <span class="n">K_A</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">K_B</span><span class="o">.</span><span class="n">y</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Success, K is :&quot;</span><span class="p">,</span><span class="n">K_A</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</section>
 <hr class="docutils" />
 <section id="ecelgamal">
 <h2>ECElGamal暗号<a class="headerlink" href="#ecelgamal" title="Permalink to this heading">#</a></h2>
@@ -453,6 +504,10 @@ C-bA = m+aB-bA = m + abP -abP = m
 <ol class="arabic simple" start="3">
 <li><p>楕円曲線上の点<span class="math notranslate nohighlight">\(m\)</span>からメッセージ<span class="math notranslate nohighlight">\(M\)</span>を復元する．</p></li>
 </ol>
+</section>
+<section id="id4">
+<h2>ECElGamal暗号実装<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>実装中…</p>
 </section>
 <hr class="docutils" />
 <section id="ecdsa">
@@ -494,6 +549,10 @@ uP + vA = s^{-1}h(m)P + s^{-1}xA = s^{-1}(h(m) + ax)P = tP=T
 \]</div>
 <p>となるため<span class="math notranslate nohighlight">\(T\)</span>と一致するか否かを見ることで署名の正当性を確認できる．</p>
 </section>
+<section id="id5">
+<h2>ECDSA実装<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<p>実装中…</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -527,6 +586,24 @@ uP + vA = s^{-1}h(m)P + s^{-1}xA = s^{-1}(h(m) + ax)P = tP=T
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="ECC.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">楕円曲線暗号（その１）</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="reference.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">参考文献</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div></div>
   
 </div>
@@ -547,8 +624,11 @@ uP + vA = s^{-1}h(m)P + s^{-1}xA = s^{-1}(h(m) + ax)P = tP=T
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">楕円曲線上の離散対数問題</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ecdh">ECDH</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ECDH 実装</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ecelgamal">ECElGamal暗号</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ECElGamal暗号実装</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ecdsa">ECDSA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">ECDSA実装</a></li>
 </ul>
   </nav></div>
 

@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'ECC';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="参考文献" href="reference.html" />
+    <link rel="next" title="楕円曲線暗号（その2）" href="ECC2.html" />
     <link rel="prev" title="ElGamal暗号" href="ElGamal.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -171,6 +171,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="DH.html">DH鍵配送問題</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal暗号</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">楕円曲線暗号（その１）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ECC2.html">楕円曲線暗号（その2）</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">参考文献</a></li>
 </ul>
 
@@ -622,6 +623,11 @@ P + O = O + P = P
         <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">EC</span><span class="o">.</span><span class="n">Fp</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iszero</span> <span class="o">=</span> <span class="n">infty</span>
     
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iszero</span><span class="p">:</span>
+          <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">oo</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+          <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;,&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">):</span>
         
@@ -670,8 +676,8 @@ P + O = O + P = P
 <span class="n">p3_add</span> <span class="o">=</span> <span class="n">p1</span><span class="o">+</span><span class="n">p2</span>
 <span class="n">k</span><span class="o">=</span><span class="mi">2</span>
 <span class="n">p3_mul</span> <span class="o">=</span> <span class="n">p1</span><span class="o">*</span><span class="n">k</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;add point is:&quot;</span><span class="p">,</span><span class="n">p3_add</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">p3_add</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">mul point is :&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">),</span><span class="n">p3_mul</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">p3_mul</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;add point is:&quot;</span><span class="p">,</span><span class="n">p3_add</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">mul point is :&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">),</span><span class="n">p3_mul</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -718,11 +724,11 @@ P + O = O + P = P
       </div>
     </a>
     <a class="right-next"
-       href="reference.html"
+       href="ECC2.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">参考文献</p>
+        <p class="prev-next-title">楕円曲線暗号（その2）</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

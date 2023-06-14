@@ -49,7 +49,49 @@ $K=K_A=K_B=abP$とするとAliceとBobは鍵を共有できる．
 - ECCDH問題：$A=aP,B=bP$から$abP$を求める問題．
 - ECDDH問題：$A=aP,B=bP$から任意に選んだ楕円曲線上の点$Q\in E(F_p)$が$abP$に等しいか判定する問題．
 
+## ECDH 実装
+楕円曲線暗号その１と同様にSagemath上でECDHを実装した．  
+前に定義したECCクラスとECC_pointクラスをそのまま使用しているので，実行の際は各自で補ってほしい．
+```python
+from random import randint
 
+class ECDH:
+    def __init__(self,P,n):
+        #base point
+        self.P = P
+        #order
+        self.n = n
+    
+    def A_key(self):
+        self.a = randint(1,self.n-1)
+        return P*self.a
+    
+    def B_key(self):
+        self.b = randint(1,self.n-1)
+        return P*self.b
+    
+    def Share_key_A(self,yb):
+        return yb*self.a
+    
+    def Share_key_B(self,ya):
+        return ya*self.b
+
+
+EC = ECC(2,1,11)
+P = ECC_point(EC,1,2,False) #order 8
+n = 8
+
+ecdh = ECDH(P,n)
+A = ecdh.A_key()
+B = ecdh.B_key()
+K_A = ecdh.Share_key_A(B)
+K_B = ecdh.Share_key_B(A)
+
+
+if K_A.x == K_B.x and K_A.y == K_B.y:
+    print("Success, K is :",K_A)
+
+```
 --- 
 
 ## ECElGamal暗号
@@ -75,6 +117,8 @@ $$
 
 3. 楕円曲線上の点$m$からメッセージ$M$を復元する．
 
+## ECElGamal暗号実装
+実装中...
 
 ---
 ## ECDSA
@@ -110,6 +154,9 @@ uP + vA = s^{-1}h(m)P + s^{-1}xA = s^{-1}(h(m) + ax)P = tP=T
 $$
 
 となるため$T$と一致するか否かを見ることで署名の正当性を確認できる．
+
+## ECDSA実装
+実装中...
 
 
 

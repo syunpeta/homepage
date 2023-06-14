@@ -262,6 +262,11 @@ class ECC_point:
         self.y = EC.Fp(y)
         self.iszero = infty
     
+    def __str__(self):
+      if self.iszero:
+          return str(oo)
+      else:
+          return str(self.x)+","+str(self.y)
     
     def __add__(self,other):
         
@@ -311,6 +316,6 @@ p2 = ECC_point(EC,6,3,False)
 p3_add = p1+p2
 k=2
 p3_mul = p1*k
-print("add point is:",p3_add.x,p3_add.y)
-print("{}mul point is :".format(k),p3_mul.x,p3_mul.y)
+print("add point is:",p3_add)
+print("{}mul point is :".format(k),p3_mul)
 ```
