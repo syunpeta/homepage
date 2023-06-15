@@ -429,7 +429,8 @@ Q = aP
 <section id="id3">
 <h2>ECDH 実装<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
 <p>楕円曲線暗号その１と同様にSagemath上でECDHを実装した．<br />
-前に定義したECCクラスとECC_pointクラスをそのまま使用しているので，実行の際は各自で補ってほしい．</p>
+前に定義したECCクラスとECC_pointクラスをそのまま使用しているので，実行の際は各自で補ってほしい．実際に使用する際は位数の大きい楕円曲線とベースポイントを用いることが推奨されている．<br />
+仮想通貨などで実際に使用されるパラメータとしては<a class="reference external" href="https://en.bitcoin.it/wiki/Secp256k1">secp256k1</a>などがあり，今回はこれを利用している．</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
 
 <span class="k">class</span> <span class="nc">ECDH</span><span class="p">:</span>
@@ -454,9 +455,11 @@ Q = aP
         <span class="k">return</span> <span class="n">ya</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span>
 
 
-<span class="n">EC</span> <span class="o">=</span> <span class="n">ECC</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>
-<span class="n">P</span> <span class="o">=</span> <span class="n">ECC_point</span><span class="p">(</span><span class="n">EC</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span> <span class="c1">#order 8</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">ZZ</span><span class="p">(</span><span class="s1">&#39;0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F&#39;</span><span class="p">)</span>
+
+<span class="n">EC</span> <span class="o">=</span> <span class="n">ECC</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="n">q</span><span class="p">)</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">ECC_point</span><span class="p">(</span><span class="n">EC</span><span class="p">,</span><span class="mi">55066263022277343669578718895168534326250603453777594175500187360389116729240</span><span class="p">,</span><span class="mi">32670510020758816978083085130507043184471273380659243275938904335757337482424</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span> 
+<span class="n">n</span> <span class="o">=</span> <span class="n">ZZ</span><span class="p">(</span><span class="s1">&#39;0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141&#39;</span><span class="p">)</span><span class="c1">#order</span>
 
 <span class="n">ecdh</span> <span class="o">=</span> <span class="n">ECDH</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">ecdh</span><span class="o">.</span><span class="n">A_key</span><span class="p">()</span>

@@ -51,7 +51,9 @@ $K=K_A=K_B=abP$とするとAliceとBobは鍵を共有できる．
 
 ## ECDH 実装
 楕円曲線暗号その１と同様にSagemath上でECDHを実装した．  
-前に定義したECCクラスとECC_pointクラスをそのまま使用しているので，実行の際は各自で補ってほしい．
+前に定義したECCクラスとECC_pointクラスをそのまま使用しているので，実行の際は各自で補ってほしい．実際に使用する際は位数の大きい楕円曲線とベースポイントを用いることが推奨されている．  
+仮想通貨などで実際に使用されるパラメータとしては[secp256k1](https://en.bitcoin.it/wiki/Secp256k1)などがあり，今回はこれを利用している．
+
 ```python
 from random import randint
 
@@ -77,9 +79,11 @@ class ECDH:
         return ya*self.b
 
 
-EC = ECC(2,1,11)
-P = ECC_point(EC,1,2,False) #order 8
-n = 8
+q = ZZ('0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F')
+
+EC = ECC(0,7,q)
+P = ECC_point(EC,55066263022277343669578718895168534326250603453777594175500187360389116729240,32670510020758816978083085130507043184471273380659243275938904335757337482424,False) 
+n = ZZ('0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141')#order
 
 ecdh = ECDH(P,n)
 A = ecdh.A_key()
