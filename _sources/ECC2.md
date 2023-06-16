@@ -51,7 +51,8 @@ $K=K_A=K_B=abP$とするとAliceとBobは鍵を共有できる．
 
 ## ECDH 実装
 楕円曲線暗号その１と同様にSagemath上でECDHを実装した．  
-前に定義したECCクラスとECC_pointクラスをそのまま使用しているので，実行の際は各自で補ってほしい．実際に使用する際は位数の大きい楕円曲線とベースポイントを用いることが推奨されている．  
+楕円曲線の実装にはSagemathに実装されているEllipticCurveなどを用いた．  
+実際に使用する際は位数の大きい楕円曲線とベースポイントを用いることが推奨されている．  
 仮想通貨などで実際に使用されるパラメータとしては[secp256k1](https://en.bitcoin.it/wiki/Secp256k1)などがあり，今回はこれを利用している．
 
 ```python
@@ -78,12 +79,22 @@ class ECDH:
     def Share_key_B(self,ya):
         return ya*self.b
 
+#param EC
+q = 2^256-2^32-977
+a = 0
+b = 7
+Fp = GF(q)
 
-q = ZZ('0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F')
+#Elliptic curve
+EC = EllipticCurve([Fp(a),Fp(b)])
+EC.set_order(n)
 
-EC = ECC(0,7,q)
-P = ECC_point(EC,55066263022277343669578718895168534326250603453777594175500187360389116729240,32670510020758816978083085130507043184471273380659243275938904335757337482424,False) 
-n = ZZ('0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141')#order
+#Base point
+Px = 55066263022277343669578718895168534326250603453777594175500187360389116729240L
+Py = 32670510020758816978083085130507043184471273380659243275938904335757337482424L 
+n = 115792089237316195423570985008687907852837564279074904382605163141518161494337L #order
+P= EC(Fp(Px),Fp(Py))
+
 
 ecdh = ECDH(P,n)
 A = ecdh.A_key()
@@ -92,8 +103,10 @@ K_A = ecdh.Share_key_A(B)
 K_B = ecdh.Share_key_B(A)
 
 
-if K_A.x == K_B.x and K_A.y == K_B.y:
+if K_A == K_B:
     print("Success, K is :",K_A)
+else:
+    print("Failed")
 
 ```
 --- 
@@ -122,7 +135,64 @@ $$
 3. 楕円曲線上の点$m$からメッセージ$M$を復元する．
 
 ## ECElGamal暗号実装
-実装中...
+上と同様にSagemath上でECElGamal暗号を実装した．  
+使用したパラメータはsecp256k1である．
+
+```python
+from random import randint
+
+class ECElGamal:
+    def __init__(self,P,n):
+        #base poin
+        self.P = P
+        #order
+        self.n = n
+    
+    def keygen_b(self):
+        self.b = randint(1,self.n-1)
+        return self.P*self.b
+    
+    def enc_a(self,M,B):
+        a = randint(1,self.n-1)
+        C = M + B*a
+        A = self.P*a
+        return C,A
+    
+    def dec_b(self,C,A):
+        return C - A*self.b
+
+#param EC    
+q = 2^256-2^32-977
+a = 0
+b = 7
+Fp = GF(q)
+
+#Elliptic curve
+EC = EllipticCurve([Fp(a),Fp(b)])
+
+#Base point
+Px = 55066263022277343669578718895168534326250603453777594175500187360389116729240L
+Py = 32670510020758816978083085130507043184471273380659243275938904335757337482424L
+n = 115792089237316195423570985008687907852837564279074904382605163141518161494337L #order
+P = EC(Fp(Px),Fp(Py))
+
+#plaintext
+mx = 3482317452496651990750400507786480597949136366214737109430589337609000649654L
+my = 16210466802831556723413776013918124988290642931230865869246524982465785666481L
+M = EC([Fp(mx),Fp(my)])
+
+eceg = ECElGamal(P,n)
+B=eceg.keygen_b()
+
+C,A = eceg.enc_a(M,B)
+dec_M = eceg.dec_b(C,A)
+
+if M==dec_M:
+    print("Decryption is equals to plaintext!")
+else:
+    print("Failed")
+        
+```
 
 ---
 ## ECDSA
@@ -160,7 +230,82 @@ $$
 となるため$T$と一致するか否かを見ることで署名の正当性を確認できる．
 
 ## ECDSA実装
-実装中...
+上と同様にSagemath上でECDSAを実装した．  
+使用したパラメータはsecp256k1である．ハッシュ関数にはSHA256を使用した．
+
+```python
+from hashlib import sha256
+from Crypto.Util.number import bytes_to_long
+
+class ECDSA:
+    def __init__(self,P,l):
+        self.P = P
+        self.l = l
+        self.Fl = GF(l)
+    
+    def keygen_A(self):
+        self.a = randint(1,self.l-1)
+        A=self.P*self.a
+        return A
+    
+    def hash(self,M):
+        m = M.encode()
+        h = sha256()
+        h.update(m)
+        return bytes_to_long(h.digest())
+    
+    def sign(self,M):
+        t = randint(1,self.l-1)
+        #T
+        T = self.P*t
+        
+        t = self.Fl(t)
+        t_inv = pow(t,-1)
+        
+        #hash
+        hx = self.Fl(hash(M))
+        
+        #s compute in Fl
+        s = t_inv*(hx+self.a*ZZ(self.P.xy()[0]))
+        return T,s
+    
+    def verify(self,M,T,s,A):
+        hx = self.Fl(hash(M))
+        s_inv = pow(s,-1)
+        #u,v
+        u = s_inv*hx
+        v = s_inv*ZZ(self.P.xy()[0])
+        
+        if ZZ(u)*P + ZZ(v)*A == T:
+            print("valid")
+        else:
+            print("invalid")
+
+            
+#param EC    
+q = 2^256-2^32-977
+a = 0
+b = 7
+Fq = GF(q)
+
+#Elliptic curve
+EC = EllipticCurve([Fq(a),Fq(b)])
+
+#Base point
+Px = 55066263022277343669578718895168534326250603453777594175500187360389116729240L
+Py = 32670510020758816978083085130507043184471273380659243275938904335757337482424L
+n = 115792089237316195423570985008687907852837564279074904382605163141518161494337L #order
+P = EC(Fq(Px),Fq(Py))
+        
+
+mm = "hogehoge"
+ecdsa = ECDSA(P,n)
+A = ecdsa.keygen_A()
+T,s = ecdsa.sign(mm)
+ecdsa.verify(mm,T,s,A)
+
+
+```
 
 
 

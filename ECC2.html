@@ -429,7 +429,8 @@ Q = aP
 <section id="id3">
 <h2>ECDH 実装<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
 <p>楕円曲線暗号その１と同様にSagemath上でECDHを実装した．<br />
-前に定義したECCクラスとECC_pointクラスをそのまま使用しているので，実行の際は各自で補ってほしい．実際に使用する際は位数の大きい楕円曲線とベースポイントを用いることが推奨されている．<br />
+楕円曲線の実装にはSagemathに実装されているEllipticCurveなどを用いた．<br />
+実際に使用する際は位数の大きい楕円曲線とベースポイントを用いることが推奨されている．<br />
 仮想通貨などで実際に使用されるパラメータとしては<a class="reference external" href="https://en.bitcoin.it/wiki/Secp256k1">secp256k1</a>などがあり，今回はこれを利用している．</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
 
@@ -454,12 +455,22 @@ Q = aP
     <span class="k">def</span> <span class="nf">Share_key_B</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ya</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">ya</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span>
 
+<span class="c1">#param EC</span>
+<span class="n">q</span> <span class="o">=</span> <span class="mi">2</span><span class="o">^</span><span class="mi">256</span><span class="o">-</span><span class="mi">2</span><span class="o">^</span><span class="mi">32</span><span class="o">-</span><span class="mi">977</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">Fp</span> <span class="o">=</span> <span class="n">GF</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
 
-<span class="n">q</span> <span class="o">=</span> <span class="n">ZZ</span><span class="p">(</span><span class="s1">&#39;0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F&#39;</span><span class="p">)</span>
+<span class="c1">#Elliptic curve</span>
+<span class="n">EC</span> <span class="o">=</span> <span class="n">EllipticCurve</span><span class="p">([</span><span class="n">Fp</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="n">Fp</span><span class="p">(</span><span class="n">b</span><span class="p">)])</span>
+<span class="n">EC</span><span class="o">.</span><span class="n">set_order</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 
-<span class="n">EC</span> <span class="o">=</span> <span class="n">ECC</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="n">q</span><span class="p">)</span>
-<span class="n">P</span> <span class="o">=</span> <span class="n">ECC_point</span><span class="p">(</span><span class="n">EC</span><span class="p">,</span><span class="mi">55066263022277343669578718895168534326250603453777594175500187360389116729240</span><span class="p">,</span><span class="mi">32670510020758816978083085130507043184471273380659243275938904335757337482424</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span> 
-<span class="n">n</span> <span class="o">=</span> <span class="n">ZZ</span><span class="p">(</span><span class="s1">&#39;0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141&#39;</span><span class="p">)</span><span class="c1">#order</span>
+<span class="c1">#Base point</span>
+<span class="n">Px</span> <span class="o">=</span> <span class="mi">55066263022277343669578718895168534326250603453777594175500187360389116729240</span><span class="n">L</span>
+<span class="n">Py</span> <span class="o">=</span> <span class="mi">32670510020758816978083085130507043184471273380659243275938904335757337482424</span><span class="n">L</span> 
+<span class="n">n</span> <span class="o">=</span> <span class="mi">115792089237316195423570985008687907852837564279074904382605163141518161494337</span><span class="n">L</span> <span class="c1">#order</span>
+<span class="n">P</span><span class="o">=</span> <span class="n">EC</span><span class="p">(</span><span class="n">Fp</span><span class="p">(</span><span class="n">Px</span><span class="p">),</span><span class="n">Fp</span><span class="p">(</span><span class="n">Py</span><span class="p">))</span>
+
 
 <span class="n">ecdh</span> <span class="o">=</span> <span class="n">ECDH</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">ecdh</span><span class="o">.</span><span class="n">A_key</span><span class="p">()</span>
@@ -468,8 +479,10 @@ Q = aP
 <span class="n">K_B</span> <span class="o">=</span> <span class="n">ecdh</span><span class="o">.</span><span class="n">Share_key_B</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="n">K_A</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">K_B</span><span class="o">.</span><span class="n">x</span> <span class="ow">and</span> <span class="n">K_A</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">K_B</span><span class="o">.</span><span class="n">y</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">K_A</span> <span class="o">==</span> <span class="n">K_B</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Success, K is :&quot;</span><span class="p">,</span><span class="n">K_A</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed&quot;</span><span class="p">)</span>
 
 </pre></div>
 </div>
@@ -510,7 +523,63 @@ C-bA = m+aB-bA = m + abP -abP = m
 </section>
 <section id="id4">
 <h2>ECElGamal暗号実装<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
-<p>実装中…</p>
+<p>上と同様にSagemath上でECElGamal暗号を実装した．<br />
+使用したパラメータはsecp256k1である．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+
+<span class="k">class</span> <span class="nc">ECElGamal</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        <span class="c1">#base poin</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="n">P</span>
+        <span class="c1">#order</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
+    
+    <span class="k">def</span> <span class="nf">keygen_b</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+    
+    <span class="k">def</span> <span class="nf">enc_a</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">B</span><span class="p">):</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="n">M</span> <span class="o">+</span> <span class="n">B</span><span class="o">*</span><span class="n">a</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="o">*</span><span class="n">a</span>
+        <span class="k">return</span> <span class="n">C</span><span class="p">,</span><span class="n">A</span>
+    
+    <span class="k">def</span> <span class="nf">dec_b</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">A</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">C</span> <span class="o">-</span> <span class="n">A</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+
+<span class="c1">#param EC    </span>
+<span class="n">q</span> <span class="o">=</span> <span class="mi">2</span><span class="o">^</span><span class="mi">256</span><span class="o">-</span><span class="mi">2</span><span class="o">^</span><span class="mi">32</span><span class="o">-</span><span class="mi">977</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">Fp</span> <span class="o">=</span> <span class="n">GF</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+
+<span class="c1">#Elliptic curve</span>
+<span class="n">EC</span> <span class="o">=</span> <span class="n">EllipticCurve</span><span class="p">([</span><span class="n">Fp</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="n">Fp</span><span class="p">(</span><span class="n">b</span><span class="p">)])</span>
+
+<span class="c1">#Base point</span>
+<span class="n">Px</span> <span class="o">=</span> <span class="mi">55066263022277343669578718895168534326250603453777594175500187360389116729240</span><span class="n">L</span>
+<span class="n">Py</span> <span class="o">=</span> <span class="mi">32670510020758816978083085130507043184471273380659243275938904335757337482424</span><span class="n">L</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">115792089237316195423570985008687907852837564279074904382605163141518161494337</span><span class="n">L</span> <span class="c1">#order</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">EC</span><span class="p">(</span><span class="n">Fp</span><span class="p">(</span><span class="n">Px</span><span class="p">),</span><span class="n">Fp</span><span class="p">(</span><span class="n">Py</span><span class="p">))</span>
+
+<span class="c1">#plaintext</span>
+<span class="n">mx</span> <span class="o">=</span> <span class="mi">3482317452496651990750400507786480597949136366214737109430589337609000649654</span><span class="n">L</span>
+<span class="n">my</span> <span class="o">=</span> <span class="mi">16210466802831556723413776013918124988290642931230865869246524982465785666481</span><span class="n">L</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">EC</span><span class="p">([</span><span class="n">Fp</span><span class="p">(</span><span class="n">mx</span><span class="p">),</span><span class="n">Fp</span><span class="p">(</span><span class="n">my</span><span class="p">)])</span>
+
+<span class="n">eceg</span> <span class="o">=</span> <span class="n">ECElGamal</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<span class="n">B</span><span class="o">=</span><span class="n">eceg</span><span class="o">.</span><span class="n">keygen_b</span><span class="p">()</span>
+
+<span class="n">C</span><span class="p">,</span><span class="n">A</span> <span class="o">=</span> <span class="n">eceg</span><span class="o">.</span><span class="n">enc_a</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">B</span><span class="p">)</span>
+<span class="n">dec_M</span> <span class="o">=</span> <span class="n">eceg</span><span class="o">.</span><span class="n">dec_b</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">M</span><span class="o">==</span><span class="n">dec_M</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Decryption is equals to plaintext!&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed&quot;</span><span class="p">)</span>
+        
+</pre></div>
+</div>
 </section>
 <hr class="docutils" />
 <section id="ecdsa">
@@ -554,7 +623,81 @@ uP + vA = s^{-1}h(m)P + s^{-1}xA = s^{-1}(h(m) + ax)P = tP=T
 </section>
 <section id="id5">
 <h2>ECDSA実装<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
-<p>実装中…</p>
+<p>上と同様にSagemath上でECDSAを実装した．<br />
+使用したパラメータはsecp256k1である．ハッシュ関数にはSHA256を使用した．</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hashlib</span> <span class="kn">import</span> <span class="n">sha256</span>
+<span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="n">bytes_to_long</span>
+
+<span class="k">class</span> <span class="nc">ECDSA</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">l</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="n">P</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">l</span> <span class="o">=</span> <span class="n">l</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Fl</span> <span class="o">=</span> <span class="n">GF</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">keygen_A</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">A</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span>
+        <span class="k">return</span> <span class="n">A</span>
+    
+    <span class="k">def</span> <span class="nf">hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">M</span><span class="p">):</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">sha256</span><span class="p">()</span>
+        <span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">bytes_to_long</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">digest</span><span class="p">())</span>
+    
+    <span class="k">def</span> <span class="nf">sign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">M</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1">#T</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="o">*</span><span class="n">t</span>
+        
+        <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fl</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">t_inv</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        
+        <span class="c1">#hash</span>
+        <span class="n">hx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fl</span><span class="p">(</span><span class="nb">hash</span><span class="p">(</span><span class="n">M</span><span class="p">))</span>
+        
+        <span class="c1">#s compute in Fl</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">t_inv</span><span class="o">*</span><span class="p">(</span><span class="n">hx</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">*</span><span class="n">ZZ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="o">.</span><span class="n">xy</span><span class="p">()[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">T</span><span class="p">,</span><span class="n">s</span>
+    
+    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">A</span><span class="p">):</span>
+        <span class="n">hx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fl</span><span class="p">(</span><span class="nb">hash</span><span class="p">(</span><span class="n">M</span><span class="p">))</span>
+        <span class="n">s_inv</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1">#u,v</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">s_inv</span><span class="o">*</span><span class="n">hx</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">s_inv</span><span class="o">*</span><span class="n">ZZ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="o">.</span><span class="n">xy</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+        
+        <span class="k">if</span> <span class="n">ZZ</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">*</span><span class="n">P</span> <span class="o">+</span> <span class="n">ZZ</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">*</span><span class="n">A</span> <span class="o">==</span> <span class="n">T</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;valid&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;invalid&quot;</span><span class="p">)</span>
+
+            
+<span class="c1">#param EC    </span>
+<span class="n">q</span> <span class="o">=</span> <span class="mi">2</span><span class="o">^</span><span class="mi">256</span><span class="o">-</span><span class="mi">2</span><span class="o">^</span><span class="mi">32</span><span class="o">-</span><span class="mi">977</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">Fq</span> <span class="o">=</span> <span class="n">GF</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+
+<span class="c1">#Elliptic curve</span>
+<span class="n">EC</span> <span class="o">=</span> <span class="n">EllipticCurve</span><span class="p">([</span><span class="n">Fq</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="n">Fq</span><span class="p">(</span><span class="n">b</span><span class="p">)])</span>
+
+<span class="c1">#Base point</span>
+<span class="n">Px</span> <span class="o">=</span> <span class="mi">55066263022277343669578718895168534326250603453777594175500187360389116729240</span><span class="n">L</span>
+<span class="n">Py</span> <span class="o">=</span> <span class="mi">32670510020758816978083085130507043184471273380659243275938904335757337482424</span><span class="n">L</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">115792089237316195423570985008687907852837564279074904382605163141518161494337</span><span class="n">L</span> <span class="c1">#order</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">EC</span><span class="p">(</span><span class="n">Fq</span><span class="p">(</span><span class="n">Px</span><span class="p">),</span><span class="n">Fq</span><span class="p">(</span><span class="n">Py</span><span class="p">))</span>
+        
+
+<span class="n">mm</span> <span class="o">=</span> <span class="s2">&quot;hogehoge&quot;</span>
+<span class="n">ecdsa</span> <span class="o">=</span> <span class="n">ECDSA</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">ecdsa</span><span class="o">.</span><span class="n">keygen_A</span><span class="p">()</span>
+<span class="n">T</span><span class="p">,</span><span class="n">s</span> <span class="o">=</span> <span class="n">ecdsa</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">mm</span><span class="p">)</span>
+<span class="n">ecdsa</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">mm</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
 </section>
 </section>
 
