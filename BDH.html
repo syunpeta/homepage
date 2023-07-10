@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>DH鍵配送問題 &#8212; CryPweb</title>
+    <title>BDH Problem &#8212; CryPweb</title>
   
   
   
@@ -63,11 +63,9 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'DH';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'BDH';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ElGamal暗号" href="ElGamal.html" />
-    <link rel="prev" title="RSA暗号" href="RSA.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -164,11 +162,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="database.html">自主ゼミデータベース</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">暗号</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="math.html">暗号に必要な数学１</a></li>
 <li class="toctree-l1"><a class="reference internal" href="math2.html">暗号に必要な数学2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="RSA.html">RSA暗号</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">DH鍵配送問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DH.html">DH鍵配送問題</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal暗号</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ECC.html">楕円曲線暗号（その１）</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ECC2.html">楕円曲線暗号（その2）</a></li>
@@ -244,7 +242,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FDH.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FBDH.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -274,7 +272,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/DH.md" target="_blank"
+      <li><a href="_sources/BDH.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -356,7 +354,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>DH鍵配送問題</h1>
+    <h1>BDH Problem</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -366,11 +364,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dlp">離散対数問題(DLP)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">DH鍵配送法</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">DH鍵配送実装</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">DH問題</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">BDH Problem</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bdh-assumption">BDH Assumption</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bdh">BDH仮定の使い方</a></li>
 </ul>
+
             </nav>
         </div>
     </div>
@@ -381,101 +379,41 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="dh">
-<h1>DH鍵配送問題<a class="headerlink" href="#dh" title="Permalink to this heading">#</a></h1>
-<section id="dlp">
-<h2>離散対数問題(DLP)<a class="headerlink" href="#dlp" title="Permalink to this heading">#</a></h2>
-<p><span class="math notranslate nohighlight">\(G\)</span>を位数が大きな素数<span class="math notranslate nohighlight">\(q\)</span>の巡回群とし、その生成元を<span class="math notranslate nohighlight">\(g\)</span>とする。このとき、<span class="math notranslate nohighlight">\((g,y) \in G\)</span>から</p>
+  <section id="bdh-problem">
+<h1>BDH Problem<a class="headerlink" href="#bdh-problem" title="Permalink to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\mathbb{G}_1,\mathbb{G}_2\)</span>を素数位数<span class="math notranslate nohighlight">\(q\)</span>の群とし、<span class="math notranslate nohighlight">\(\hat{e} : \mathbb{G}_1 \times \mathbb{G}_2\)</span>.また、<span class="math notranslate nohighlight">\(P\)</span>を<span class="math notranslate nohighlight">\(\mathbb{G}_1\)</span>の生成元とする。<span class="math notranslate nohighlight">\(\langle \mathbb{G}_1,\mathbb{G}_2,\hat{e}\rangle\)</span>でのBDH問題とは、以下の通りである。</p>
+<p><span class="math notranslate nohighlight">\(a,b,c \in \mathbb{Z}_q^*\)</span>に対して<span class="math notranslate nohighlight">\(\langle P,aP,bP,cP\rangle\)</span>が与えられたとき、<span class="math notranslate nohighlight">\(W=\hat{e}(P,P)^{abc}\in \mathbb{G}_2\)</span>を計算する問題</p>
+<hr class="docutils" />
+</section>
+<section id="bdh-assumption">
+<h1>BDH Assumption<a class="headerlink" href="#bdh-assumption" title="Permalink to this heading">#</a></h1>
+<p>randomized algorithm <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>がパラメータ生成機であるとする。巨大な<span class="math notranslate nohighlight">\(k\)</span>についてアルゴリズム<span class="math notranslate nohighlight">\(\mathcal{A}\)</span>がBDH問題をアドバンテージ<span class="math notranslate nohighlight">\(\epsilon(k)\)</span>で解けるとき、以下のように書ける。</p>
 <div class="math notranslate nohighlight">
-\[
-y = g^x\pmod{q}
-\]</div>
-<p>となる正整数<span class="math notranslate nohighlight">\(x\)</span>を求める問題を<strong>離散対数問題</strong>という。(加法群の場合も同じように定義される)</p>
-<p><span class="math notranslate nohighlight">\(x\)</span>は<span class="math notranslate nohighlight">\(0 \leq x &lt; q\)</span>の範囲にある。従って、これを総当たりで解こうとすると<span class="math notranslate nohighlight">\(O(q)\)</span>の計算量が必要になる。<br />
-また、これを効率的に解くアルゴリズムとしてPollardの<span class="math notranslate nohighlight">\(\rho\)</span>法やBaby-step Giant-stepなどのアルゴリズムがあるが、何れも計算量<span class="math notranslate nohighlight">\(O(\sqrt{q})\)</span>のアルゴリズムであるため巨大な位数の離散対数問題を解くことは難しい。</p>
+\[ \begin{align}\begin{aligned}
+\begin{equation}
+\nonumber
+Adv_{\mathcal{G},\mathcal{A}(k)} = \left[\mathcal{A}(q,\mathbb{G}_1,\mathbb{G}_2,\hat{e},P,aP,bP,cP)=\hat{e}(P,P)^{abc} |\\\begin{split}\begin{aligned}
+&amp;\langle q,\mathbb{G}_1,\mathbb{G}_2,\hat{e}\rangle \leftarrow \mathcal{G}\\
+&amp;P \leftarrow \mathbb{G}_1,\space a,b,c \leftarrow \mathbb{Z}_q^*
+\end{aligned} 
+\right]\geq \epsilon(k)
+\end{equation}
+\end{split}\end{aligned}\end{align} \]</div>
+<p>どんな多項式アルゴリズム<span class="math notranslate nohighlight">\(\mathcal{A}\)</span>を持っていたとしても、上の確率<span class="math notranslate nohighlight">\(Adv_{\mathcal{G},\mathcal{A(k)}}\)</span>が無視できる確率のとき、<span class="math notranslate nohighlight">\(\mathcal{G}\)</span>をBDH仮定を満たすという。つまり、BDH仮定とはBDH問題を解く効率的な多項式時間アルゴリズムが存在しない仮定である。</p>
+<hr class="docutils" />
 </section>
-<section id="id1">
-<h2>DH鍵配送法<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<p>Diffie-Hellman(DH)の鍵配送法を用いると、事前の相談なしにAliceとBobが秘密鍵を共有することが出来る。</p>
+<section id="bdh">
+<h1>BDH仮定の使い方<a class="headerlink" href="#bdh" title="Permalink to this heading">#</a></h1>
+<p>BasicIndentと呼ばれる単純なIBEシステムを紹介する。
+このシステムはSetup,Extract,Encrypt,Decryptの4つのアルゴリズムから構成される。</p>
 <ul class="simple">
-<li><p>鍵生成</p></li>
+<li><p>Setup:セキュリティパラメータを<span class="math notranslate nohighlight">\(k\in \mathbb{Z}^+\)</span>とする</p></li>
 </ul>
 <ol class="arabic simple">
-<li><p>大きな素数<span class="math notranslate nohighlight">\(q\)</span>と小さな整数<span class="math notranslate nohighlight">\(g\)</span>を決め、AliceとBobで共有しておく(公開しても問題ない。)</p></li>
-<li><p>Alice は秘密鍵<span class="math notranslate nohighlight">\(a \in Z_q\)</span>をランダムに選び、<span class="math notranslate nohighlight">\(y_A = g^a \pmod{q}\)</span>を公開する。</p></li>
-<li><p>Bobは秘密鍵<span class="math notranslate nohighlight">\(b\in Z_q\)</span> をランダムに選び<span class="math notranslate nohighlight">\(y_B = g^b \pmod{q}\)</span>を公開する。</p></li>
+<li><p>BDHパラメータ生成機<span class="math notranslate nohighlight">\(\mathcal{G}\)</span>を使い素数<span class="math notranslate nohighlight">\(q\)</span>と位数<span class="math notranslate nohighlight">\(q\)</span>の群<span class="math notranslate nohighlight">\(\mathbb{G}_1,\mathbb{G}_2\)</span>、双線形写像<span class="math notranslate nohighlight">\(\hat{e}:\mathbb{G}_1\times\mathbb{G}_2\rightarrow\mathbb{G}_2\)</span>を生成する。そして、<span class="math notranslate nohighlight">\(P\in\mathbb{G}\)</span>を選択する。</p></li>
+<li><p>ランダムな<span class="math notranslate nohighlight">\(s\in\mathbb{Z}_q^*\)</span>を選択し、<span class="math notranslate nohighlight">\(P_pub = sP\)</span>とする。</p></li>
+<li><p>ハッシュ関数<span class="math notranslate nohighlight">\(H_1 :\{0,1\}^* \rightarrow \mathbb{G}_1^*\)</span></p></li>
 </ol>
-<ul class="simple">
-<li><p>鍵共有</p></li>
-</ul>
-<ol class="arabic simple">
-<li><p>Alice は<span class="math notranslate nohighlight">\(K_A = (y_B)^a \pmod{q}\)</span>を計算する。</p></li>
-<li><p>同様にBobは<span class="math notranslate nohighlight">\(K_B=(y_A)^b\pmod{q}\)</span>を計算する。</p></li>
-</ol>
-<p><span class="math notranslate nohighlight">\(K=g^{ab}\)</span>とすると<span class="math notranslate nohighlight">\(K=K_B=K_A\)</span>となり、Alice,Bobは鍵<span class="math notranslate nohighlight">\(K\)</span>を共有できた。</p>
-<p><img alt="DH_figure" src="_build/html/_images/DH.png" /></p>
-<p>悪意のある第3者Charlieが公開された<span class="math notranslate nohighlight">\(y_A,y_B\)</span>を手に入れたとする。このとき、Charlieは離散対数問題の難しさにより秘密鍵<span class="math notranslate nohighlight">\(a,b\)</span>を計算することが出来ない。よって鍵<span class="math notranslate nohighlight">\(K\)</span>を得ることが出来ず、安全である。</p>
-</section>
-<section id="id2">
-<h2>DH鍵配送実装<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Crypto.Util</span> <span class="kn">import</span> <span class="n">number</span>
-<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
-
-<span class="k">class</span> <span class="nc">DHE</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">k</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">q</span> <span class="o">=</span> <span class="n">number</span><span class="o">.</span><span class="n">getPrime</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-        <span class="c1">#generator</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">g</span><span class="o">=</span><span class="mi">2</span>
-    
-    <span class="k">def</span> <span class="nf">A_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">g</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">)</span>
-    
-    <span class="k">def</span> <span class="nf">B_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">g</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">)</span>
-    
-    <span class="k">def</span> <span class="nf">Share_key_A</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">yb</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">yb</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">)</span>
-    
-    <span class="k">def</span> <span class="nf">Share_key_B</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ya</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">ya</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">)</span>
-    
-
-<span class="n">dhe</span> <span class="o">=</span> <span class="n">DHE</span><span class="p">(</span><span class="mi">128</span><span class="p">)</span>
-<span class="n">a_key</span> <span class="o">=</span> <span class="n">dhe</span><span class="o">.</span><span class="n">A_key</span><span class="p">()</span>
-<span class="n">b_key</span> <span class="o">=</span> <span class="n">dhe</span><span class="o">.</span><span class="n">B_key</span><span class="p">()</span>
-
-<span class="c1">#make shared key by Alice</span>
-<span class="n">s_key_A</span> <span class="o">=</span> <span class="n">dhe</span><span class="o">.</span><span class="n">Share_key_A</span><span class="p">(</span><span class="n">b_key</span><span class="p">)</span>
-<span class="c1">#make shared key by Bob</span>
-<span class="n">s_key_B</span> <span class="o">=</span> <span class="n">dhe</span><span class="o">.</span><span class="n">Share_key_B</span><span class="p">(</span><span class="n">a_key</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;secret key of Alice:&quot;</span><span class="p">,</span><span class="n">a_key</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;secret key of Bob:&quot;</span><span class="p">,</span><span class="n">b_key</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shared key of Alice:&quot;</span><span class="p">,</span><span class="n">s_key_A</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shared key of Bob&quot;</span><span class="p">,</span><span class="n">s_key_B</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>secret key of Alice: 29539681153559870692920173887199269689
-secret key of Bob: 278829414014303954017978673989948391427
-Shared key of Alice: 68289378955223875177562754043303944592
-Shared key of Bob 68289378955223875177562754043303944592
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id3">
-<h2>DH問題<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
-<p><span class="math notranslate nohighlight">\((g,g^a,g^b)\)</span>から<span class="math notranslate nohighlight">\(g^{ab}\pmod{q}\)</span>を求める問題を<strong>DH問題</strong>と呼ぶ。<br />
-もし、離散対数問題が解ければDH問題も解ける。しかし、その逆が成り立つかはわかっていない。
-<span class="math notranslate nohighlight">\(\mathbf{Z}_p^*\)</span>の部分群および楕円曲線上に定義される群においては、DH問題を解くことが困難と予想されている。これを<strong>DH仮定</strong>と呼ぶ。</p>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -509,24 +447,6 @@ Shared key of Bob 68289378955223875177562754043303944592
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="RSA.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">RSA暗号</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="ElGamal.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">ElGamal暗号</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div></div>
   
 </div>
@@ -545,11 +465,11 @@ Shared key of Bob 68289378955223875177562754043303944592
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dlp">離散対数問題(DLP)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">DH鍵配送法</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">DH鍵配送実装</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">DH問題</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">BDH Problem</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bdh-assumption">BDH Assumption</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bdh">BDH仮定の使い方</a></li>
 </ul>
+
   </nav></div>
 
 </div></div>
