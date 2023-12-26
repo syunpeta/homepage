@@ -64,7 +64,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'reference';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="楕円曲線暗号（その2）" href="ECC2.html" />
+    <link rel="prev" title="耐量子暗号(格子暗号2)" href="Lattice2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -169,6 +169,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal暗号</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ECC.html">楕円曲線暗号（その１）</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ECC2.html">楕円曲線暗号（その2）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lattice.html">耐量子暗号(格子暗号)</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Lattice2.html">耐量子暗号(格子暗号2)</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">参考文献</a></li>
 </ul>
 
@@ -364,7 +369,8 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">書籍</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ウェブサイト</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">論文</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ウェブサイト</a></li>
 </ul>
             </nav>
         </div>
@@ -384,15 +390,27 @@ document.write(`
 <li><p>黒澤馨,2010,現代暗号への招待,サイエンス社</p></li>
 <li><p>縫田光司,2020,耐量子計算機暗号,森北出版</p></li>
 <li><p>有田正剛・境隆一・只木孝太郎・趙普輝・松尾和人,2008,暗号理論と楕円曲線,森北出版</p></li>
+<li><p>青野良範・安田雅哉,2019,格子暗号解読のための数学的基礎ー格子基底簡約アルゴリズム入門ー,近代科学社</p></li>
 <li><p>Nigel P. Smart,2016,Cryptography Made Simple,Springer</p></li>
 </ol>
 </section>
-<hr class="docutils" />
 <section id="id3">
-<h2>ウェブサイト<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<h2>論文<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p>herumi,2022,楕円曲線暗号のPythonによる実装その2（楕円曲線とECDSA ）<br />
-<a class="reference external" href="https://zenn.dev/herumi/articles/sd202203-ecc-2">https://zenn.dev/herumi/articles/sd202203-ecc-2</a></p></li>
+<li><p>J. Hoffstein, J. Pipher, and J. Silverman,1998, NTRU: A ring-based public key
+cryptosystem, in Algorithmic Number Theory (Lecture Notes in Com-
+puter Science), vol. 1423. Springer-Verlag
+pp. 267~288.</p></li>
+<li><p>清藤武暢・青野良範・四方順司,2015,量子コンピュータの解読に耐えうる暗号アルゴリズム
+「格子暗号」の最新動向,日本銀行金融研究所</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="id4">
+<h2>ウェブサイト<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://zenn.dev/herumi/articles/sd202203-ecc-2">herumi,2022,楕円曲線暗号のPythonによる実装その2（楕円曲線とECDSA ）</a></p></li>
+<li><p><a class="reference external" href="https://www.cryptrec.go.jp/exreport/cryptrec-ex-2404-2014.pdf">暗号技術調査 (暗号解析評価) ワーキンググループ, 格子問題等の困難性に関する調査</a></p></li>
 </ol>
 </section>
 </section>
@@ -429,12 +447,12 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="ECC2.html"
+       href="Lattice2.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">楕円曲線暗号（その2）</p>
+        <p class="prev-next-title">耐量子暗号(格子暗号2)</p>
       </div>
     </a>
 </div></div>
@@ -456,7 +474,8 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">書籍</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ウェブサイト</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">論文</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ウェブサイト</a></li>
 </ul>
   </nav></div>
 

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>BDH Problem &#8212; CryPweb</title>
+    <title>耐量子暗号(格子暗号2) &#8212; CryPweb</title>
   
   
   
@@ -61,11 +61,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'BDH';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Lattice2';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="参考文献" href="reference.html" />
+    <link rel="prev" title="耐量子暗号(格子暗号)" href="Lattice.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -162,7 +162,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="database.html">自主ゼミデータベース</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">暗号</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="math.html">暗号に必要な数学１</a></li>
 <li class="toctree-l1"><a class="reference internal" href="math2.html">暗号に必要な数学2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="RSA.html">RSA暗号</a></li>
@@ -174,7 +174,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
-<li class="toctree-l1"><a class="reference internal" href="Lattice2.html">耐量子暗号(格子暗号2)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">耐量子暗号(格子暗号2)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">参考文献</a></li>
 </ul>
 
@@ -247,7 +247,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FBDH.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FLattice2.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -277,7 +277,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/BDH.md" target="_blank"
+      <li><a href="_sources/Lattice2.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -359,7 +359,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>BDH Problem</h1>
+    <h1>耐量子暗号(格子暗号2)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -369,11 +369,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">BDH Problem</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bdh-assumption">BDH Assumption</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bdh">BDH仮定の使い方</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">準備中</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -384,41 +381,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="bdh-problem">
-<h1>BDH Problem<a class="headerlink" href="#bdh-problem" title="Permalink to this heading">#</a></h1>
-<p><span class="math notranslate nohighlight">\(\mathbb{G}_1,\mathbb{G}_2\)</span>を素数位数<span class="math notranslate nohighlight">\(q\)</span>の群とし、<span class="math notranslate nohighlight">\(\hat{e} : \mathbb{G}_1 \times \mathbb{G}_2\)</span>.また、<span class="math notranslate nohighlight">\(P\)</span>を<span class="math notranslate nohighlight">\(\mathbb{G}_1\)</span>の生成元とする。<span class="math notranslate nohighlight">\(\langle \mathbb{G}_1,\mathbb{G}_2,\hat{e}\rangle\)</span>でのBDH問題とは、以下の通りである。</p>
-<p><span class="math notranslate nohighlight">\(a,b,c \in \mathbb{Z}_q^*\)</span>に対して<span class="math notranslate nohighlight">\(\langle P,aP,bP,cP\rangle\)</span>が与えられたとき、<span class="math notranslate nohighlight">\(W=\hat{e}(P,P)^{abc}\in \mathbb{G}_2\)</span>を計算する問題</p>
-<hr class="docutils" />
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>耐量子暗号(格子暗号2)<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<section id="id2">
+<h2>準備中<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="bdh-assumption">
-<h1>BDH Assumption<a class="headerlink" href="#bdh-assumption" title="Permalink to this heading">#</a></h1>
-<p>randomized algorithm <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>がパラメータ生成機であるとする。巨大な<span class="math notranslate nohighlight">\(k\)</span>についてアルゴリズム<span class="math notranslate nohighlight">\(\mathcal{A}\)</span>がBDH問題をアドバンテージ<span class="math notranslate nohighlight">\(\epsilon(k)\)</span>で解けるとき、以下のように書ける。</p>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}
-\begin{equation}
-\nonumber
-Adv_{\mathcal{G},\mathcal{A}(k)} = \left[\mathcal{A}(q,\mathbb{G}_1,\mathbb{G}_2,\hat{e},P,aP,bP,cP)=\hat{e}(P,P)^{abc} |\\\begin{split}\begin{aligned}
-&amp;\langle q,\mathbb{G}_1,\mathbb{G}_2,\hat{e}\rangle \leftarrow \mathcal{G}\\
-&amp;P \leftarrow \mathbb{G}_1,\space a,b,c \leftarrow \mathbb{Z}_q^*
-\end{aligned} 
-\right]\geq \epsilon(k)
-\end{equation}
-\end{split}\end{aligned}\end{align} \]</div>
-<p>どんな多項式アルゴリズム<span class="math notranslate nohighlight">\(\mathcal{A}\)</span>を持っていたとしても、上の確率<span class="math notranslate nohighlight">\(Adv_{\mathcal{G},\mathcal{A(k)}}\)</span>が無視できる確率のとき、<span class="math notranslate nohighlight">\(\mathcal{G}\)</span>をBDH仮定を満たすという。つまり、BDH仮定とはBDH問題を解く効率的な多項式時間アルゴリズムが存在しない仮定である。</p>
-<hr class="docutils" />
-</section>
-<section id="bdh">
-<h1>BDH仮定の使い方<a class="headerlink" href="#bdh" title="Permalink to this heading">#</a></h1>
-<p>BasicIndentと呼ばれる単純なIBEシステムを紹介する。
-このシステムはSetup,Extract,Encrypt,Decryptの4つのアルゴリズムから構成される。</p>
-<ul class="simple">
-<li><p>Setup:セキュリティパラメータを<span class="math notranslate nohighlight">\(k\in \mathbb{Z}^+\)</span>とする</p></li>
-</ul>
-<ol class="arabic simple">
-<li><p>BDHパラメータ生成機<span class="math notranslate nohighlight">\(\mathcal{G}\)</span>を使い素数<span class="math notranslate nohighlight">\(q\)</span>と位数<span class="math notranslate nohighlight">\(q\)</span>の群<span class="math notranslate nohighlight">\(\mathbb{G}_1,\mathbb{G}_2\)</span>、双線形写像<span class="math notranslate nohighlight">\(\hat{e}:\mathbb{G}_1\times\mathbb{G}_2\rightarrow\mathbb{G}_2\)</span>を生成する。そして、<span class="math notranslate nohighlight">\(P\in\mathbb{G}\)</span>を選択する。</p></li>
-<li><p>ランダムな<span class="math notranslate nohighlight">\(s\in\mathbb{Z}_q^*\)</span>を選択し、<span class="math notranslate nohighlight">\(P_pub = sP\)</span>とする。</p></li>
-<li><p>ハッシュ関数<span class="math notranslate nohighlight">\(H_1 :\{0,1\}^* \rightarrow \mathbb{G}_1^*\)</span></p></li>
-</ol>
 </section>
 
     <script type="text/x-thebe-config">
@@ -452,6 +419,24 @@ Adv_{\mathcal{G},\mathcal{A}(k)} = \left[\mathcal{A}(q,\mathbb{G}_1,\mathbb{G}_2
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="Lattice.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">耐量子暗号(格子暗号)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="reference.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">参考文献</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div></div>
   
 </div>
@@ -470,11 +455,8 @@ Adv_{\mathcal{G},\mathcal{A}(k)} = \left[\mathcal{A}(q,\mathbb{G}_1,\mathbb{G}_2
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">BDH Problem</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bdh-assumption">BDH Assumption</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bdh">BDH仮定の使い方</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">準備中</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>

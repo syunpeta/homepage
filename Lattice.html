@@ -1,0 +1,674 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>耐量子暗号(格子暗号) &#8212; CryPweb</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Lattice';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="耐量子暗号(格子暗号2)" href="Lattice2.html" />
+    <link rel="prev" title="楕円曲線暗号（その2）" href="ECC2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    About me
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">ゼミについて</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="about_zemi.html">自主ゼミについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">自主ゼミデータベース</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">暗号</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="math.html">暗号に必要な数学１</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math2.html">暗号に必要な数学2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RSA.html">RSA暗号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DH.html">DH鍵配送問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal暗号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ECC.html">楕円曲線暗号（その１）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ECC2.html">楕円曲線暗号（その2）</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">耐量子暗号(格子暗号)</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Lattice2.html">耐量子暗号(格子暗号2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">参考文献</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FLattice.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Lattice.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>耐量子暗号(格子暗号)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">耐量子暗号(格子暗号)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">耐量子暗号</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">耐量子暗号の種類</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">格子暗号</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">格子とは</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">格子問題</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#svp-shortest-vector-problem">最短ベクトル問題(SVP: Shortest Vector Problem)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cvp-closest-vector-problem">最近ベクトル問題(CVP: Closest Vector Problem)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#svp-cvp-approximate-svp-cvp">近似版SVP,CVP(approximate SVP,CVP)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">その他格子問題</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lwe">LWE暗号</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">LWE問題</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ntru">NTRU暗号</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>耐量子暗号(格子暗号)<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id2">
+<h1>耐量子暗号<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h1>
+<p>近年、量子コンピュータの登場によりRSAや楕円曲線暗号などが危殆化すると言われており、量子計算に耐性のある暗号の研究・開発が進められている。量子計算に耐性のある暗号には<strong>量子暗号</strong> と<strong>耐量子暗号</strong>がある。量子暗号は量子力学の原理を用いて構成された暗号で、耐量子暗号は量子コンピュータで解読することが難しい数学的な問題を暗号の根拠に使った暗号のこと全般を指す。耐量子暗号は量子技術を使わないアルゴリズムであるため古典コンピュータでも実装が出来る。</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id3">
+<h1>耐量子暗号の種類<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h1>
+<p>現在、NISTによる耐量子暗号の<a class="reference external" href="https://csrc.nist.gov/Projects/post-quantum-cryptography/post-quantum-cryptography-standardization">標準化プロジェクト</a>が進行しており、2022年の夏に4つのアルゴリズムが標準化アルゴリズムとして選択された。現在Alternativesを選択するRound4が進行している状況だ。(2023年10月現在)
+NIST PQCの候補を見てもらえばわかる通り、耐量子暗号には様々な方式が存在する。代表的な手法には以下のようなものがある。</p>
+<ul class="simple">
+<li><p>格子暗号(Lattice-based cryptography)<br />
+NTRU ,NTRUPrime ,CRYSTALS-KYBER ,SABERなど</p></li>
+<li><p>符号暗号(Code-based cryptography)<br />
+BIKE ,ClassicMcElieceなど</p></li>
+<li><p>多変数多項式暗号(Multivariate polynomial cryptography)<br />
+Rainbowなど</p></li>
+<li><p>同種写像暗号(Isogency-based cryptography)<br />
+SIKE</p></li>
+</ul>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id4">
+<h1>格子暗号<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h1>
+<p>格子暗号とは、暗号の安全性の根拠に格子を用いる暗号を指す。NISTで標準化が決定した4つのアルゴリズムのうち、3つは格子ベースであることからもわかるように、非常に注目されている暗号方式である。</p>
+<section id="id5">
+<h2>格子とは<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<p>自然数<span class="math notranslate nohighlight">\(m,n\)</span>に対してユークリッド空間<span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>上の<span class="math notranslate nohighlight">\(n\)</span>個の線形独立なベクトル<span class="math notranslate nohighlight">\(\{\mathbf{b_1},\mathbf{b_2},...,\mathbf{b_n}\}\)</span>の整数係数の線形結合全体の集合
+$<span class="math notranslate nohighlight">\(
+L = L(\{\mathbf{b_1},\mathbf{b_2},...,\mathbf{b_n}\}) = \left\{\sum_{i=1}^na_i\mathbf{b_i} : a_i\in \mathbb{Z}\right\}
+\)</span>$</p>
+<p>を<strong>格子</strong>と呼ぶ。<br />
+格子を生成する線形独立なベクトルの集合<span class="math notranslate nohighlight">\(\{\mathbf{b_1},\mathbf{b_2},...,\mathbf{b_n}\}\)</span>を格子の<strong>基底</strong>と呼び、<span class="math notranslate nohighlight">\(\{\mathbf{b_1},\mathbf{b_2},...,\mathbf{b_n}\}\)</span>を行ベクトルに持つ<span class="math notranslate nohighlight">\(n\times m\)</span>行列<span class="math notranslate nohighlight">\(\mathbf{B}\)</span>を基底行列と呼ぶ。以上を踏まえて格子<span class="math notranslate nohighlight">\(L\)</span>は<span class="math notranslate nohighlight">\(L(B)\)</span>と表す。
+以下は二次元の場合の基底のイメージである．
+<img alt="lattice" src="_images/lattice.png" /></p>
+</section>
+<section id="id6">
+<h2>格子問題<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<p>格子暗号は上述の通り、計算困難な格子上の問題(格子問題)に安全性の根拠を置いている。ここでは、代表的な格子問題をいくつか紹介する。</p>
+<section id="svp-shortest-vector-problem">
+<h3>最短ベクトル問題(SVP: Shortest Vector Problem)<a class="headerlink" href="#svp-shortest-vector-problem" title="Permalink to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(n\)</span>次元整数格子<span class="math notranslate nohighlight">\(L\subseteq \mathbb{Z}^m\)</span>の基底<span class="math notranslate nohighlight">\(\{\mathbf{b_1},\mathbf{b_2},...,\mathbf{b_n}\}\)</span>が与えられたとき、格子上の最短非零ベクトル<span class="math notranslate nohighlight">\(\mathbf{x}\in L\)</span>を見つける問題。 つまり，格子内の任意の非零ベクトル<span class="math notranslate nohighlight">\(\mathbf{y}\)</span>に対して，<span class="math notranslate nohighlight">\(||\mathbf{x}||\leq ||\mathbf{y}||\)</span>となる<span class="math notranslate nohighlight">\(\mathbf{x}\)</span>を見つける問題。
+問題自体は非常に単純で、2次元の場合などはぱっと見で解ける問題であるが、高次元になるととても難しい問題になる。現在までのところ高次元でこの問題を解く効率的なアルゴリズムは発見されておらず、暗号の安全性の根拠として使われることが多い。また、発見したベクトルを最短ベクトルと判定することも難しい問題となる。</p>
+<p><img alt="svp" src="_images/svp.png" /></p>
+</section>
+<section id="cvp-closest-vector-problem">
+<h3>最近ベクトル問題(CVP: Closest Vector Problem)<a class="headerlink" href="#cvp-closest-vector-problem" title="Permalink to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(n\)</span>次元整数格子<span class="math notranslate nohighlight">\(L\subseteq \mathbb{Z}^m\)</span>の基底<span class="math notranslate nohighlight">\(\{\mathbf{b_1},\mathbf{b_2},...,\mathbf{b_n}\}\)</span>とターゲットベクトル<span class="math notranslate nohighlight">\(\mathbf{t}\in\mathbb{Z}^m\)</span>が与えられたとき、ターゲットベクトル<span class="math notranslate nohighlight">\(\mathbf{t}\)</span>に最も近い格子内の非零ベクトル<span class="math notranslate nohighlight">\(\mathbf{x}\)</span>を見つける問題。 つまり、任意の非零ベクトル<span class="math notranslate nohighlight">\(\mathbf{y}\in L\)</span>に対して<span class="math notranslate nohighlight">\(||\mathbf{x}-\mathbf{t}||\leq ||\mathbf{y}-\mathbf{t}||\)</span>となるベクトル<span class="math notranslate nohighlight">\(\mathbf{x}\)</span>を見つける問題である。</p>
+<p><img alt="cvp" src="_images/cvp.png" /></p>
+</section>
+<section id="svp-cvp-approximate-svp-cvp">
+<h3>近似版SVP,CVP(approximate SVP,CVP)<a class="headerlink" href="#svp-cvp-approximate-svp-cvp" title="Permalink to this heading">#</a></h3>
+<p>近似因子<span class="math notranslate nohighlight">\(\gamma\geq 1\)</span>に対して，<span class="math notranslate nohighlight">\(n\)</span>次元整数格子<span class="math notranslate nohighlight">\(L\subseteq \mathbb{Z}^m\)</span>の基底<span class="math notranslate nohighlight">\(\{\mathbf{b_1},\mathbf{b_2},...,\mathbf{b_n}\}\)</span>が与えられたとき</p>
+<ul class="simple">
+<li><p>a-SVP<br />
+格子内の任意の非零ベクトル<span class="math notranslate nohighlight">\(\mathbf{y}\)</span>に対して、近似因子をかけた以下の条件式を満たす
+<span class="math notranslate nohighlight">\(\mathbf{x}\)</span>を見つける問題</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+||\mathbf{x}|| \leq \gamma||\mathbf{y}||
+\]</div>
+<ul class="simple">
+<li><p>a-CVP<br />
+ターゲットベクトル<span class="math notranslate nohighlight">\(\mathbf{t}\)</span>に対して
+$<span class="math notranslate nohighlight">\(||\mathbf{x}-\mathbf{t}||\leq \gamma||\mathbf{y}-\mathbf{t}||\)</span><span class="math notranslate nohighlight">\(
+を満たす格子ベクトル\)</span>\mathbf{x}$を見つける問題．</p></li>
+</ul>
+<p>これら近似版の格子問題はある程度の次元までは効率的に解くことのできるアルゴリズムが存在する．(格子簡約アルゴリズム，Babaiの最近平面アルゴリズムなど)</p>
+</section>
+<section id="id7">
+<h3>その他格子問題<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>その他よく論文等で見かける格子問題として，SIS問題，BDD問題やその派生形などがある。これらの問題は上で紹介した格子問題に帰着できることが多い．</p>
+</section>
+</section>
+<section id="lwe">
+<h2>LWE暗号<a class="headerlink" href="#lwe" title="Permalink to this heading">#</a></h2>
+<p>ここからは格子暗号の中でも代表的なLWE暗号を紹介する．LWE暗号はそれ自体が一つの暗号を指すわけではなく，LWE問題という格子問題に安全性の根拠を置いた暗号の総称である．
+NIST によって標準化アルゴリズムに選ばれた<a class="reference external" href="https://pq-crystals.org/">CRYSTALS-KYBER</a>もLWEの派生問題に基づいた暗号であり，格子暗号の中ではメジャーな方式となっている。</p>
+<section id="id8">
+<h3>LWE問題<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p>LWE問題は機械学習の理論から派生してできた計算困難な問題である．<br />
+<span class="math notranslate nohighlight">\(n\in \mathbb{N}\)</span>, <span class="math notranslate nohighlight">\(q&gt;0\)</span>(奇素数),平均0・標準偏差<span class="math notranslate nohighlight">\(\sigma\)</span>の離散ガウス分布を<span class="math notranslate nohighlight">\(\chi\)</span>とする。
+有限体<span class="math notranslate nohighlight">\(\mathbf{F_q}\)</span>上の秘密ベクトル<span class="math notranslate nohighlight">\(s\in \mathbb{F_q}\)</span>を選び，一様ランダムに選択された<span class="math notranslate nohighlight">\(a\in \mathbb{F_q^n}\)</span>と離散ガウス分布<span class="math notranslate nohighlight">\(\chi\)</span>から選択された誤差<span class="math notranslate nohighlight">\(\mathbf{e}\in \mathbb{Z}\)</span>に対して</p>
+<div class="math notranslate nohighlight">
+\[
+(a,b=\langle a,s\rangle + e \mod q)\in \mathbb{F_q^n}\times \mathbb{F_q}
+\]</div>
+<p>とする．また，この組を出力する確率分布を<span class="math notranslate nohighlight">\(L_{s,\chi}\)</span>とする。</p>
+<p>LWE問題を実際に可視化すると以下のようになる。(n=3,q=13)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\left \{ 
+\begin{aligned}
+5s_1 + 3s_2 + 11s_3 \approx 8 \mod 13\\
+2s_1 + 6s_2 + 4s_3 \approx 11 \mod 13\\
+\vdots \quad \quad \quad \quad\quad \quad\\
+6s_1 + 9s_2 + 7 s_3 \approx 4 \mod 13
+\end{aligned}
+\right .
+\end{equation}
+\end{split}\]</div>
+<p>これを行列で表示すると，係数行列<span class="math notranslate nohighlight">\(\mathbf{A}\)</span>と秘密ベクトル<span class="math notranslate nohighlight">\(\mathbf{s}\)</span>,誤差ベクトル<span class="math notranslate nohighlight">\(\mathbf{e}\)</span>,行列<span class="math notranslate nohighlight">\(\mathbf{b}\)</span>を用いて</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{A}\cdot \mathbf{s} + \mathbf{e} = \mathbf{b}s \mod q
+\]</div>
+<p>のように表すこともできる．</p>
+<p>LWE問題には以下の二つの種類がある。</p>
+<ul class="simple">
+<li><p>判定LWE問題(Decision-LWE)</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\((a,b)\)</span>の組が確率分布<span class="math notranslate nohighlight">\(L_{s,\chi}\)</span>からサンプリングされた元か，<span class="math notranslate nohighlight">\(\mathbf{F^n_q}\times \mathbf{F_q}\)</span>から一様ランダムにサンプリングされた元かを判定する問題。</p>
+<ul class="simple">
+<li><p>探査LWE問題(Search-LWE)</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\((a,b)\)</span>の組から秘密ベクトル<span class="math notranslate nohighlight">\(s\)</span>を復元する問題。
+要するに、探索LWE問題は誤差付きの連立一次方程式の解を求める問題となる。</p>
+</section>
+</section>
+<section id="ntru">
+<h2>NTRU暗号<a class="headerlink" href="#ntru" title="Permalink to this heading">#</a></h2>
+<p>NTRU暗号は1996年にCRYPT’96で発表された暗号方式で，現在までNTRU-primeなど様々な派生形が考えられてきた。NISTで標準化が決定した4つのアルゴリズムに含まれる<a class="reference external" href="https://falcon-sign.info/">FALCON</a>もその一部にNTRU格子を用いており，メジャーな格子暗号の一種であると言える。
+NTRU暗号はSVPに安全性の根拠を帰着して考えられる。</p>
+<p>次のページでは実際のNTRU暗号とRegev暗号(LWE暗号)を実装しながら紹介し、その攻撃手法も紹介する。</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ECC2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">楕円曲線暗号（その2）</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Lattice2.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">耐量子暗号(格子暗号2)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">耐量子暗号(格子暗号)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">耐量子暗号</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">耐量子暗号の種類</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">格子暗号</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">格子とは</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">格子問題</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#svp-shortest-vector-problem">最短ベクトル問題(SVP: Shortest Vector Problem)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cvp-closest-vector-problem">最近ベクトル問題(CVP: Closest Vector Problem)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#svp-cvp-approximate-svp-cvp">近似版SVP,CVP(approximate SVP,CVP)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">その他格子問題</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lwe">LWE暗号</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">LWE問題</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ntru">NTRU暗号</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Shun
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

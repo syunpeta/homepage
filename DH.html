@@ -172,6 +172,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal暗号</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ECC.html">楕円曲線暗号（その１）</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ECC2.html">楕円曲線暗号（その2）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lattice.html">耐量子暗号(格子暗号)</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Lattice2.html">耐量子暗号(格子暗号2)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">参考文献</a></li>
 </ul>
 
@@ -413,7 +418,7 @@ y = g^x\pmod{q}
 <li><p>同様にBobは<span class="math notranslate nohighlight">\(K_B=(y_A)^b\pmod{q}\)</span>を計算する。</p></li>
 </ol>
 <p><span class="math notranslate nohighlight">\(K=g^{ab}\)</span>とすると<span class="math notranslate nohighlight">\(K=K_B=K_A\)</span>となり、Alice,Bobは鍵<span class="math notranslate nohighlight">\(K\)</span>を共有できた。</p>
-<p><img alt="DH_figure" src="_build/html/_images/DH.png" /></p>
+<p><img alt="DH_figure" src="_images/DH.png" /></p>
 <p>悪意のある第3者Charlieが公開された<span class="math notranslate nohighlight">\(y_A,y_B\)</span>を手に入れたとする。このとき、Charlieは離散対数問題の難しさにより秘密鍵<span class="math notranslate nohighlight">\(a,b\)</span>を計算することが出来ない。よって鍵<span class="math notranslate nohighlight">\(K\)</span>を得ることが出来ず、安全である。</p>
 </section>
 <section id="id2">
@@ -461,10 +466,10 @@ print(&quot;Shared key of Bob&quot;,s_key_B)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>secret key of Alice: 107156554967631211548267857487711760618
-secret key of Bob: 161260105616163153644139763609264110536
-Shared key of Alice: 109604801869542045618119805365946107910
-Shared key of Bob 109604801869542045618119805365946107910
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>secret key of Alice: 232659003394246392720268988971052449784
+secret key of Bob: 46376710703869023267845956677743133579
+Shared key of Alice: 72937606278539963961022710648415434939
+Shared key of Bob 72937606278539963961022710648415434939
 </pre></div>
 </div>
 </div>
