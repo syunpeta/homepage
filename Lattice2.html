@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,8 +38,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -61,6 +62,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Lattice2';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -76,6 +79,15 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -129,9 +141,11 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="intro.html">
+  
   
   
   
@@ -141,8 +155,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="CryPweb - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="CryPweb - Home"/>`);</script>
   
   
 </a></div>
@@ -329,20 +343,22 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -369,7 +385,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">準備中</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regev">Regev暗号</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ntru">NTRU暗号</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">前提</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">鍵生成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">暗号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">復号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">正当性</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">NTRU 実装</a></li>
 </ul>
             </nav>
         </div>
@@ -383,8 +408,241 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
 <h1>耐量子暗号(格子暗号2)<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<section id="regev">
+<h2>Regev暗号<a class="headerlink" href="#regev" title="Permalink to this heading">#</a></h2>
+<p>準備中</p>
+</section>
+<section id="ntru">
+<h2>NTRU暗号<a class="headerlink" href="#ntru" title="Permalink to this heading">#</a></h2>
+<p>前ぺージでも紹介した格子暗号の一種であるNTRU暗号のアルゴリズムと実装を原著論文にしたがって以下で紹介する．</p>
 <section id="id2">
-<h2>準備中<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<h3>前提<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>パラメータ<span class="math notranslate nohighlight">\(n ,p ,q\in \mathbb{N}~(gcd(p,q)=1, p&lt;&lt; q)\)</span>を設定し、多項式環<span class="math notranslate nohighlight">\(R = \mathbb{Z}[x]/(x^n -1)\)</span>定義する。 <span class="math notranslate nohighlight">\(R\)</span>の元<span class="math notranslate nohighlight">\(F\in R\)</span>は<span class="math notranslate nohighlight">\(F=\sum_{i=0}^{n-1} F_i X^i\)</span>で表す。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{L}(d_1,d_2) \)</span>を以下のように定義する。</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\mathcal{L}(d_1,d_2)  = \left\{ F\in R:
+\begin{aligned}
+Fはd_1個の係数1を持つ\\
+Fはd_2個の係数-1を持つ\\
+残りの係数を0とする。
+\end{aligned}
+\right \}
+\end{equation}
+\end{split}\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(f,g \in R\)</span>に対して<span class="math notranslate nohighlight">\(f\star g\)</span>は<span class="math notranslate nohighlight">\(f\)</span>と<span class="math notranslate nohighlight">\(g\)</span>の畳み込み積を表し、以下で定義される。</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+f\star g = \sum_{i+j = k \mod n} f_i g_i 
+\end{equation}
+\]</div>
+</section>
+<section id="id3">
+<h3>鍵生成<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>受信者は<span class="math notranslate nohighlight">\(d_f,d_g \in \mathbb{N}\)</span>を設定する。多項式<span class="math notranslate nohighlight">\(g\in \mathcal L(d_g,g_g), f\in \mathcal(d_f,d_f-1)\)</span>をランダムに生成する。ただし、<span class="math notranslate nohighlight">\(f\)</span>は以下の式を満たす逆元<span class="math notranslate nohighlight">\(f_p,f_q\)</span>を持つように生成する。</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+f\star f_q = 1 \mod q,~~~~f\star f_p = 1 \mod p 
+\end{equation}
+\]</div>
+<p>以上を用いて公開多項式<span class="math notranslate nohighlight">\(h\)</span>を以下のように生成しする。</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+h = f_q \star g \mod q 
+\end{equation}
+\]</div>
+<p>このとき、<span class="math notranslate nohighlight">\((f,fq)\)</span>を秘密鍵、<span class="math notranslate nohighlight">\(h\)</span>を公開鍵とする。</p>
+</section>
+<section id="id4">
+<h3>暗号化<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>送信者は平文<span class="math notranslate nohighlight">\(m\)</span>を用意する。ただし、係数が<span class="math notranslate nohighlight">\(-1,0,1\)</span>のみの多項式とする。<br />
+<span class="math notranslate nohighlight">\(d_\phi \in \mathbb{N}\)</span>を設定し、ランダム多項式<span class="math notranslate nohighlight">\(\phi\in \mathcal L(d_\phi,d_\phi)\)</span>を生成する。これを用いて、暗号文<span class="math notranslate nohighlight">\(e\)</span>を以下のように計算する。</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+e = p\cdot h \star \phi  + m \mod q
+\end{equation}\]</div>
+<p>できた暗号文<span class="math notranslate nohighlight">\(e\)</span>を受信者に送信する。</p>
+</section>
+<section id="id5">
+<h3>復号化<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>暗号文<span class="math notranslate nohighlight">\(e\)</span>と秘密鍵<span class="math notranslate nohighlight">\(f\)</span>を用いて以下の多項式<span class="math notranslate nohighlight">\(a\)</span>を生成する。ただし、復号化の中では、mod計算は通常と異なり、<span class="math notranslate nohighlight">\((\frac{-p}{2},\frac{p}{2}]\)</span>,<span class="math notranslate nohighlight">\((\frac{-q}{2},\frac{q}{2}]\)</span>の範囲で計算する。</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+a = f\star e \mod q
+\end{equation}\]</div>
+<p>その後、以下の計算により復号された平文<span class="math notranslate nohighlight">\(m'\)</span>が取得できる。</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+m' = f_p \star a \mod p
+\end{equation}\]</div>
+</section>
+<section id="id6">
+<h3>正当性<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>上を踏まえて、多項式<span class="math notranslate nohighlight">\(a\)</span>を展開すると次のようになる。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{aligned}
+a = f\star e &amp;= f\star p\phi \star h + f\star m \mod q\\
+ &amp;= f\star p\phi\star f_q \star g + f\star m \mod q 
+\end{aligned}
+\end{equation}
+\end{split}\]</div>
+<p>ここで、<span class="math notranslate nohighlight">\(f\star f_q = 1\)</span>より</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+a = p\phi \star g + f \star m \mod q
+\end{equation}
+\]</div>
+<p>この時点で適切なパラメータを選択していた場合は<span class="math notranslate nohighlight">\(a\)</span>の係数は<span class="math notranslate nohighlight">\((\frac{-q}{2},\frac{q}{2}]\)</span>の範囲に収まるため、<span class="math notranslate nohighlight">\(\mod q \)</span>をそのまま外すことができる。</p>
+<p>つまり、</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+a = p\phi \star g + f\star m
+\end{equation}
+\]</div>
+<p>となる。これに<span class="math notranslate nohighlight">\(f_q\)</span>をかけ、<span class="math notranslate nohighlight">\(\mod p \)</span>をとると、</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{equation}
+\begin{aligned}
+f_q \star a &amp;= f_q \star p\phi \star g + f_q \star f \star m \mod p\\
+&amp;= pf_q \star\phi \star g + m \mod p\\
+&amp;= m\mod p\\
+&amp;= m 
+\end{aligned}
+\end{equation}
+\end{split}\]</div>
+<p>となり平文が復元できることがわかる。</p>
+<p>ただし、<span class="math notranslate nohighlight">\(|f|_{\infty} = max_{0\leq i \leq n-1}f_i - min_{0\leq i \leq n-1} f_i \)</span>
+としないと、<span class="math notranslate nohighlight">\(a = p\phi \star g + f \star m \mod q\)</span>式が満たされず復号ができなくなる。</p>
+</section>
+</section>
+<section id="id7">
+<h2>NTRU 実装<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<p>以下では、NTRU暗号の実装を行う。Python(Sagemath)で実装するため、実装結果は<a class="reference external" href="https://sagecell.sagemath.org/">SageCell</a>等で確認できる。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">sample</span>
+<span class="kn">from</span> <span class="nn">fpylll</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1">#parameter###################</span>
+<span class="n">N</span><span class="o">=</span><span class="mi">107</span>
+<span class="n">p</span><span class="o">=</span><span class="mi">3</span>
+<span class="n">q</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">e</span><span class="o">=</span><span class="mi">6</span>
+<span class="n">df</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">dg</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">dphi</span><span class="o">=</span><span class="mi">5</span>
+<span class="n">R</span><span class="o">.&lt;</span><span class="n">x</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">ZZ</span><span class="p">[]</span>
+<span class="c1">#############################</span>
+
+<span class="c1">#tools ######################</span>
+<span class="k">def</span> <span class="nf">random_poly</span><span class="p">(</span><span class="n">NN</span><span class="p">,</span><span class="n">o</span><span class="p">,</span><span class="n">mo</span><span class="p">):</span>
+ 
+    <span class="n">s</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">o</span><span class="o">+</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">mo</span><span class="o">+</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">NN</span><span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">mo</span><span class="p">)</span>
+    <span class="n">shuffle</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">R</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">Convolution_in_R</span><span class="p">(</span><span class="n">ff</span><span class="p">,</span><span class="n">gg</span><span class="p">,</span><span class="n">NN</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">ff</span><span class="o">*</span><span class="n">gg</span><span class="p">)</span><span class="o">%</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">NN</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">Convolution_in_R_p</span><span class="p">(</span><span class="n">ff</span><span class="p">,</span><span class="n">gg</span><span class="p">,</span><span class="n">NN</span><span class="p">,</span><span class="n">pp</span><span class="p">):</span>
+    <span class="n">hh</span> <span class="o">=</span> <span class="p">(</span><span class="n">ff</span><span class="o">*</span><span class="n">gg</span><span class="p">)</span><span class="o">%</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">NN</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">h1</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>   <span class="p">(</span><span class="n">hh</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="n">pp</span><span class="p">)</span>   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NN</span><span class="p">)</span>   <span class="p">)</span>
+    <span class="k">return</span>  <span class="n">R</span><span class="p">(</span><span class="n">h1</span><span class="p">)</span>  
+
+<span class="k">def</span> <span class="nf">Invertmodprime</span><span class="p">(</span><span class="n">ff</span><span class="p">,</span><span class="n">pp</span><span class="p">,</span><span class="n">NN</span><span class="p">):</span>    
+    <span class="n">T</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">change_ring</span><span class="p">(</span><span class="n">Integers</span><span class="p">(</span><span class="n">pp</span><span class="p">))</span><span class="o">.</span><span class="n">quotient</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">NN</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">R</span><span class="p">(</span><span class="n">lift</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">T</span><span class="p">(</span><span class="n">ff</span><span class="p">)))</span>
+
+<span class="k">def</span> <span class="nf">Invertmodpowerofprime</span><span class="p">(</span><span class="n">ff</span><span class="p">,</span><span class="n">qq</span><span class="p">,</span><span class="n">ee</span><span class="p">,</span><span class="n">NN</span><span class="p">):</span> 
+    <span class="n">q_e</span> <span class="o">=</span> <span class="n">qq</span><span class="o">^</span><span class="n">ee</span>
+    <span class="n">FF</span> <span class="o">=</span> <span class="n">Invertmodprime</span><span class="p">(</span><span class="n">ff</span><span class="p">,</span><span class="n">qq</span><span class="p">,</span><span class="n">NN</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ee</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>      
+        <span class="k">return</span> <span class="n">FF</span>
+    <span class="n">nn</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">while</span> <span class="n">ee</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">Convolution_in_R</span><span class="p">(</span><span class="n">FF</span><span class="p">,</span><span class="n">ff</span><span class="p">,</span><span class="n">NN</span><span class="p">);</span>
+        <span class="n">FF</span> <span class="o">=</span> <span class="n">Convolution_in_R_p</span><span class="p">(</span><span class="n">FF</span><span class="p">,</span><span class="mi">2</span><span class="o">-</span><span class="n">temp</span><span class="p">,</span><span class="n">NN</span><span class="p">,</span><span class="n">qq</span><span class="o">^</span><span class="n">nn</span><span class="p">);</span>
+        <span class="n">ee</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span><span class="n">ee</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">nn</span> <span class="o">*=</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="n">FF</span><span class="o">%</span><span class="n">q_e</span>
+
+<span class="k">def</span> <span class="nf">change_ring_Rq</span><span class="p">(</span><span class="n">ff</span><span class="p">,</span><span class="n">qq</span><span class="p">,</span><span class="n">NN</span><span class="p">):</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">change_ring</span><span class="p">(</span><span class="n">Integers</span><span class="p">(</span><span class="n">qq</span><span class="p">))</span><span class="o">.</span><span class="n">quotient</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">NN</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">R</span><span class="p">(</span><span class="n">lift</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="n">ff</span><span class="p">)))</span>
+
+<span class="k">def</span> <span class="nf">center_lift</span><span class="p">(</span><span class="n">ff</span><span class="p">,</span><span class="n">pp</span><span class="p">):</span>
+    <span class="n">flist</span> <span class="o">=</span> <span class="n">ff</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+    <span class="n">ph</span> <span class="o">=</span> <span class="n">pp</span><span class="o">//</span><span class="mi">2</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">flist</span><span class="p">)):</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">flist</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">%</span><span class="n">pp</span>
+        <span class="k">if</span> <span class="n">tmp</span> <span class="o">&gt;</span> <span class="n">ph</span><span class="p">:</span>
+            <span class="n">tmp</span> <span class="o">-=</span> <span class="n">pp</span>
+        <span class="n">flist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span>
+    <span class="k">return</span> <span class="n">R</span><span class="p">(</span><span class="n">flist</span><span class="p">)</span>
+
+
+<span class="c1">#keygen#######################</span>
+<span class="k">def</span> <span class="nf">keygen</span><span class="p">(</span><span class="n">dff</span><span class="p">,</span><span class="n">dgg</span><span class="p">,</span><span class="n">qq</span><span class="p">,</span><span class="n">ee</span><span class="p">,</span><span class="n">NN</span><span class="p">):</span>
+    
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">random_poly</span><span class="p">(</span><span class="n">NN</span><span class="p">,</span><span class="n">dff</span><span class="p">,</span><span class="n">dff</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">random_poly</span><span class="p">(</span><span class="n">NN</span><span class="p">,</span><span class="n">dgg</span><span class="p">,</span><span class="n">dgg</span><span class="p">)</span>
+        <span class="k">try</span> <span class="p">:</span>
+            <span class="n">fq</span> <span class="o">=</span> <span class="n">Invertmodpowerofprime</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">qq</span><span class="p">,</span><span class="n">ee</span><span class="p">,</span><span class="n">NN</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">continue</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">Convolution_in_R_p</span><span class="p">(</span><span class="n">fq</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">NN</span><span class="p">,</span><span class="n">qq</span><span class="o">^</span><span class="n">ee</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">h</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">g</span>
+
+<span class="c1">#encryption###################</span>
+<span class="k">def</span> <span class="nf">enc</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">qq</span><span class="p">,</span><span class="n">ee</span><span class="p">,</span><span class="n">d_phi</span><span class="p">,</span><span class="n">NN</span><span class="p">):</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">random_poly</span><span class="p">(</span><span class="n">NN</span><span class="p">,</span><span class="n">d_phi</span><span class="p">,</span><span class="n">d_phi</span><span class="p">)</span>
+    <span class="n">e_q</span> <span class="o">=</span> <span class="n">Convolution_in_R_p</span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="n">p</span><span class="o">*</span><span class="n">phi</span><span class="p">,</span><span class="n">NN</span><span class="p">,</span><span class="n">qq</span><span class="o">^</span><span class="n">ee</span><span class="p">)</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">e_q</span> <span class="o">+</span> <span class="n">m</span>
+    <span class="k">return</span> <span class="n">e</span><span class="o">%</span><span class="p">(</span><span class="n">qq</span><span class="o">^</span><span class="n">ee</span><span class="p">)</span>
+
+<span class="c1">#decryption##################</span>
+<span class="k">def</span> <span class="nf">dec</span><span class="p">(</span><span class="n">e_q</span><span class="p">,</span><span class="n">ff</span><span class="p">,</span><span class="n">qq</span><span class="p">,</span><span class="n">ee</span><span class="p">,</span><span class="n">pp</span><span class="p">,</span><span class="n">NN</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">Convolution_in_R_p</span><span class="p">(</span><span class="n">ff</span><span class="p">,</span><span class="n">e_q</span><span class="p">,</span><span class="n">NN</span><span class="p">,</span><span class="n">qq</span><span class="o">^</span><span class="n">ee</span><span class="p">)</span>
+    <span class="n">a_c</span> <span class="o">=</span> <span class="n">center_lift</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">qq</span><span class="o">^</span><span class="n">ee</span><span class="p">)</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="n">Invertmodprime</span><span class="p">(</span><span class="n">ff</span><span class="p">,</span><span class="n">pp</span><span class="p">,</span><span class="n">NN</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">Convolution_in_R_p</span><span class="p">(</span><span class="n">a_c</span><span class="p">,</span><span class="n">fp</span><span class="p">,</span><span class="n">NN</span><span class="p">,</span><span class="n">pp</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">center_lift</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">pp</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">b</span>
+
+<span class="c1">#main#######################</span>
+<span class="n">h</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">g</span> <span class="o">=</span> <span class="n">keygen</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">dg</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">R</span><span class="p">([</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)])</span>
+<span class="n">e_m</span> <span class="o">=</span> <span class="n">enc</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">dphi</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="n">dec_m</span> <span class="o">=</span> <span class="n">dec</span><span class="p">(</span><span class="n">e_m</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">dec_m</span> <span class="o">==</span> <span class="n">m</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;OK&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;m is :&quot;</span><span class="p">,</span><span class="n">m</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;m is :&quot;</span><span class="p">,</span><span class="n">m</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;enc_m is :&quot;</span><span class="p">,</span><span class="n">e_m</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="n">OK</span>
+<span class="n">m</span> <span class="ow">is</span> <span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="o">^</span><span class="mi">106</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">105</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">103</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">101</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">98</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">96</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">95</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">94</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">93</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">92</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">88</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">87</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">86</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">85</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">81</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">79</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">76</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">75</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">72</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">70</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">69</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">68</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">67</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">66</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">65</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">64</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">61</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">59</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">58</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">57</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">54</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">52</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">51</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">50</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">49</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">48</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">47</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">45</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">43</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">42</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">40</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">39</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">37</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">36</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">34</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">33</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">32</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">29</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">27</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">26</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">25</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">24</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">23</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">20</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">19</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">18</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">15</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">14</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">13</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">12</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">11</span> <span class="o">+</span> <span class="n">x</span><span class="o">^</span><span class="mi">10</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">8</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">7</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">6</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">5</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">4</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -413,11 +671,10 @@ document.write(`
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="Lattice.html"
@@ -437,10 +694,7 @@ document.write(`
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -455,7 +709,16 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">準備中</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regev">Regev暗号</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ntru">NTRU暗号</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">前提</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">鍵生成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">暗号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">復号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">正当性</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">NTRU 実装</a></li>
 </ul>
   </nav></div>
 
@@ -477,6 +740,7 @@ By Shun
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022.
@@ -503,8 +767,8 @@ By Shun
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>
