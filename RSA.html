@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,8 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -79,15 +78,6 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
-
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -141,11 +131,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
-
   
 
 <a class="navbar-brand logo" href="intro.html">
-  
   
   
   
@@ -155,8 +143,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="CryPweb - Home"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="CryPweb - Home"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
 </a></div>
@@ -343,22 +331,20 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
-
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
 `);
 </script>
 
-
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
 `);
 </script>
@@ -562,84 +548,82 @@ m^{1+r(p-1)(q-1)} \pmod{N} &amp;= m^{1+r\phi(N)} \pmod{N}\\
 <p>pythonによるRSAの実装例を以下に示す。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Crypto.Util</span> <span class="kn">import</span> <span class="n">number</span>
-<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span><span class="p">,</span><span class="n">getrandbits</span>
-<span class="kn">import</span> <span class="nn">math</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from Crypto.Util import number
+from random import randint,getrandbits
+import math
 
-<span class="k">class</span> <span class="nc">RSA</span><span class="p">:</span>
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
-    <span class="c1">#security bit n</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
+class RSA:
+  def __init__(self,n):
+    #security bit n
+    self.n = n
   
-  <span class="c1">#Extended Euclid Algorithm</span>
-  <span class="k">def</span> <span class="nf">Ex_Euclid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-      <span class="k">return</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">a</span>
-    <span class="k">else</span><span class="p">:</span>
-      <span class="n">q</span> <span class="o">=</span> <span class="n">a</span><span class="o">//</span><span class="n">b</span>
-      <span class="n">r</span> <span class="o">=</span> <span class="n">a</span><span class="o">%</span><span class="k">b</span>
-      <span class="n">s</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ex_Euclid</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
-      <span class="n">x</span> <span class="o">=</span> <span class="n">t</span>
-      <span class="n">y</span> <span class="o">=</span> <span class="n">s</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">t</span>
-      <span class="k">return</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">c</span>
+  #Extended Euclid Algorithm
+  def Ex_Euclid(self,a,b):
+    if b == 0:
+      return 1,0,a
+    else:
+      q = a//b
+      r = a%b
+      s,t,c = self.Ex_Euclid(b,r)
+      x = t
+      y = s-q*t
+      return x,y,c
 
 
-  <span class="k">def</span> <span class="nf">keygen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">number</span><span class="o">.</span><span class="n">getPrime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">q</span> <span class="o">=</span> <span class="n">number</span><span class="o">.</span><span class="n">getPrime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">phi_N</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span>
+  def keygen(self):
+    self.p = number.getPrime(self.n)
+    self.q = number.getPrime(self.n)
+    self.phi_N = (self.p-1)*(self.q-1)
+    self.N = self.p*self.q
 
-    <span class="c1">#generate e gcd(e,N)=1</span>
-    <span class="n">e</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">phi_N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">while</span> <span class="n">math</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">phi_N</span><span class="p">)</span> <span class="o">!=</span><span class="mi">1</span><span class="p">:</span>
-      <span class="n">e</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">phi_N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    #generate e gcd(e,N)=1
+    e = randint(2,self.phi_N-1)
+    while math.gcd(e,self.phi_N) !=1:
+      e = randint(2,self.phi_N-1)
     
-    <span class="c1">#compute modular_inverse d </span>
-    <span class="n">_</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ex_Euclid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phi_N</span><span class="p">,</span><span class="n">e</span><span class="p">)</span>
+    #compute modular_inverse d 
+    _,d,__ = self.Ex_Euclid(self.phi_N,e)
 
-    <span class="c1">#secret_key</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="o">%</span><span class="k">self</span>.phi_N
-    <span class="c1">#public_key</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">e</span>
+    #secret_key
+    self.d = d%self.phi_N
+    #public_key
+    self.e = e
   
-  <span class="k">def</span> <span class="nf">enc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">m</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>
+  def enc(self,m):
+    return pow(m,self.e,self.N)
   
-  <span class="k">def</span> <span class="nf">dec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">c</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>
+  def dec(self,c):
+    return pow(c,self.d,self.N)
 
-  <span class="k">def</span> <span class="nf">get_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span>
+  def get_keys(self):
+    return self.e,self.d,self.p,self.q,self.N
   
-<span class="c1">#security bit</span>
-<span class="n">k</span><span class="o">=</span><span class="mi">128</span>
-<span class="n">rsa</span> <span class="o">=</span> <span class="n">RSA</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-<span class="n">plain_txt</span> <span class="o">=</span> <span class="n">getrandbits</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-<span class="n">rsa</span><span class="o">.</span><span class="n">keygen</span><span class="p">()</span>
-<span class="n">enc_plaintxt</span> <span class="o">=</span> <span class="n">rsa</span><span class="o">.</span><span class="n">enc</span><span class="p">(</span><span class="n">plain_txt</span><span class="p">)</span>
-<span class="n">dec_plaintxt</span> <span class="o">=</span> <span class="n">rsa</span><span class="o">.</span><span class="n">dec</span><span class="p">(</span><span class="n">enc_plaintxt</span><span class="p">)</span>
-<span class="n">e</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">N</span> <span class="o">=</span> <span class="n">rsa</span><span class="o">.</span><span class="n">get_keys</span><span class="p">()</span>
+#security bit
+k=128
+rsa = RSA(k)
+plain_txt = getrandbits(k)
+rsa.keygen()
+enc_plaintxt = rsa.enc(plain_txt)
+dec_plaintxt = rsa.dec(enc_plaintxt)
+e,d,p,q,N = rsa.get_keys()
 
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;plaintext is :&quot;</span><span class="p">,</span><span class="n">plain_txt</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Prime number p,q,N :&quot;</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;public key e :&quot;</span><span class="p">,</span><span class="n">e</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;secret key d :&quot;</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;encrypted plain_text :&quot;</span><span class="p">,</span><span class="n">enc_plaintxt</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;decrypted encrypted_text :&quot;</span><span class="p">,</span><span class="n">dec_plaintxt</span><span class="p">)</span>
+print(&quot;plaintext is :&quot;,plain_txt)
+print(&quot;Prime number p,q,N :&quot;,p,q,N)
+print(&quot;public key e :&quot;,e)
+print(&quot;secret key d :&quot;,d)
+print(&quot;encrypted plain_text :&quot;,enc_plaintxt)
+print(&quot;decrypted encrypted_text :&quot;,dec_plaintxt)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">Crypto.Util</span> <span class="kn">import</span> <span class="n">number</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span><span class="p">,</span><span class="n">getrandbits</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">math</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;Crypto&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>plaintext is : 210694921948811675411230839250161889953
+Prime number p,q,N : 182125664199025317138135267508571673989 323823828325558150465761088465171903537 58976629817263426453567928751864736571535700897426844114652933085461719999093
+public key e : 49985051141425601411005839969320229536584488789131807596353959768777125374173
+secret key d : 24180455259648762652056888171093714674921749562301204723077999470129099914869
+encrypted plain_text : 21482180020454411631550251603111367380489090693336716366101232876453714439993
+decrypted encrypted_text : 210694921948811675411230839250161889953
 </pre></div>
 </div>
 </div>
@@ -672,10 +656,11 @@ m^{1+r(p-1)(q-1)} \pmod{N} &amp;= m^{1+r\phi(N)} \pmod{N}\\
 
               
               
-              
-              
-                <footer class="prev-next-footer">
+                <footer class="bd-footer-article">
                   
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="math2.html"
@@ -695,7 +680,10 @@ m^{1+r(p-1)(q-1)} \pmod{N} &amp;= m^{1+r\phi(N)} \pmod{N}\\
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -741,7 +729,6 @@ By Shun
   
   <div class="footer-item">
     
-
   <p class="copyright">
     
       © Copyright 2022.
@@ -768,8 +755,8 @@ By Shun
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

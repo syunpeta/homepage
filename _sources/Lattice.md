@@ -26,6 +26,7 @@ $$
 を**格子**と呼ぶ。  
 格子を生成する線形独立なベクトルの集合$\{\mathbf{b_1},\mathbf{b_2},...,\mathbf{b_n}\}$を格子の**基底**と呼び、$\{\mathbf{b_1},\mathbf{b_2},...,\mathbf{b_n}\}$を行ベクトルに持つ$n\times m$行列$\mathbf{B}$を基底行列と呼ぶ。以上を踏まえて格子$L$は$L(B)$と表す。
 以下は二次元の場合の基底のイメージである．
+
 ![lattice](./_build/html/_images/lattice.png)
 
 ## 格子問題

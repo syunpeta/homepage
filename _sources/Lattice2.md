@@ -4,6 +4,18 @@
 ## Regev暗号
 準備中
 
+Regev暗号はRegevが2005年に提案した暗号で，LWE問題をベースに作られた公開鍵暗号となっている。以下でそのアルゴリズムおよび実装の紹介を行う。
+
+### 鍵生成
+秘密鍵：$sk\in \mathbb{Z_p^n}$　一様ランダムに選択する。  
+公開鍵：$i=1,\dots ,m$について$m$個のベクトル$\mathbf{a_1,a_2,\dots,a_m\in \mathbb{Z_p^n}}$を一様ランダムに選択し、同時に離散ガウス分布$\chi$から誤差$e_1,e_2\dots,e_m\in\mathbb{Z_p}$を選択する。公開鍵$pk$は$b_i = \langle \mathbf{a_i,s_i}\rangle+e_iとして(\mathbf{a_i},b_i)_{i=1}^mで与えられる。$
+
+### 暗号化
+平文を$M$とする．乱数列$r\leftarrow\{0,1\}^m$をランダムに生成し、暗号分$c$を
+
+$$
+c=
+$$
 
 
 

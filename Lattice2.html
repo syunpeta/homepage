@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,8 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -79,15 +78,6 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
-
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -141,11 +131,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
-
   
 
 <a class="navbar-brand logo" href="intro.html">
-  
   
   
   
@@ -155,8 +143,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="CryPweb - Home"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="CryPweb - Home"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
 </a></div>
@@ -343,22 +331,20 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
-
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
 `);
 </script>
 
-
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
 `);
 </script>
@@ -385,16 +371,20 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regev">Regev暗号</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ntru">NTRU暗号</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">前提</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">鍵生成</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">暗号化</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">復号化</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">正当性</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regev">Regev暗号</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">鍵生成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">暗号化</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">NTRU 実装</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ntru">NTRU暗号</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">前提</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">鍵生成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">暗号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">復号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">正当性</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">NTRU 実装</a></li>
 </ul>
             </nav>
         </div>
@@ -411,12 +401,26 @@ document.write(`
 <section id="regev">
 <h2>Regev暗号<a class="headerlink" href="#regev" title="Permalink to this heading">#</a></h2>
 <p>準備中</p>
+<p>Regev暗号はRegevが2005年に提案した暗号で，LWE問題をベースに作られた公開鍵暗号となっている。以下でそのアルゴリズムおよび実装の紹介を行う。</p>
+<section id="id2">
+<h3>鍵生成<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>秘密鍵：<span class="math notranslate nohighlight">\(sk\in \mathbb{Z_p^n}\)</span>　一様ランダムに選択する。<br />
+公開鍵：<span class="math notranslate nohighlight">\(i=1,\dots ,m\)</span>について<span class="math notranslate nohighlight">\(m\)</span>個のベクトル<span class="math notranslate nohighlight">\(\mathbf{a_1,a_2,\dots,a_m\in \mathbb{Z_p^n}}\)</span>を一様ランダムに選択し、同時に離散ガウス分布<span class="math notranslate nohighlight">\(\chi\)</span>から誤差<span class="math notranslate nohighlight">\(e_1,e_2\dots,e_m\in\mathbb{Z_p}\)</span>を選択する。公開鍵<span class="math notranslate nohighlight">\(pk\)</span>は<span class="math notranslate nohighlight">\(b_i = \langle \mathbf{a_i,s_i}\rangle+e_iとして(\mathbf{a_i},b_i)_{i=1}^mで与えられる。\)</span></p>
+</section>
+<section id="id3">
+<h3>暗号化<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>平文を<span class="math notranslate nohighlight">\(M\)</span>とする．乱数列<span class="math notranslate nohighlight">\(r\leftarrow\{0,1\}^m\)</span>をランダムに生成し、暗号分<span class="math notranslate nohighlight">\(c\)</span>を</p>
+<div class="math notranslate nohighlight">
+\[
+c=
+\]</div>
+</section>
 </section>
 <section id="ntru">
 <h2>NTRU暗号<a class="headerlink" href="#ntru" title="Permalink to this heading">#</a></h2>
 <p>前ぺージでも紹介した格子暗号の一種であるNTRU暗号のアルゴリズムと実装を原著論文にしたがって以下で紹介する．</p>
-<section id="id2">
-<h3>前提<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<section id="id4">
+<h3>前提<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>パラメータ<span class="math notranslate nohighlight">\(n ,p ,q\in \mathbb{N}~(gcd(p,q)=1, p&lt;&lt; q)\)</span>を設定し、多項式環<span class="math notranslate nohighlight">\(R = \mathbb{Z}[x]/(x^n -1)\)</span>定義する。 <span class="math notranslate nohighlight">\(R\)</span>の元<span class="math notranslate nohighlight">\(F\in R\)</span>は<span class="math notranslate nohighlight">\(F=\sum_{i=0}^{n-1} F_i X^i\)</span>で表す。</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathcal{L}(d_1,d_2) \)</span>を以下のように定義する。</p></li>
@@ -442,8 +446,8 @@ f\star g = \sum_{i+j = k \mod n} f_i g_i
 \end{equation}
 \]</div>
 </section>
-<section id="id3">
-<h3>鍵生成<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<section id="id5">
+<h3>鍵生成<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <p>受信者は<span class="math notranslate nohighlight">\(d_f,d_g \in \mathbb{N}\)</span>を設定する。多項式<span class="math notranslate nohighlight">\(g\in \mathcal L(d_g,g_g), f\in \mathcal(d_f,d_f-1)\)</span>をランダムに生成する。ただし、<span class="math notranslate nohighlight">\(f\)</span>は以下の式を満たす逆元<span class="math notranslate nohighlight">\(f_p,f_q\)</span>を持つように生成する。</p>
 <div class="math notranslate nohighlight">
 \[
@@ -460,8 +464,8 @@ h = f_q \star g \mod q
 \]</div>
 <p>このとき、<span class="math notranslate nohighlight">\((f,fq)\)</span>を秘密鍵、<span class="math notranslate nohighlight">\(h\)</span>を公開鍵とする。</p>
 </section>
-<section id="id4">
-<h3>暗号化<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<section id="id6">
+<h3>暗号化<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
 <p>送信者は平文<span class="math notranslate nohighlight">\(m\)</span>を用意する。ただし、係数が<span class="math notranslate nohighlight">\(-1,0,1\)</span>のみの多項式とする。<br />
 <span class="math notranslate nohighlight">\(d_\phi \in \mathbb{N}\)</span>を設定し、ランダム多項式<span class="math notranslate nohighlight">\(\phi\in \mathcal L(d_\phi,d_\phi)\)</span>を生成する。これを用いて、暗号文<span class="math notranslate nohighlight">\(e\)</span>を以下のように計算する。</p>
 <div class="math notranslate nohighlight">
@@ -471,8 +475,8 @@ e = p\cdot h \star \phi  + m \mod q
 \end{equation}\]</div>
 <p>できた暗号文<span class="math notranslate nohighlight">\(e\)</span>を受信者に送信する。</p>
 </section>
-<section id="id5">
-<h3>復号化<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<section id="id7">
+<h3>復号化<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
 <p>暗号文<span class="math notranslate nohighlight">\(e\)</span>と秘密鍵<span class="math notranslate nohighlight">\(f\)</span>を用いて以下の多項式<span class="math notranslate nohighlight">\(a\)</span>を生成する。ただし、復号化の中では、mod計算は通常と異なり、<span class="math notranslate nohighlight">\((\frac{-p}{2},\frac{p}{2}]\)</span>,<span class="math notranslate nohighlight">\((\frac{-q}{2},\frac{q}{2}]\)</span>の範囲で計算する。</p>
 <div class="math notranslate nohighlight">
 \[
@@ -486,8 +490,8 @@ a = f\star e \mod q
 m' = f_p \star a \mod p
 \end{equation}\]</div>
 </section>
-<section id="id6">
-<h3>正当性<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<section id="id8">
+<h3>正当性<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
 <p>上を踏まえて、多項式<span class="math notranslate nohighlight">\(a\)</span>を展開すると次のようになる。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -529,8 +533,8 @@ f_q \star a &amp;= f_q \star p\phi \star g + f_q \star f \star m \mod p\\
 としないと、<span class="math notranslate nohighlight">\(a = p\phi \star g + f \star m \mod q\)</span>式が満たされず復号ができなくなる。</p>
 </section>
 </section>
-<section id="id7">
-<h2>NTRU 実装<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<section id="id9">
+<h2>NTRU 実装<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
 <p>以下では、NTRU暗号の実装を行う。Python(Sagemath)で実装するため、実装結果は<a class="reference external" href="https://sagecell.sagemath.org/">SageCell</a>等で確認できる。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">sample</span>
@@ -671,10 +675,11 @@ f_q \star a &amp;= f_q \star p\phi \star g + f_q \star f \star m \mod p\\
 
               
               
-              
-              
-                <footer class="prev-next-footer">
+                <footer class="bd-footer-article">
                   
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="Lattice.html"
@@ -694,7 +699,10 @@ f_q \star a &amp;= f_q \star p\phi \star g + f_q \star f \star m \mod p\\
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -709,16 +717,20 @@ f_q \star a &amp;= f_q \star p\phi \star g + f_q \star f \star m \mod p\\
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regev">Regev暗号</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ntru">NTRU暗号</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">前提</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">鍵生成</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">暗号化</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">復号化</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">正当性</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regev">Regev暗号</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">鍵生成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">暗号化</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">NTRU 実装</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ntru">NTRU暗号</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">前提</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">鍵生成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">暗号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">復号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">正当性</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">NTRU 実装</a></li>
 </ul>
   </nav></div>
 
@@ -740,7 +752,6 @@ By Shun
   
   <div class="footer-item">
     
-
   <p class="copyright">
     
       © Copyright 2022.
@@ -767,8 +778,8 @@ By Shun
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>
