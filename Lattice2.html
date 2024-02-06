@@ -372,19 +372,23 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regev">Regev暗号</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">鍵生成</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">暗号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">前提</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">鍵生成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">暗号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">復号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">正当性</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Regev暗号　実装</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ntru">NTRU暗号</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">前提</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">鍵生成</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">暗号化</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">復号化</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">正当性</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">前提</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">鍵生成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">暗号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">復号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">正当性</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">NTRU 実装</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">NTRU 実装</a></li>
 </ul>
             </nav>
         </div>
@@ -400,27 +404,134 @@ document.write(`
 <h1>耐量子暗号(格子暗号2)<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
 <section id="regev">
 <h2>Regev暗号<a class="headerlink" href="#regev" title="Permalink to this heading">#</a></h2>
-<p>準備中</p>
 <p>Regev暗号はRegevが2005年に提案した暗号で，LWE問題をベースに作られた公開鍵暗号となっている。以下でそのアルゴリズムおよび実装の紹介を行う。</p>
 <section id="id2">
-<h3>鍵生成<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
-<p>秘密鍵：<span class="math notranslate nohighlight">\(sk\in \mathbb{Z_p^n}\)</span>　一様ランダムに選択する。<br />
-公開鍵：<span class="math notranslate nohighlight">\(i=1,\dots ,m\)</span>について<span class="math notranslate nohighlight">\(m\)</span>個のベクトル<span class="math notranslate nohighlight">\(\mathbf{a_1,a_2,\dots,a_m\in \mathbb{Z_p^n}}\)</span>を一様ランダムに選択し、同時に離散ガウス分布<span class="math notranslate nohighlight">\(\chi\)</span>から誤差<span class="math notranslate nohighlight">\(e_1,e_2\dots,e_m\in\mathbb{Z_p}\)</span>を選択する。公開鍵<span class="math notranslate nohighlight">\(pk\)</span>は<span class="math notranslate nohighlight">\(b_i = \langle \mathbf{a_i,s_i}\rangle+e_iとして(\mathbf{a_i},b_i)_{i=1}^mで与えられる。\)</span></p>
+<h3>前提<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(n\in \mathbb{Z}\)</span></p></li>
+<li><p>素数<span class="math notranslate nohighlight">\(n^2 \leq q \leq 2n^2 \)</span></p></li>
+<li><p>任意の定数<span class="math notranslate nohighlight">\(\epsilon &gt; 0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(m = (1+\epsilon)(n+1)\log q\)</span>(実装では<span class="math notranslate nohighlight">\(m=1.1n\log qとした\)</span>)</p></li>
+<li><p>ノイズパラメータ a &gt; 0  (実装では<span class="math notranslate nohighlight">\(a=1/\sqrt n\log^2 n とした\)</span>)</p></li>
+</ul>
+<p>を選択する。</p>
 </section>
 <section id="id3">
-<h3>暗号化<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
-<p>平文を<span class="math notranslate nohighlight">\(M\)</span>とする．乱数列<span class="math notranslate nohighlight">\(r\leftarrow\{0,1\}^m\)</span>をランダムに生成し、暗号分<span class="math notranslate nohighlight">\(c\)</span>を</p>
+<h3>鍵生成<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>秘密鍵：<span class="math notranslate nohighlight">\(sk\in \mathbb{Z_q^n}\)</span>を一様ランダムに選択する。<br />
+公開鍵： <span class="math notranslate nohighlight">\(i=1,\dots ,m\)</span>について<span class="math notranslate nohighlight">\(m\)</span>個のベクトル<span class="math notranslate nohighlight">\(\mathbf{a_1,a_2,\dots,a_m\in \mathbb{Z_q^n}}\)</span>を一様ランダムに選択し行列<span class="math notranslate nohighlight">\(A= (\mathbf{a_i})^m_{i=1}\in \mathbb{Z_q}^{n\times m}\)</span>とする。同時に平均0,標準偏差<span class="math notranslate nohighlight">\(a\)</span>の離散正規分布<span class="math notranslate nohighlight">\(\chi\)</span>から誤差<span class="math notranslate nohighlight">\(e_1,e_2\dots,e_m\in\mathbb{Z_q}\)</span>を選択する。</p>
+<p>公開鍵<span class="math notranslate nohighlight">\(pk\)</span>は<span class="math notranslate nohighlight">\(b = sk\cdot A + e \in \mathbb{Z}_q^m\)</span>を用いて<span class="math notranslate nohighlight">\((A,b)\)</span>とする。</p>
+</section>
+<section id="id4">
+<h3>暗号化<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>メッセージ<span class="math notranslate nohighlight">\(M\in \{0,1\}\)</span>を選択する．乱数列<span class="math notranslate nohighlight">\(r\leftarrow\{0,1\}^m\)</span>をランダムに生成する．<br />
+暗号文<span class="math notranslate nohighlight">\(c,c'\)</span>を</p>
 <div class="math notranslate nohighlight">
 \[
-c=
+\begin{equation}
+c = A\cdot r, ~~~~~~~~~~c' = b\cdot r + M\lfloor \frac{q}{2}\rfloor　
+\end{equation}
 \]</div>
+<p>として受信者に送信する．</p>
 </section>
+<section id="id5">
+<h3>復号化<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>復号分<span class="math notranslate nohighlight">\(d\)</span>を以下のように計算する。
+$<span class="math notranslate nohighlight">\(
+\begin{equation}
+d = c' - sk\cdot c\mod q
+\end{equation}
+\)</span>$</p>
+<p><span class="math notranslate nohighlight">\(d\approx\lfloor\frac{q}{2}\rfloor\)</span>ならば1を出力する。それ以外ならば0を出力する。</p>
+</section>
+<section id="id6">
+<h3>正当性<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>復号化において、<span class="math notranslate nohighlight">\(d\)</span>を展開すると以下のように計算できる。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{aligned}
+d &amp;= c' - sk\cdot c\mod q\\
+&amp;= b\cdot r + M\lfloor \frac{q}{2}\rfloor  -sk\cdot A\cdot r\mod q\\
+&amp;= (sk\cdot A +e)\cdot r + M\lfloor \frac{q}{2}\rfloor -sk\cdot A \cdot r\mod q\\
+&amp;=e\cdot r + M\lfloor \frac{q}{2} \rfloor\mod q\\ 
+\end{aligned}
+\end{equation}
+\end{split}\]</div>
+<p>ここで、<span class="math notranslate nohighlight">\(e\cdot r\)</span>は誤差ベクトルと<span class="math notranslate nohighlight">\(\{0,1\}\)</span>の乱数ベクトルの内積のため非常に小さく、<span class="math notranslate nohighlight">\(d\)</span>の値は<span class="math notranslate nohighlight">\(M\lfloor \frac{q}{2}\rfloor\)</span>に依存する。よって<span class="math notranslate nohighlight">\(d\)</span>が<span class="math notranslate nohighlight">\(\lfloor \frac{q}{2}\rfloor\)</span>に近いかどうかで<span class="math notranslate nohighlight">\(M\)</span>の値がわかる。</p>
+</section>
+</section>
+<section id="id7">
+<h2>Regev暗号　実装<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<p>Pythonを用いてRegev暗号を実装した。
+以下がソースコードとなる。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">N</span><span class="o">=</span><span class="mi">230</span>
+<span class="n">Q</span> <span class="o">=</span><span class="mi">52901</span>
+
+<span class="k">class</span> <span class="nc">Regev</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">q</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">q</span> <span class="o">=</span> <span class="n">q</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="mf">1.1</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">keygen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1">#secret key sk</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">))</span>
+        <span class="c1">#matrix A</span>
+        <span class="n">A</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="p">)))</span>
+        
+        <span class="c1">#error e</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="p">))</span>
+        <span class="c1">#make B</span>
+        
+        <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sk</span><span class="o">*</span><span class="n">A</span><span class="o">+</span><span class="n">e</span><span class="p">)</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span>
+        
+        <span class="k">return</span> <span class="n">A</span><span class="p">,</span><span class="n">b</span>
+    
+    <span class="k">def</span> <span class="nf">encrypt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">M</span><span class="p">):</span>
+        
+        <span class="c1">#random r</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="p">))</span>
+        
+        <span class="c1">#c</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">r</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
+        <span class="c1">#c&#39;</span>
+        <span class="n">c_p</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">r</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span><span class="o">+</span><span class="n">M</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+       
+        <span class="k">return</span> <span class="n">c</span><span class="p">,</span><span class="n">c_p</span>
+        
+    <span class="k">def</span> <span class="nf">decrypt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">c_p</span><span class="p">):</span>
+        
+        <span class="c1">#dec d</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="n">c_p</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sk</span><span class="p">,</span><span class="n">c</span><span class="p">))</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">d</span><span class="o">&gt;</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="o">/</span><span class="mi">4</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span> <span class="n">d</span> <span class="o">&lt;</span><span class="mi">3</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="o">/</span><span class="mi">4</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+
+
+<span class="c1">#main</span>
+<span class="n">M</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">Regev</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">Q</span><span class="p">)</span>
+<span class="n">A</span><span class="p">,</span><span class="n">B</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">keygen</span><span class="p">()</span>
+<span class="n">C</span><span class="p">,</span><span class="n">C_P</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">M</span><span class="p">)</span>
+<span class="n">ans</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">C_P</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
 </section>
 <section id="ntru">
 <h2>NTRU暗号<a class="headerlink" href="#ntru" title="Permalink to this heading">#</a></h2>
 <p>前ぺージでも紹介した格子暗号の一種であるNTRU暗号のアルゴリズムと実装を原著論文にしたがって以下で紹介する．</p>
-<section id="id4">
-<h3>前提<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<section id="id8">
+<h3>前提<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>パラメータ<span class="math notranslate nohighlight">\(n ,p ,q\in \mathbb{N}~(gcd(p,q)=1, p&lt;&lt; q)\)</span>を設定し、多項式環<span class="math notranslate nohighlight">\(R = \mathbb{Z}[x]/(x^n -1)\)</span>定義する。 <span class="math notranslate nohighlight">\(R\)</span>の元<span class="math notranslate nohighlight">\(F\in R\)</span>は<span class="math notranslate nohighlight">\(F=\sum_{i=0}^{n-1} F_i X^i\)</span>で表す。</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathcal{L}(d_1,d_2) \)</span>を以下のように定義する。</p></li>
@@ -446,8 +557,8 @@ f\star g = \sum_{i+j = k \mod n} f_i g_i
 \end{equation}
 \]</div>
 </section>
-<section id="id5">
-<h3>鍵生成<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<section id="id9">
+<h3>鍵生成<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
 <p>受信者は<span class="math notranslate nohighlight">\(d_f,d_g \in \mathbb{N}\)</span>を設定する。多項式<span class="math notranslate nohighlight">\(g\in \mathcal L(d_g,g_g), f\in \mathcal(d_f,d_f-1)\)</span>をランダムに生成する。ただし、<span class="math notranslate nohighlight">\(f\)</span>は以下の式を満たす逆元<span class="math notranslate nohighlight">\(f_p,f_q\)</span>を持つように生成する。</p>
 <div class="math notranslate nohighlight">
 \[
@@ -464,8 +575,8 @@ h = f_q \star g \mod q
 \]</div>
 <p>このとき、<span class="math notranslate nohighlight">\((f,fq)\)</span>を秘密鍵、<span class="math notranslate nohighlight">\(h\)</span>を公開鍵とする。</p>
 </section>
-<section id="id6">
-<h3>暗号化<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<section id="id10">
+<h3>暗号化<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
 <p>送信者は平文<span class="math notranslate nohighlight">\(m\)</span>を用意する。ただし、係数が<span class="math notranslate nohighlight">\(-1,0,1\)</span>のみの多項式とする。<br />
 <span class="math notranslate nohighlight">\(d_\phi \in \mathbb{N}\)</span>を設定し、ランダム多項式<span class="math notranslate nohighlight">\(\phi\in \mathcal L(d_\phi,d_\phi)\)</span>を生成する。これを用いて、暗号文<span class="math notranslate nohighlight">\(e\)</span>を以下のように計算する。</p>
 <div class="math notranslate nohighlight">
@@ -475,8 +586,8 @@ e = p\cdot h \star \phi  + m \mod q
 \end{equation}\]</div>
 <p>できた暗号文<span class="math notranslate nohighlight">\(e\)</span>を受信者に送信する。</p>
 </section>
-<section id="id7">
-<h3>復号化<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<section id="id11">
+<h3>復号化<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
 <p>暗号文<span class="math notranslate nohighlight">\(e\)</span>と秘密鍵<span class="math notranslate nohighlight">\(f\)</span>を用いて以下の多項式<span class="math notranslate nohighlight">\(a\)</span>を生成する。ただし、復号化の中では、mod計算は通常と異なり、<span class="math notranslate nohighlight">\((\frac{-p}{2},\frac{p}{2}]\)</span>,<span class="math notranslate nohighlight">\((\frac{-q}{2},\frac{q}{2}]\)</span>の範囲で計算する。</p>
 <div class="math notranslate nohighlight">
 \[
@@ -490,8 +601,8 @@ a = f\star e \mod q
 m' = f_p \star a \mod p
 \end{equation}\]</div>
 </section>
-<section id="id8">
-<h3>正当性<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<section id="id12">
+<h3>正当性<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
 <p>上を踏まえて、多項式<span class="math notranslate nohighlight">\(a\)</span>を展開すると次のようになる。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -517,12 +628,12 @@ a = p\phi \star g + f \star m \mod q
 a = p\phi \star g + f\star m
 \end{equation}
 \]</div>
-<p>となる。これに<span class="math notranslate nohighlight">\(f_q\)</span>をかけ、<span class="math notranslate nohighlight">\(\mod p \)</span>をとると、</p>
+<p>となる。これに<span class="math notranslate nohighlight">\(f_p\)</span>をかけ、<span class="math notranslate nohighlight">\(\mod p \)</span>をとると、</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{equation}
 \begin{aligned}
-f_q \star a &amp;= f_q \star p\phi \star g + f_q \star f \star m \mod p\\
-&amp;= pf_q \star\phi \star g + m \mod p\\
+f_p \star a &amp;= f_p \star p\phi \star g + f_p \star f \star m \mod p\\
+&amp;= pf_p \star\phi \star g + m \mod p\\
 &amp;= m\mod p\\
 &amp;= m 
 \end{aligned}
@@ -533,8 +644,8 @@ f_q \star a &amp;= f_q \star p\phi \star g + f_q \star f \star m \mod p\\
 としないと、<span class="math notranslate nohighlight">\(a = p\phi \star g + f \star m \mod q\)</span>式が満たされず復号ができなくなる。</p>
 </section>
 </section>
-<section id="id9">
-<h2>NTRU 実装<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
+<section id="id13">
+<h2>NTRU 実装<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h2>
 <p>以下では、NTRU暗号の実装を行う。Python(Sagemath)で実装するため、実装結果は<a class="reference external" href="https://sagecell.sagemath.org/">SageCell</a>等で確認できる。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">sample</span>
@@ -718,19 +829,23 @@ f_q \star a &amp;= f_q \star p\phi \star g + f_q \star f \star m \mod p\\
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regev">Regev暗号</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">鍵生成</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">暗号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">前提</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">鍵生成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">暗号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">復号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">正当性</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Regev暗号　実装</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ntru">NTRU暗号</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">前提</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">鍵生成</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">暗号化</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">復号化</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">正当性</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">前提</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">鍵生成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">暗号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">復号化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">正当性</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">NTRU 実装</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">NTRU 実装</a></li>
 </ul>
   </nav></div>
 

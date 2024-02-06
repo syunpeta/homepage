@@ -2,22 +2,126 @@
 
 # 耐量子暗号(格子暗号2)
 ## Regev暗号
-準備中
-
 Regev暗号はRegevが2005年に提案した暗号で，LWE問題をベースに作られた公開鍵暗号となっている。以下でそのアルゴリズムおよび実装の紹介を行う。
+### 前提
 
+- $n\in \mathbb{Z}$  
+
+- 素数$n^2 \leq q \leq 2n^2 $  
+- 任意の定数$\epsilon > 0$
+- $m = (1+\epsilon)(n+1)\log q$(実装では$m=1.1n\log qとした$)
+- ノイズパラメータ a > 0  (実装では$a=1/\sqrt n\log^2 n とした$)
+
+を選択する。
 ### 鍵生成
-秘密鍵：$sk\in \mathbb{Z_p^n}$　一様ランダムに選択する。  
-公開鍵：$i=1,\dots ,m$について$m$個のベクトル$\mathbf{a_1,a_2,\dots,a_m\in \mathbb{Z_p^n}}$を一様ランダムに選択し、同時に離散ガウス分布$\chi$から誤差$e_1,e_2\dots,e_m\in\mathbb{Z_p}$を選択する。公開鍵$pk$は$b_i = \langle \mathbf{a_i,s_i}\rangle+e_iとして(\mathbf{a_i},b_i)_{i=1}^mで与えられる。$
+秘密鍵：$sk\in \mathbb{Z_q^n}$を一様ランダムに選択する。  
+公開鍵： $i=1,\dots ,m$について$m$個のベクトル$\mathbf{a_1,a_2,\dots,a_m\in \mathbb{Z_q^n}}$を一様ランダムに選択し行列$A= (\mathbf{a_i})^m_{i=1}\in \mathbb{Z_q}^{n\times m}$とする。同時に平均0,標準偏差$a$の離散正規分布$\chi$から誤差$e_1,e_2\dots,e_m\in\mathbb{Z_q}$を選択する。  
+
+公開鍵$pk$は$b = sk\cdot A + e \in \mathbb{Z}_q^m$を用いて$(A,b)$とする。
 
 ### 暗号化
-平文を$M$とする．乱数列$r\leftarrow\{0,1\}^m$をランダムに生成し、暗号分$c$を
+メッセージ$M\in \{0,1\}$を選択する．乱数列$r\leftarrow\{0,1\}^m$をランダムに生成する．  
+暗号文$c,c'$を
 
 $$
-c=
+\begin{equation}
+c = A\cdot r, ~~~~~~~~~~c' = b\cdot r + M\lfloor \frac{q}{2}\rfloor　
+\end{equation}
 $$
 
+として受信者に送信する．
 
+### 復号化
+復号分$d$を以下のように計算する。
+$$
+\begin{equation}
+d = c' - sk\cdot c\mod q
+\end{equation}
+$$
+
+$d\approx\lfloor\frac{q}{2}\rfloor$ならば1を出力する。それ以外ならば0を出力する。
+
+### 正当性
+復号化において、$d$を展開すると以下のように計算できる。
+
+$$
+\begin{equation}
+\begin{aligned}
+d &= c' - sk\cdot c\mod q\\
+&= b\cdot r + M\lfloor \frac{q}{2}\rfloor  -sk\cdot A\cdot r\mod q\\
+&= (sk\cdot A +e)\cdot r + M\lfloor \frac{q}{2}\rfloor -sk\cdot A \cdot r\mod q\\
+&=e\cdot r + M\lfloor \frac{q}{2} \rfloor\mod q\\ 
+\end{aligned}
+\end{equation}
+$$
+
+ここで、$e\cdot r$は誤差ベクトルと$\{0,1\}$の乱数ベクトルの内積のため非常に小さく、$d$の値は$M\lfloor \frac{q}{2}\rfloor$に依存する。よって$d$が$\lfloor \frac{q}{2}\rfloor$に近いかどうかで$M$の値がわかる。
+
+## Regev暗号　実装
+Pythonを用いてRegev暗号を実装した。
+以下がソースコードとなる。
+
+```python
+import numpy as np
+import math
+
+N=230
+Q =52901
+
+class Regev():
+    def __init__(self,n,q):
+        self.n = n
+        self.q = q
+        self.m = int((1.1)*self.n*math.log(self.q,2))
+        self.a = 1/(math.sqrt(self.n)*math.log(self.n,2)**2)
+    
+    def keygen(self):
+        #secret key sk
+        self.sk = np.matrix(np.random.randint(0,self.q,self.n))
+        #matrix A
+        A=np.matrix(np.random.randint(0,self.q,size=(self.n,self.m)))
+        
+        #error e
+        e = np.matrix(np.random.normal(0,self.a,size=self.m))
+        #make B
+        
+        b = (self.sk*A+e)%self.q
+        
+        return A,b
+    
+    def encrypt(self,A,b,M):
+        
+        #random r
+        r = np.matrix(np.random.randint(0,2,size=self.m))
+        
+        #c
+        c = np.dot(A,r.transpose())
+        #c'
+        c_p = (np.dot(b,r.transpose())+M*math.floor(self.q/2))
+       
+        return c,c_p
+        
+    def decrypt(self,c,c_p):
+        
+        #dec d
+        d = (c_p - np.dot(self.sk,c))%self.q
+        if (d>(self.q/4)) and ( d <3*self.q/4):
+            return 1
+        else:
+            return 0
+
+
+
+#main
+M=1
+tmp = Regev(N,Q)
+A,B = tmp.keygen()
+C,C_P=tmp.encrypt(A,B,M)
+ans = tmp.decrypt(C,C_P)
+print(ans)
+
+
+```
 
 
 ## NTRU暗号
@@ -130,14 +234,14 @@ a = p\phi \star g + f\star m
 \end{equation}
 $$
 
-となる。これに$f_q$をかけ、$\mod p $をとると、
+となる。これに$f_p$をかけ、$\mod p $をとると、
 
 $$
 
 \begin{equation}
 \begin{aligned}
-f_q \star a &= f_q \star p\phi \star g + f_q \star f \star m \mod p\\
-&= pf_q \star\phi \star g + m \mod p\\
+f_p \star a &= f_p \star p\phi \star g + f_p \star f \star m \mod p\\
+&= pf_p \star\phi \star g + m \mod p\\
 &= m\mod p\\
 &= m 
 \end{aligned}
