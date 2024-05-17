@@ -14,8 +14,8 @@ Regev暗号はRegevが2005年に提案した暗号で，LWE問題をベースに
 
 を選択する。
 ### 鍵生成
-秘密鍵：$sk\in \mathbb{Z_q^n}$を一様ランダムに選択する。  
-公開鍵： $i=1,\dots ,m$について$m$個のベクトル$\mathbf{a_1,a_2,\dots,a_m\in \mathbb{Z_q^n}}$を一様ランダムに選択し行列$A= (\mathbf{a_i})^m_{i=1}\in \mathbb{Z_q}^{n\times m}$とする。同時に平均0,標準偏差$a$の離散正規分布$\chi$から誤差$e_1,e_2\dots,e_m\in\mathbb{Z_q}$を選択する。  
+秘密鍵：$sk\in \mathbb{Z}_q^n$を一様ランダムに選択する。  
+公開鍵： $i=1,\dots ,m$について$m$個のベクトル$\mathbf{a_1,a_2,\dots,a_m\in \mathbb{Z_q^n}}$を一様ランダムに選択し行列$A= (\mathbf{a_i})^m_{i=1}\in \mathbb{Z}_q^{n\times m}$とする。同時に平均0,標準偏差$a$の離散正規分布$\chi$から誤差$e_1,e_2\dots,e_m\in\mathbb{Z_q}$を選択する。  
 
 公開鍵$pk$は$b = sk\cdot A + e \in \mathbb{Z}_q^m$を用いて$(A,b)$とする。
 
